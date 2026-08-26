@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Admin C · Case file</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   ADMIN C — "Case file"   (pairs with landing C)
+   Thesis: a decision that changes someone's life should not be taken from a
+   row in a list. One application fills the screen as a document, evidence sits
+   in the margin where you can check it against the prose, private fields stay
+   redacted until you deliberately open them (which is itself logged), and the
+   decision bar only follows you down the page once you have scrolled the file.
+   =========================================================================== */
+
+:root{
+  --paper:#f2f1ed;--paper-2:#e9e8e2;--card:#fbfbf9;
+  --ink:#1a1a18;--ink-2:#57554e;--ink-3:#8b887f;
+  --line:#dcdad2;--line-2:#c2bfb4;
+  --stamp:#9b2c1e;--verified:#2f5842;--amber:#8a6410;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:150px}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+
+/* -------------------------------------------------------------- header -- */
+.top{border-bottom:1px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;gap:18px;height:52px}
+.mark{font-family:var(--serif);font-size:17px;font-weight:500}
+.mark em{font-style:italic;color:var(--stamp)}
+.top .path{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.top .nav{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px}
+.top .nav a{text-decoration:none;border:1px solid var(--line-2);padding:5px 10px;background:var(--card)}
+.top .nav a:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.top .nav .pos{color:var(--ink-3);padding:0 4px}
+
+.sample{background:var(--paper-2);border-bottom:1px solid var(--line)}
+.sample .wrap{padding:7px 26px;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* ---------------------------------------------------------- case header -- */
+.case-h{border-bottom:1px solid var(--ink)}
+.case-h .wrap{display:flex;align-items:flex-start;gap:26px;flex-wrap:wrap;padding:26px 26px 22px}
+.case-h h1{font-family:var(--serif);font-size:34px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.case-h .under{margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.stamp-box{margin-left:auto;text-align:right}
+.stamp{
+  display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;
+  color:var(--amber);border:2px solid var(--amber);padding:6px 12px;transform:rotate(-3deg);
+}
+.stamp-box .since{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+
+/* ---------------------------------------------------------------- body -- */
+.file{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;padding-top:26px}
+@media(max-width:980px){.file{grid-template-columns:1fr;gap:26px}}
+.col-main{min-width:0}
+
+.sec{margin-top:30px;padding-top:14px;border-top:1px solid var(--line-2)}
+.sec:first-child{margin-top:0;border-top:0;padding-top:0}
+.sec-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-h .n{font-family:var(--mono);font-size:11.5px;color:var(--stamp)}
+.sec-h h2{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.012em}
+.sec-h .aside{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+
+.pairs{border:1px solid var(--line);background:var(--card);display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:680px){.pairs{grid-template-columns:1fr}}
+.pair{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);min-width:0}
+.pairs .pair:nth-child(2n){border-right:0}
+.pair dt{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);padding-top:2px}
+.pair dd{font-size:14px;min-width:0;word-break:break-word}
+
+.prose{max-width:68ch}
+.prose h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-3);margin-top:18px}
+.prose h3:first-child{margin-top:0}
+.prose p{margin-top:7px;font-size:15px;line-height:1.72;white-space:pre-line}
+.wordcount{font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-top:5px}
+
+/* Private fields stay shut until deliberately opened, and opening is logged.
+   The button says so, because a warning nobody reads is not a safeguard. */
+.locked{border:1px solid var(--stamp);background:#fdf4f2;padding:14px 16px;margin-top:4px}
+.locked .lrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 0;border-bottom:1px dashed #e0bdb6}
+.locked .lrow:last-child{border-bottom:0}
+.locked .k{font-family:var(--mono);font-size:10.5px;color:#7d2417;width:150px;flex:0 0 auto}
+.locked .bar{flex:1;min-width:80px;height:15px;background:var(--ink)}
+.locked button{font-family:var(--mono);font-size:11px;border:1px solid var(--stamp);background:transparent;color:var(--stamp);padding:5px 10px}
+.locked button:hover{background:var(--stamp);color:#fff}
+.locked .foot{margin-top:11px;font-family:var(--mono);font-size:10px;color:#8a5b52;line-height:1.6}
+
+/* ------------------------------------------------------------- margin --- */
+.col-side{min-width:0}
+.side-sticky{position:sticky;top:74px}
+.panel{border:1px solid var(--line);background:var(--card);margin-bottom:16px}
+.panel h3{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3);padding:10px 14px;border-bottom:1px solid var(--line)}
+.panel .in{padding:12px 14px}
+.ev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ev div{aspect-ratio:4/3;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9.5px;color:var(--ink-3)}
+.dlink{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.dlink:last-child{border-bottom:0}
+.dlink span{font-family:var(--mono);font-size:11px;color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dlink a{font-family:var(--mono);font-size:10.5px;text-decoration:none;border:1px solid var(--line-2);padding:3px 8px;flex:0 0 auto}
+.dlink a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.risk{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.5}
+.risk:last-child{border-bottom:0}
+.risk .dot{flex:0 0 7px;height:7px;margin-top:6px;background:var(--amber)}
+.risk.clear .dot{background:var(--verified)}
+.risk b{font-weight:600}
+.risk small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-top:2px}
+
+.trail{padding:0}
+.trail .t{display:grid;grid-template-columns:66px 1fr;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:12px}
+.trail .t:last-child{border-bottom:0}
+.trail .t time{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.trail .t span b{font-weight:600}
+
+/* -------------------------------------------------------- decision bar -- */
+.decide{
+  position:fixed;left:0;right:0;bottom:36px;z-index:30;
+  background:var(--card);border-top:2px solid var(--ink);
+  box-shadow:0 -8px 24px -18px rgba(0,0,0,.4);
+}
+.decide .wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:12px 26px}
+.readiness{font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1.6}
+.readiness b{color:var(--ink);font-weight:600}
+.readiness .warnrow{color:var(--amber)}
+.decide .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.b{padding:10px 16px;border:1px solid var(--ink);background:transparent;font-size:13.5px;font-weight:600;transition:background .13s ease,color .13s ease,border-color .13s ease}
+.b-ok{background:var(--verified);border-color:var(--verified);color:#fff}
+.b-ok:hover{background:#254735}
+.b-info:hover{background:var(--ink);color:var(--paper)}
+.b-no{border-color:var(--stamp);color:var(--stamp)}
+.b-no:hover{background:var(--stamp);color:#fff}
+@media(max-width:760px){.decide .readiness{display:none}.decide .acts{margin-left:0;width:100%}.b{flex:1}}
+
+/* ------------------------------------------------------------- mobile --- */
+@media(max-width:760px){
+  .top .wrap{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:10px;gap:10px}
+  .top .path{display:none}
+  .top .nav{margin-left:auto}
+  .case-h .wrap{gap:16px}
+  .stamp-box{margin-left:0;text-align:left}
+  .locked .k{width:auto}
+  .locked .bar{flex:1 1 100%;order:3}
+}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:var(--ink);color:#a8a49b;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:500;margin-right:10px}
+.lab a{color:#a8a49b;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#413f39}
+.lab a.on{color:#fff;border-color:#5d5a51;background:#2a2823}
+.lab .sep{width:1px;height:14px;background:#413f39;margin:0 8px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">Ajo <em>Mercy</em></div>
+    <div class="path">Review / Applications / APP-0141</div>
+    <div class="nav">
+      <a href="#">Back to queue</a>
+      <a href="#">Previous</a>
+      <span class="pos">2 of 14</span>
+      <a href="#">Next</a>
+    </div>
+  </div>
+</header>
+
+<div class="sample"><div class="wrap">Design sample. Every field, document and figure below is placeholder data for layout purposes only.</div></div>
+
+<div class="case-h">
+  <div class="wrap">
+    <div>
+      <h1>Placeholder Business Two</h1>
+      <div class="under">APP/0141 · submitted 7 days ago · taken by Woli Arole · 2 documents attached</div>
+    </div>
+    <div class="stamp-box">
+      <span class="stamp">UNDER REVIEW</span>
+      <div class="since">no decision recorded</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="file">
+
+    <!-- ------------------------------------------------------- document -->
+    <main class="col-main">
+
+      <section class="sec">
+        <div class="sec-h"><span class="n">§1</span><h2>Applicant and business</h2><span class="aside">as submitted</span></div>
+        <dl class="pairs">
+          <div class="pair"><dt>Founder</dt><dd>Placeholder Name</dd></div>
+          <div class="pair"><dt>Business name</dt><dd>Placeholder Business Two</dd></div>
+          <div class="pair"><dt>Category</dt><dd>Tailoring</dd></div>
+          <div class="pair"><dt>Year started</dt><dd>Not set</dd></div>
+          <div class="pair"><dt>Location</dt><dd>Placeholder area, Oyo</dd></div>
+          <div class="pair"><dt>Business phone</dt><dd>Placeholder number</dd></div>
+          <div class="pair"><dt>Account email</dt><dd>placeholder@example.test</dd></div>
+          <div class="pair"><dt>Email verified</dt><dd>Yes</dd></div>
+        </dl>
+      </section>
+
+      <section class="sec">
+        <div class="sec-h"><span class="n">§2</span><h2>In their own words</h2><span class="aside">published if approved</span></div>
+        <div class="prose">
+          <h3>THE STORY</h3>
+          <p>Placeholder text standing in for what the owner wrote about the business. In the real application this is their own words, with a minimum length enforced at submission so a reviewer has something to actually read and so that a one line entry cannot reach this desk.</p>
+          <p class="wordcount">108 words · minimum 60</p>
+
+          <h3>WHAT IS IN THE WAY</h3>
+          <p>Placeholder text standing in for the current challenge the owner described.</p>
+          <p class="wordcount">74 words · minimum 40</p>
+
+          <h3>WHAT SUPPORT WOULD ENABLE</h3>
+          <p>Placeholder text standing in for what the owner said support would let them do.</p>
+          <p class="wordcount">61 words · minimum 40</p>
+        </div>
+      </section>
+
+      <section class="sec">
+        <div class="sec-h"><span class="n">§3</span><h2>Private fields</h2><span class="aside">never published</span></div>
+        <div class="locked">
+          <div class="lrow"><span class="k">IDENTITY DOCUMENT</span><span class="bar"></span><button>Open and log</button></div>
+          <div class="lrow"><span class="k">DATE OF BIRTH</span><span class="bar" style="max-width:120px"></span><button>Open and log</button></div>
+          <div class="lrow"><span class="k">HOME ADDRESS</span><span class="bar" style="max-width:200px"></span><button>Open and log</button></div>
+          <div class="lrow"><span class="k">PERSONAL PHONE</span><span class="bar" style="max-width:140px"></span><button>Open and log</button></div>
+          <p class="foot">
+            These fields are checked by the review team and never appear on a public profile.
+            Opening one writes your account and the time to the audit log. The applicant can see
+            that their documents were accessed, though not by whom.
+          </p>
+        </div>
+      </section>
+
+      <section class="sec">
+        <div class="sec-h"><span class="n">§4</span><h2>Decision history</h2><span class="aside">this application</span></div>
+        <dl class="pairs">
+          <div class="pair"><dt>Submitted</dt><dd>7 days ago</dd></div>
+          <div class="pair"><dt>Taken for review</dt><dd>Today, by Woli Arole</dd></div>
+          <div class="pair"><dt>Information requested</dt><dd>Never</dd></div>
+          <div class="pair"><dt>Previous decisions</dt><dd>None</dd></div>
+        </dl>
+      </section>
+
+    </main>
+
+    <!-- --------------------------------------------------------- margin -->
+    <aside class="col-side">
+      <div class="side-sticky">
+
+        <div class="panel">
+          <h3>PHOTOGRAPHS</h3>
+          <div class="in"><div class="ev"><div>business</div><div>business</div><div>profile</div><div>business</div></div></div>
+        </div>
+
+        <div class="panel">
+          <h3>DOCUMENTS</h3>
+          <div class="dlink"><span>placeholder-id.jpg</span><a href="#">Open</a></div>
+          <div class="dlink"><span>placeholder-proof.pdf</span><a href="#">Open</a></div>
+        </div>
+
+        <div class="panel">
+          <h3>RISK SIGNALS</h3>
+          <div class="risk"><span class="dot"></span><span><b>Shared device signal</b><small>one other account matches this hashed fingerprint</small></span></div>
+          <div class="risk clear"><span class="dot"></span><span><b>No duplicate email or phone</b><small>checked against all accounts</small></span></div>
+          <div class="risk clear"><span class="dot"></span><span><b>Rate limits not tripped</b><small>submission and login</small></span></div>
+        </div>
+
+        <div class="panel">
+          <h3>PROVENANCE</h3>
+          <div class="trail">
+            <div class="t"><time>10:15</time><span><b>Woli Arole</b> took this for review</span></div>
+            <div class="t"><time>7d ago</time><span><b>Applicant</b> submitted the application</span></div>
+            <div class="t"><time>7d ago</time><span><b>Applicant</b> verified their email</span></div>
+            <div class="t"><time>8d ago</time><span><b>Applicant</b> created the account</span></div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<div class="decide">
+  <div class="wrap">
+    <div class="readiness">
+      <b>2 of 2 documents opened.</b> All prose meets the minimum length.<br>
+      <span class="warnrow">One risk signal is unresolved. Approving with it open is allowed and is recorded.</span>
+    </div>
+    <div class="acts">
+      <button class="b b-ok">Approve and publish</button>
+      <button class="b b-info">Request more information</button>
+      <button class="b b-no">Reject</button>
+    </div>
+  </div>
+</div>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a class="on" href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

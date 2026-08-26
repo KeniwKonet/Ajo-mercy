@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Direction A · The Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wdth,wght@75..100,400..700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   DIRECTION A — "The Register"
+   Thesis: an ajo is a contribution ledger. So the page is a ledger: ruled
+   rows, hanging numerals, a red margin rule. There is not a single rounded
+   card on this page. Structure comes from horizontal rules and column
+   alignment, the way it does in a printed register or a broadsheet.
+   =========================================================================== */
+
+:root{
+  --paper:#f6f1e7;
+  --paper-2:#efe8d9;
+  --ink:#14110d;
+  --ink-2:#544c40;
+  --ink-3:#8a8073;
+  --rule:#d9cfba;
+  --rule-2:#b8ab90;
+  --red:#a8271c;
+  --green:#1c4231;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  font-variation-settings:"wdth" 100;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ------------------------------------------------------------ masthead -- */
+.masthead{border-bottom:1px solid var(--rule)}
+.masthead .wrap{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:24px;padding-top:14px;padding-bottom:14px;
+}
+.wordmark{
+  font-family:var(--serif);font-size:22px;font-weight:600;
+  letter-spacing:-.015em;line-height:1;
+}
+.wordmark i{font-style:italic;color:var(--red)}
+.mast-nav{display:flex;gap:26px;font-size:13.5px;color:var(--ink-2)}
+.mast-nav a{text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+.mast-nav a:hover{border-bottom-color:var(--ink);color:var(--ink)}
+.mast-meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+
+/* The double rule under the masthead is a printing convention, not decoration:
+   it separates the standing head from the day's contents. */
+.double-rule{border-bottom:3px solid var(--ink);border-top:1px solid var(--rule)}
+.double-rule .wrap{height:5px}
+
+/* ---------------------------------------------------------------- lede -- */
+.lede{border-bottom:1px solid var(--rule)}
+.lede .wrap{
+  display:grid;gap:0;padding-top:56px;padding-bottom:0;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+}
+@media(max-width:900px){.lede .wrap{grid-template-columns:1fr;padding-top:36px}}
+
+.lede-left{padding-right:56px;padding-bottom:52px}
+@media(max-width:900px){.lede-left{padding-right:0;padding-bottom:36px}}
+
+h1{
+  font-family:var(--serif);
+  font-size:clamp(38px,5.4vw,66px);
+  font-weight:400;
+  line-height:1.02;
+  letter-spacing:-.022em;
+  max-width:13ch;
+}
+h1 em{font-style:italic}
+.lede p{
+  margin-top:26px;max-width:40ch;font-size:16.5px;line-height:1.62;color:var(--ink-2);
+}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.btn{
+  display:inline-block;padding:11px 20px;font-size:14px;font-weight:600;
+  text-decoration:none;border:1px solid var(--ink);
+  transition:background .15s ease,color .15s ease;
+}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--red);border-color:var(--red)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.smallprint{margin-top:16px;font-size:12.5px;color:var(--ink-3)}
+
+/* The three steps sit in the lede, not three scrolls down, because the
+   process IS the promise. Hanging numerals in the margin, ruled rows. */
+.steps{border-left:1px solid var(--rule);padding-left:44px;padding-bottom:52px}
+@media(max-width:900px){
+  .steps{border-left:0;border-top:1px solid var(--rule);padding-left:0;padding-top:30px}
+}
+.step{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:20px 0;border-top:1px solid var(--rule)}
+.step:first-child{border-top:0;padding-top:0}
+.step-n{font-family:var(--mono);font-size:12px;color:var(--red);padding-top:5px}
+.step h3{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.25}
+.step p{margin-top:5px;font-size:14px;line-height:1.55;color:var(--ink-2);max-width:38ch}
+
+/* --------------------------------------------------------- the register -- */
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  padding:52px 0 12px;border-bottom:1px solid var(--ink);
+}
+.section-head h2{
+  font-family:var(--serif);font-size:clamp(26px,3vw,34px);font-weight:400;
+  letter-spacing:-.018em;line-height:1;
+}
+.section-head .count{font-family:var(--mono);font-size:12px;color:var(--ink-3);white-space:nowrap}
+
+.sample-note{
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  padding:9px 0;border-bottom:1px solid var(--rule);
+}
+
+/* Businesses are register entries, not cards. Columns align down the page so
+   you can compare across rows, which is the actual task. */
+.register{width:100%;border-collapse:collapse}
+.register thead th{
+  font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-3);text-align:left;
+  padding:12px 16px 10px 0;border-bottom:1px solid var(--rule);
+}
+.register td{
+  padding:20px 16px 20px 0;border-bottom:1px solid var(--rule);vertical-align:top;
+}
+.register tbody tr{transition:background .12s ease}
+.register tbody tr:hover{background:var(--paper-2)}
+.col-n{width:52px;font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:22px !important}
+.biz-name{font-family:var(--serif);font-size:21px;font-weight:500;line-height:1.15;letter-spacing:-.01em}
+.biz-line{margin-top:5px;font-size:13.5px;color:var(--ink-2);max-width:46ch}
+.col-where{width:170px;font-size:13.5px;color:var(--ink-2)}
+.col-seek{width:130px;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.col-act{width:150px;text-align:right}
+
+/* Hover reveals the action rather than animating for its own sake. */
+.row-go{
+  font-size:13px;font-weight:600;text-decoration:none;
+  border-bottom:1px solid var(--rule-2);padding-bottom:2px;
+  opacity:.45;transition:opacity .12s ease,border-color .12s ease,color .12s ease;
+}
+tr:hover .row-go{opacity:1;color:var(--red);border-bottom-color:var(--red)}
+
+.stamp{
+  display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--green);border:1px solid var(--green);
+  padding:2px 6px;
+}
+
+/* --------------------------------------------------------------- essay -- */
+/* Marginal note, not an eyebrow. It sits beside the prose at x-height, the
+   way a printed sidenote does. */
+.essay{border-top:1px solid var(--ink);margin-top:8px}
+.essay .wrap{
+  display:grid;grid-template-columns:180px minmax(0,1fr);gap:0;
+  padding-top:52px;padding-bottom:56px;
+}
+@media(max-width:900px){.essay .wrap{grid-template-columns:1fr;gap:20px}}
+.marginal{
+  font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--ink-3);
+  padding-right:32px;padding-top:9px;
+}
+.essay-body{max-width:60ch}
+.essay-body .pull{
+  font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:400;
+  line-height:1.32;letter-spacing:-.012em;
+}
+.essay-body p+p{margin-top:16px}
+.essay-body .run{font-size:15.5px;line-height:1.68;color:var(--ink-2)}
+.essay-body .run:first-of-type{margin-top:24px}
+.readmore{
+  display:inline-block;margin-top:22px;font-size:14px;font-weight:600;
+  text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px;
+}
+.readmore:hover{color:var(--red);border-bottom-color:var(--red)}
+
+/* --------------------------------------------------------------- trust -- */
+.trust{background:var(--green);color:#eef3ef}
+.trust .wrap{padding-top:56px;padding-bottom:56px}
+.trust h2{
+  font-family:var(--serif);font-size:clamp(28px,3.4vw,40px);font-weight:400;
+  line-height:1.08;letter-spacing:-.02em;max-width:16ch;color:#fff;
+}
+.trust-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start}
+@media(max-width:900px){.trust-grid{grid-template-columns:1fr;gap:32px}}
+.trust-lead{margin-top:20px;max-width:38ch;font-size:15.5px;line-height:1.62;color:#c3d3ca}
+.trust-item{padding:20px 0;border-top:1px solid rgba(255,255,255,.16);display:grid;grid-template-columns:38px 1fr;gap:8px}
+.trust-item:first-child{border-top:0;padding-top:0}
+.trust-item .n{font-family:var(--mono);font-size:12px;color:#8fb3a1;padding-top:4px}
+.trust-item h3{font-family:var(--serif);font-size:19px;font-weight:500;color:#fff;line-height:1.25}
+.trust-item p{margin-top:5px;font-size:14px;line-height:1.58;color:#b7cabf;max-width:44ch}
+
+/* --------------------------------------------------------------- entry -- */
+/* Three routes in, as ruled rows. Not three identical cards. */
+.routes .wrap{padding-top:52px;padding-bottom:64px}
+.route{
+  display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr) 190px;
+  gap:32px;align-items:baseline;padding:26px 0;border-top:1px solid var(--rule);
+  transition:padding-left .16s ease;
+}
+.route:hover{padding-left:10px}
+.route:last-child{border-bottom:1px solid var(--rule)}
+@media(max-width:760px){.route{grid-template-columns:1fr;gap:8px}}
+.route h3{font-family:var(--serif);font-size:23px;font-weight:500;letter-spacing:-.012em}
+.route p{font-size:14.5px;color:var(--ink-2);max-width:52ch}
+.route .go{
+  justify-self:end;font-size:14px;font-weight:600;text-decoration:none;
+  border-bottom:1px solid var(--ink);padding-bottom:2px;white-space:nowrap;
+}
+@media(max-width:760px){.route .go{justify-self:start;margin-top:6px}}
+.route:hover .go{color:var(--red);border-bottom-color:var(--red)}
+
+/* -------------------------------------------------------------- footer -- */
+footer{border-top:3px solid var(--ink);background:var(--paper-2)}
+footer .wrap{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
+  padding-top:26px;padding-bottom:34px;font-size:13px;color:var(--ink-2);
+}
+footer .disc{max-width:52ch;font-size:12.5px;color:var(--ink-3)}
+
+/* ------------------------------------------------------------- mobile --- */
+/* A register is a wide object. Rather than let it scroll sideways, the row
+   breaks into a stacked entry with the number hanging in the margin, which is
+   how a printed register sets narrow measure anyway. */
+@media(max-width:760px){
+  .masthead .wrap{flex-wrap:wrap;gap:10px}
+  .mast-nav{order:3;width:100%;gap:20px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+  .mast-nav::-webkit-scrollbar{display:none}
+  .mast-nav a{white-space:nowrap}
+}
+@media(max-width:700px){
+  .register,.register tbody,.register tr,.register td{display:block;width:auto}
+  .register thead{display:none}
+  .register tr{padding:18px 0;border-bottom:1px solid var(--rule);position:relative}
+  .register tbody tr:hover{background:transparent}
+  .register td{border-bottom:0;padding:0 0 0 46px}
+  .col-n{position:absolute;left:0;top:18px;width:auto;padding-top:0 !important}
+  .col-where,.col-seek{display:inline-block;width:auto;margin-top:8px;padding-right:16px}
+  .col-act{width:auto;text-align:left;margin-top:12px}
+  .row-go{opacity:1}
+  .section-head{flex-wrap:wrap;gap:8px}
+}
+
+/* ------------------------------------------------------------- switcher - */
+.lab{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:flex;flex-wrap:wrap;align-items:center;gap:4px;
+  padding:8px 14px;background:var(--ink);color:#cfc7ba;
+  font-family:var(--mono);font-size:11px;
+}
+.lab b{color:#fff;font-weight:400;margin-right:10px}
+.lab a{color:#cfc7ba;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#4a423a}
+.lab a.on{color:var(--paper);border-color:#6b6157;background:#2a251f}
+.lab .sep{width:1px;height:14px;background:#4a423a;margin:0 8px}
+body{padding-bottom:52px}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="wordmark">Ajo <i>Mercy</i></div>
+    <nav class="mast-nav">
+      <a href="#register">Businesses</a>
+      <a href="#process">How it works</a>
+      <a href="#trust">Verification</a>
+      <a href="#routes">Apply</a>
+    </nav>
+    <div class="mast-meta">Sign in</div>
+  </div>
+</header>
+<div class="double-rule"><div class="wrap"></div></div>
+
+<section class="lede" id="process">
+  <div class="wrap">
+    <div class="lede-left">
+      <h1>Find a business worth <em>backing</em>.</h1>
+      <p>
+        Nigerian business owners tell us what they are building and what is in the way.
+        We check it. Then people and brands who want to help choose who to back.
+      </p>
+      <div class="actions">
+        <a class="btn btn-solid" href="#register">Browse the register</a>
+        <a class="btn btn-line" href="#routes">Apply as a business</a>
+      </div>
+      <p class="smallprint">Free to apply. Registering does not guarantee selection or support.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-n">01</span>
+        <div>
+          <h3>A business applies</h3>
+          <p>Owner, business, documents, and the story behind it.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-n">02</span>
+        <div>
+          <h3>A person reviews it</h3>
+          <p>Woli Arole and the Ajo Mercy team check every application by hand. Nothing goes live automatically.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-n">03</span>
+        <div>
+          <h3>Supporters choose</h3>
+          <p>Individuals and brands pick who they want to back. We confirm before anyone is told they have been supported.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="register">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The register</h2>
+      <span class="count">Verified and live · updated continuously</span>
+    </div>
+    <p class="sample-note">Design sample. Every row below is a placeholder. Real entries are read from the database.</p>
+
+    <table class="register">
+      <thead>
+        <tr>
+          <th class="col-n">No.</th>
+          <th>Business</th>
+          <th class="col-where">Where</th>
+          <th class="col-seek">Seeking</th>
+          <th class="col-act"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-n">001</td>
+          <td>
+            <div class="biz-name">Placeholder Business One</div>
+            <p class="biz-line">A one line description of what the owner makes and who buys it, in their own words.</p>
+          </td>
+          <td class="col-where">Placeholder, Lagos</td>
+          <td class="col-seek">Not set</td>
+          <td class="col-act"><a class="row-go" href="#">Read profile</a></td>
+        </tr>
+        <tr>
+          <td class="col-n">002</td>
+          <td>
+            <div class="biz-name">Placeholder Business Two</div>
+            <p class="biz-line">A one line description of what the owner makes and who buys it, in their own words.</p>
+          </td>
+          <td class="col-where">Placeholder, Oyo</td>
+          <td class="col-seek">Not set</td>
+          <td class="col-act"><a class="row-go" href="#">Read profile</a></td>
+        </tr>
+        <tr>
+          <td class="col-n">003</td>
+          <td>
+            <div class="biz-name">Placeholder Business Three</div>
+            <p class="biz-line">A one line description of what the owner makes and who buys it, in their own words.</p>
+            <span class="stamp" style="margin-top:9px">Featured</span>
+          </td>
+          <td class="col-where">Placeholder, Kano</td>
+          <td class="col-seek">Not set</td>
+          <td class="col-act"><a class="row-go" href="#">Read profile</a></td>
+        </tr>
+        <tr>
+          <td class="col-n">004</td>
+          <td>
+            <div class="biz-name">Placeholder Business Four</div>
+            <p class="biz-line">A one line description of what the owner makes and who buys it, in their own words.</p>
+          </td>
+          <td class="col-where">Placeholder, Rivers</td>
+          <td class="col-seek">Not set</td>
+          <td class="col-act"><a class="row-go" href="#">Read profile</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="essay">
+  <div class="wrap">
+    <p class="marginal">
+      Where this came from.<br>
+      Origin of the platform,<br>
+      written by the team.
+    </p>
+    <div class="essay-body">
+      <p class="pull">
+        An argument about Ajo turned into a queue of people asking the same question:
+        who actually needs the money, and how do I know they are real?
+      </p>
+      <p class="run">
+        Brands started calling. Individuals started offering. Business owners started sending DMs.
+        None of it had a system behind it, so most of it went nowhere.
+      </p>
+      <p class="run">
+        Ajo Mercy is the system. Applications get read. Documents get checked. Businesses that pass
+        get a profile with their real story on it. Supporters and brands choose from those, and no
+        one is told they have been supported until the team has confirmed it.
+      </p>
+      <a class="readmore" href="#">Read the full process</a>
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="trust">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div>
+        <h2>Verification is the whole product.</h2>
+        <p class="trust-lead">
+          Anyone can build a page that collects names. The hard part is knowing that the business on
+          the other end is real, that the story is theirs, and that support reaches the person it was
+          meant for.
+        </p>
+      </div>
+      <div>
+        <div class="trust-item">
+          <span class="n">i</span>
+          <div>
+            <h3>Reviewed by a person, not a filter</h3>
+            <p>Woli Arole is the Super Admin. He and the review team see every application, every document and every photograph before a profile goes live.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <span class="n">ii</span>
+          <div>
+            <h3>Selection is not confirmation</h3>
+            <p>When a supporter picks a business, that business is told it is under consideration. Only after the team confirms does anyone hear the word confirmed.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <span class="n">iii</span>
+          <div>
+            <h3>We never touch the money</h3>
+            <p>Ajo Mercy does not hold, escrow or transfer funds. Support is arranged directly, and we stay in the loop to make sure it lands.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="routes" id="routes">
+  <div class="wrap">
+    <div class="section-head" style="border-bottom-color:var(--rule)">
+      <h2>Three ways in</h2>
+    </div>
+    <div class="route">
+      <h3>You run a business</h3>
+      <p>Tell us what you are building and what is in the way. Applications are read in the order they arrive.</p>
+      <a class="go" href="#">Apply as an Alajo</a>
+    </div>
+    <div class="route">
+      <h3>You want to help</h3>
+      <p>Register, get approved, then choose the businesses you want to back.</p>
+      <a class="go" href="#">Support a business</a>
+    </div>
+    <div class="route">
+      <h3>You represent a brand</h3>
+      <p>Set a budget, tell us what you are looking for, and pick from verified businesses.</p>
+      <a class="go" href="#">Register your brand</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark" style="font-size:17px">Ajo <i>Mercy</i></div>
+    <p class="disc">
+      Ajo Mercy does not process, hold, custody, escrow or transfer support funds.
+      Registering does not guarantee selection or support.
+    </p>
+  </div>
+</footer>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a class="on" href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

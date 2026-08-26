@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Admin D · Ops board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   ADMIN D — "Ops board"   (pairs with landing D)
+   Thesis: the person running this needs one screen that answers "what needs me
+   today", not a grid of numbers. So the page is ordered by consequence: things
+   that need a human decision first, the support pipeline second, the health of
+   the machinery last. The confirmation gate is drawn as a physical barrier in
+   the pipeline, because that is what it is.
+   =========================================================================== */
+
+:root{
+  --bone:#faf8f4;--bone-2:#f1ede5;--white:#fff;
+  --ink:#1c1b19;--ink-2:#5d5952;--ink-3:#8e897f;
+  --line:#e2ddd3;--line-2:#cdc6b8;
+  --ochre:#b9762a;--ochre-w:#fbf2e4;
+  --green:#2f5a43;--green-w:#eaf1ed;
+  --red:#a8371f;--red-w:#fbeeea;
+  --sans:"Manrope",system-ui,sans-serif;--serif:"Fraunces",Georgia,serif;
+  --r:3px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:56px}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1360px;margin:0 auto;padding:0 24px}
+
+/* -------------------------------------------------------------- header -- */
+.top{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;gap:24px;height:60px}
+.mark{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.025em;font-variation-settings:"SOFT" 30,"WONK" 1}
+.mark span{color:var(--ochre)}
+.tabs{display:flex;gap:2px}
+.tabs a{font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink-2);padding:8px 13px;border-radius:var(--r)}
+.tabs a:hover{background:var(--bone-2);color:var(--ink)}
+.tabs a.on{background:var(--ink);color:var(--bone)}
+.me{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px}
+.me b{font-weight:700}
+.me em{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--ochre);background:var(--ochre-w);padding:3px 7px;border-radius:2px}
+@media(max-width:880px){.tabs{display:none}}
+
+.sample{background:var(--ochre-w);border-bottom:1px solid var(--line)}
+.sample .wrap{padding:7px 24px;font-size:12px;color:#8a5c20}
+
+/* --------------------------------------------------------------- bands -- */
+.band{border-bottom:1px solid var(--line)}
+.band .wrap{padding:26px 24px 30px}
+.band-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.band-h h2{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.025em}
+.band-h .why{font-size:13px;color:var(--ink-3)}
+.band-h .right{margin-left:auto;font-size:13px;font-weight:600}
+.band-h .right a{text-decoration:none;border-bottom:1.5px solid var(--ochre);padding-bottom:1px}
+
+/* Band 1: decisions. Wide rows ordered by consequence, not tiles. */
+.decisions{border:1px solid var(--line);background:var(--white);border-radius:var(--r);overflow:hidden}
+.d{display:grid;grid-template-columns:8px minmax(0,1fr) 210px 190px;gap:18px;align-items:center;padding:16px 18px 16px 0;border-bottom:1px solid var(--line)}
+.d:last-child{border-bottom:0}
+@media(max-width:900px){.d{grid-template-columns:6px minmax(0,1fr);gap:12px;padding:14px 16px 16px 0}.d .when,.d .act{grid-column:2;justify-self:start}}
+.d .edge{align-self:stretch;background:var(--line-2)}
+.d.hot .edge{background:var(--red)}
+.d.warm .edge{background:var(--ochre)}
+.d .what h3{font-size:15.5px;font-weight:700;letter-spacing:-.015em}
+.d .what p{margin-top:3px;font-size:13px;color:var(--ink-2);max-width:70ch}
+.d .when{font-size:12.5px;color:var(--ink-3)}
+.d .when b{display:block;color:var(--ink);font-weight:700;font-size:13.5px}
+.d .act{justify-self:end;display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 15px;border-radius:var(--r);font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--ink);background:transparent;white-space:nowrap;transition:background .13s ease,color .13s ease,border-color .13s ease}
+.btn:hover{background:var(--ink);color:var(--bone)}
+.btn-fill{background:var(--ink);color:var(--bone)}
+.btn-fill:hover{background:var(--ochre);border-color:var(--ochre)}
+.btn-ghost{border-color:var(--line-2);color:var(--ink-2)}
+
+/* Band 2: the pipeline, with the confirmation gate drawn as a barrier. */
+.lanes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:stretch}
+@media(max-width:1000px){.lanes{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+@media(max-width:600px){.lanes{grid-template-columns:1fr}}
+.lane{border:1px solid var(--line);border-right:0;background:var(--white);padding:14px;min-width:0}
+.lane:last-child{border-right:1px solid var(--line)}
+@media(max-width:1000px){.lane{border-right:1px solid var(--line);border-radius:var(--r)}}
+.lane.gated{border-left:3px solid var(--red)}
+.lane h3{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.lane .num{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;margin-top:8px;letter-spacing:-.02em}
+.lane .num.zero{color:var(--ink-3)}
+.lane .sub{margin-top:5px;font-size:12px;color:var(--ink-2);line-height:1.45}
+.lane ul{margin-top:12px;list-style:none;border-top:1px solid var(--line);padding-top:8px}
+.lane li{font-size:12.5px;padding:5px 0;color:var(--ink-2);border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lane li:last-child{border-bottom:0}
+.gate{margin-top:12px;background:var(--red-w);border:1px solid var(--red);padding:9px 10px;font-size:11.5px;line-height:1.5;color:#7d2417}
+.gate b{display:block;font-weight:800;margin-bottom:3px}
+
+/* Band 3: health. Labelled bars, no decorative charts. */
+.health{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--white);border-radius:var(--r);overflow:hidden}
+@media(max-width:900px){.health{grid-template-columns:1fr}}
+.hcell{padding:18px;border-right:1px solid var(--line)}
+.hcell:last-child{border-right:0}
+@media(max-width:900px){.hcell{border-right:0;border-bottom:1px solid var(--line)}}
+.hcell h3{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.hcell .headline{margin-top:9px;font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.hcell .headline.bad{color:var(--red)}
+.hcell .headline.zero{color:var(--ink-3)}
+.hcell .note{margin-top:5px;font-size:12.5px;color:var(--ink-2)}
+
+.bars{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:96px minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:12px}
+.bar .lbl{color:var(--ink-2)}
+/* Both must be block. An inline span ignores height, which renders the track
+   as an empty groove with no fill in it. */
+.bar .track{display:block;height:8px;background:var(--bone-2);border-radius:1px;overflow:hidden}
+.bar .fill{display:block;height:8px;background:var(--green)}
+.bar .fill.warn{background:var(--ochre)}
+.bar .fill.bad{background:var(--red)}
+.bar .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
+
+.hlist{margin-top:12px;border-top:1px solid var(--line)}
+.hrow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.5}
+.hrow:last-child{border-bottom:0}
+.hrow .dot{flex:0 0 7px;height:7px;margin-top:6px;border-radius:1px;background:var(--ochre)}
+.hrow.ok .dot{background:var(--green)}
+.hrow.bad .dot{background:var(--red)}
+.hrow b{font-weight:700}
+.hrow small{display:block;font-size:11px;color:var(--ink-3);margin-top:1px}
+.hrow a{margin-left:auto;flex:0 0 auto;font-size:11.5px;font-weight:600;text-decoration:none;border:1px solid var(--line-2);padding:3px 8px;border-radius:2px}
+.hrow a:hover{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+
+/* Band 4: audit stream */
+.stream{border:1px solid var(--line);background:var(--white);border-radius:var(--r)}
+.srow{display:grid;grid-template-columns:78px 1fr 150px;gap:16px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.srow:last-child{border-bottom:0}
+@media(max-width:700px){.srow{grid-template-columns:70px 1fr}.srow .ref{display:none}}
+.srow time{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.srow .txt b{font-weight:700}
+.srow .ref{text-align:right;font-size:11.5px;color:var(--ink-3)}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:var(--ink);color:#a8a49b;font-family:ui-monospace,monospace;font-size:11px}
+.lab b{color:#fff;font-weight:500;margin-right:10px}
+.lab a{color:#a8a49b;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#413f39}
+.lab a.on{color:#fff;border-color:#5d5a51;background:#2a2823}
+.lab .sep{width:1px;height:14px;background:#413f39;margin:0 8px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">Ajo<span>Mercy</span></div>
+    <nav class="tabs">
+      <a class="on" href="#">Board</a>
+      <a href="#">Applications</a>
+      <a href="#">Profiles</a>
+      <a href="#">Support</a>
+      <a href="#">Campaigns</a>
+      <a href="#">Operations</a>
+    </nav>
+    <div class="me"><b>Woli Arole</b><em>SUPER ADMIN</em></div>
+  </div>
+</header>
+
+<div class="sample"><div class="wrap">Design sample. Every figure, name and reference below is placeholder data for layout purposes only.</div></div>
+
+<!-- ------------------------------------------------------------- band 1 -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-h">
+      <h2>Needs you today</h2>
+      <span class="why">Ordered by what it costs someone if it waits.</span>
+      <span class="right"><a href="#">See everything waiting</a></span>
+    </div>
+
+    <div class="decisions">
+      <div class="d hot">
+        <span class="edge"></span>
+        <div class="what">
+          <h3>One support record is ready to confirm</h3>
+          <p>The business has only been told it is under consideration. Confirming is the first time anyone hears that support is real.</p>
+        </div>
+        <div class="when"><b>SEL/0031</b>waiting 2 days</div>
+        <div class="act"><a class="btn btn-fill" href="#">Review and confirm</a></div>
+      </div>
+
+      <div class="d hot">
+        <span class="edge"></span>
+        <div class="what">
+          <h3>Two applications have been waiting over a week</h3>
+          <p>The oldest is 9 days. Both are unassigned, so nobody currently owns the decision.</p>
+        </div>
+        <div class="when"><b>APP/0142, APP/0141</b>oldest 9 days</div>
+        <div class="act"><a class="btn btn-fill" href="#">Open the queue</a></div>
+      </div>
+
+      <div class="d warm">
+        <span class="edge"></span>
+        <div class="what">
+          <h3>An applicant answered a request for more information</h3>
+          <p>They replied 4 days ago and the application went back into the queue at its original position.</p>
+        </div>
+        <div class="when"><b>APP/0139</b>replied 4 days ago</div>
+        <div class="act"><a class="btn" href="#">Read the reply</a></div>
+      </div>
+
+      <div class="d warm">
+        <span class="edge"></span>
+        <div class="what">
+          <h3>Two emails failed to deliver</h3>
+          <p>One was an application receipt. Until it lands, the applicant has no confirmation that we received anything.</p>
+        </div>
+        <div class="when"><b>Email log</b>since 08:20</div>
+        <div class="act"><a class="btn btn-ghost" href="#">Retry both</a></div>
+      </div>
+
+      <div class="d">
+        <span class="edge"></span>
+        <div class="what">
+          <h3>A brand campaign has unspent selection credits</h3>
+          <p>No action is required. It is here so the number is not a surprise at the end of the campaign.</p>
+        </div>
+        <div class="when"><b>CMP/0004</b>ends in 12 days</div>
+        <div class="act"><a class="btn btn-ghost" href="#">Open campaign</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- band 2 -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-h">
+      <h2>Support pipeline</h2>
+      <span class="why">Nothing moves a stage on its own. Every arrow is a person.</span>
+      <span class="right"><a href="#">Open the support desk</a></span>
+    </div>
+
+    <div class="lanes">
+      <div class="lane">
+        <h3>Selected</h3>
+        <div class="num">6</div>
+        <p class="sub">Picked by a supporter or a brand. Told they are under consideration, nothing more.</p>
+        <ul>
+          <li>Placeholder Business Two</li>
+          <li>Placeholder Business Five</li>
+          <li>Placeholder Business One</li>
+          <li>and 3 more</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <h3>Shortlisted</h3>
+        <div class="num">2</div>
+        <p class="sub">Internal only. The business is not told when it is shortlisted.</p>
+        <ul>
+          <li>Placeholder Business Two</li>
+          <li>Placeholder Business Five</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <h3>Support recorded</h3>
+        <div class="num">1</div>
+        <p class="sub">Arranged directly between the parties. Still internal.</p>
+        <ul>
+          <li>Placeholder Business Two</li>
+        </ul>
+      </div>
+
+      <div class="lane gated">
+        <h3>Confirmed</h3>
+        <div class="num zero">&ndash;</div>
+        <p class="sub">The first stage the business hears about as real.</p>
+        <div class="gate">
+          <b>Deliberate gate</b>
+          Requires the confirm permission and typing CONFIRM. Sends the congratulations email and cannot be quietly undone.
+        </div>
+      </div>
+
+      <div class="lane gated">
+        <h3>Announced</h3>
+        <div class="num zero">&ndash;</div>
+        <p class="sub">Public. Counted on the impact page.</p>
+        <div class="gate">
+          <b>Separate permission</b>
+          Announcing is not part of confirming. Held by the super admin by default.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- band 3 -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-h">
+      <h2>Is the machinery working</h2>
+      <span class="why">Counted from the database. A dash means it has not happened yet.</span>
+    </div>
+
+    <div class="health">
+
+      <div class="hcell">
+        <h3>Email delivery</h3>
+        <div class="headline bad">2 failed</div>
+        <p class="note">Out of 47 attempted in the last 7 days. Failures are retryable from the email log.</p>
+        <div class="bars">
+          <div class="bar"><span class="lbl">Delivered</span><span class="track"><span class="fill" style="width:87%"></span></span><span class="v">41</span></div>
+          <div class="bar"><span class="lbl">Sent, pending</span><span class="track"><span class="fill warn" style="width:9%"></span></span><span class="v">4</span></div>
+          <div class="bar"><span class="lbl">Bounced or failed</span><span class="track"><span class="fill bad" style="width:4%"></span></span><span class="v">2</span></div>
+        </div>
+      </div>
+
+      <div class="hcell">
+        <h3>How long people are waiting</h3>
+        <div class="headline">9 days</div>
+        <p class="note">Oldest application still without a decision. 14 applications in the queue.</p>
+        <div class="bars">
+          <div class="bar"><span class="lbl">Under 2 days</span><span class="track"><span class="fill" style="width:36%"></span></span><span class="v">5</span></div>
+          <div class="bar"><span class="lbl">2 to 7 days</span><span class="track"><span class="fill warn" style="width:50%"></span></span><span class="v">7</span></div>
+          <div class="bar"><span class="lbl">Over 7 days</span><span class="track"><span class="fill bad" style="width:14%"></span></span><span class="v">2</span></div>
+        </div>
+      </div>
+
+      <div class="hcell">
+        <h3>Abuse and integrity</h3>
+        <div class="headline">1 signal</div>
+        <p class="note">Signals are derived from salted hashes. They are enough to notice a pattern and deliberately not enough to identify a person.</p>
+        <div class="hlist">
+          <div class="hrow"><span class="dot"></span><span><b>Shared device across 2 accounts</b><small>one applicant, one supporter</small></span><a href="#">Inspect</a></div>
+          <div class="hrow ok"><span class="dot"></span><span><b>No duplicate emails or phones</b><small>checked across all accounts</small></span></div>
+          <div class="hrow ok"><span class="dot"></span><span><b>Rate limits holding</b><small>no endpoint over threshold in 24 hours</small></span></div>
+          <div class="hrow ok"><span class="dot"></span><span><b>Selection credits within limits</b><small>no supporter over their cap</small></span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- band 4 -->
+<section class="band" style="border-bottom:0">
+  <div class="wrap">
+    <div class="band-h">
+      <h2>What happened</h2>
+      <span class="why">Every privileged action, with the account that took it.</span>
+      <span class="right"><a href="#">Open the audit log</a></span>
+    </div>
+
+    <div class="stream">
+      <div class="srow"><time>10:42</time><span class="txt"><b>Reviewer name</b> requested more information</span><span class="ref">APP/0139</span></div>
+      <div class="srow"><time>10:15</time><span class="txt"><b>Woli Arole</b> took an application for review</span><span class="ref">APP/0141</span></div>
+      <div class="srow"><time>09:58</time><span class="txt"><b>Woli Arole</b> opened an identity document</span><span class="ref">APP/0141</span></div>
+      <div class="srow"><time>09:58</time><span class="txt"><b>System</b> raised a shared device signal</span><span class="ref">SEL/0029</span></div>
+      <div class="srow"><time>09:31</time><span class="txt"><b>System</b> retried a failed email</span><span class="ref">EML/0812</span></div>
+      <div class="srow"><time>08:20</time><span class="txt"><b>System</b> recorded an email bounce</span><span class="ref">EML/0811</span></div>
+    </div>
+  </div>
+</section>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a class="on" href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

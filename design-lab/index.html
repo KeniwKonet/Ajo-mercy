@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Design lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Archivo:wdth,wght@75..100,400..700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f1e7;--paper-2:#efe8d9;--white:#fffdf8;
+  --ink:#14110d;--ink-2:#544c40;--ink-3:#8a8073;
+  --rule:#d9cfba;--rule-2:#b8ab90;--red:#a8271c;--green:#1c4231;
+  --serif:"Newsreader",Georgia,serif;--sans:"Archivo",system-ui,sans-serif;--mono:"Spline Sans Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:70px}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+
+.top{border-bottom:3px solid var(--ink)}
+.top .wrap{padding:22px 26px 18px}
+.top h1{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:400;letter-spacing:-.022em;line-height:1.05}
+.top h1 i{font-style:italic;color:var(--red)}
+.top p{margin-top:14px;max-width:68ch;font-size:16px;color:var(--ink-2)}
+.top .meta{margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1.8}
+
+.rules{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.rules .wrap{padding:20px 26px 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+@media(max-width:820px){.rules .wrap{grid-template-columns:1fr;gap:18px}}
+.rules h2{font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:8px}
+.rules ul{list-style:none}
+.rules li{font-size:13.5px;color:var(--ink-2);padding:4px 0 4px 18px;position:relative;line-height:1.55}
+.rules li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:1px;background:var(--rule-2)}
+.rules li b{color:var(--ink);font-weight:600}
+
+.group{padding-top:40px}
+.group-h{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
+.group-h h2{font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:-.018em}
+.group-h span{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+.dir{display:grid;grid-template-columns:64px minmax(0,1fr) 200px;gap:24px;padding:24px 0;border-bottom:1px solid var(--rule);align-items:start}
+@media(max-width:820px){.dir{grid-template-columns:48px minmax(0,1fr);gap:16px}.dir .open{grid-column:2}}
+.dir .letter{font-family:var(--serif);font-size:42px;font-weight:400;line-height:.9;color:var(--rule-2)}
+.dir h3{font-family:var(--serif);font-size:22px;font-weight:500;letter-spacing:-.014em}
+.dir .thesis{margin-top:8px;font-size:15px;color:var(--ink);max-width:62ch}
+.dir .tech{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1.75}
+.dir .tech b{color:var(--ink-2);font-weight:500}
+.dir .tradeoff{margin-top:10px;font-size:13.5px;color:var(--ink-2);max-width:62ch;border-left:2px solid var(--rule-2);padding-left:12px}
+.dir .tradeoff b{color:var(--ink);font-weight:600}
+.dir .open{justify-self:end}
+@media(max-width:820px){.dir .open{justify-self:start;margin-top:10px}}
+.dir .open a{display:inline-block;font-family:var(--mono);font-size:12px;text-decoration:none;border:1px solid var(--ink);padding:9px 16px;background:var(--white);white-space:nowrap}
+.dir .open a:hover{background:var(--ink);color:var(--paper)}
+
+.pairs{margin-top:40px;border-top:1px solid var(--ink);padding-top:16px}
+.pairs h2{font-family:var(--serif);font-size:22px;font-weight:500}
+.pairs p{margin-top:8px;max-width:70ch;font-size:14.5px;color:var(--ink-2)}
+.pairtable{width:100%;border-collapse:collapse;margin-top:16px}
+.pairtable th{font-family:var(--mono);font-size:10px;letter-spacing:.05em;font-weight:400;color:var(--ink-3);text-align:left;padding:9px 14px 8px 0;border-bottom:1px solid var(--rule)}
+.pairtable td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule);font-size:14px;vertical-align:top}
+.pairtable td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink-3);width:60px}
+.pairtable .nm{font-weight:600}
+
+.next{margin-top:40px;border:1px solid var(--rule-2);background:var(--white);padding:20px 22px}
+.next h2{font-family:var(--serif);font-size:19px;font-weight:500}
+.next ol{margin-top:10px;padding-left:20px}
+.next li{font-size:14.5px;color:var(--ink-2);padding:4px 0}
+.next li b{color:var(--ink);font-weight:600}
+
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:var(--ink);color:#cfc7ba;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:400;margin-right:10px}
+.lab a{color:#cfc7ba;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#4a423a}
+.lab a.on{color:#fff;border-color:#6b6157;background:#2a251f}
+.lab .sep{width:1px;height:14px;background:#4a423a;margin:0 8px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Ajo Mercy <i>design lab</i></h1>
+    <p>
+      Eight directions: four for the public site, four for the admin surface. Each one is a different
+      answer to what the product is, not the same layout in a different colour. Open them, throw
+      away the ones that are wrong, and tell me which parts of which to keep.
+    </p>
+    <p class="meta">
+      Standalone HTML and CSS. No build step, no framework.<br>
+      All content is placeholder. No statistic, testimonial, business or supporter here is real.<br>
+      These files live outside the app, so nothing here can ship by accident.
+    </p>
+  </div>
+</header>
+
+<section class="rules">
+  <div class="wrap">
+    <div>
+      <h2>What every direction refuses</h2>
+      <ul>
+        <li>No dark neon, no glowing blobs, no glassmorphism, <b>no gradients at all</b> in any of the eight files</li>
+        <li>No Inter and no Roboto. Four different type systems across the four directions</li>
+        <li>No tiny uppercase eyebrow labels floating above oversized headings</li>
+        <li>No em dashes in interface copy</li>
+        <li>No grid of six identical feature cards, and no card nested inside a card</li>
+        <li>No hover animation that does not reveal an action or mark a target</li>
+      </ul>
+    </div>
+    <div>
+      <h2>What every direction has to carry</h2>
+      <ul>
+        <li>The platform <b>never holds, escrows or transfers funds</b>, stated where money is implied</li>
+        <li><b>Selection is not confirmation.</b> Visible in the public flow and enforced in the admin one</li>
+        <li>Registering guarantees nothing, said plainly rather than buried</li>
+        <li>Selection counts are never published. No popularity contest</li>
+        <li>Numbers that have not happened yet render as a dash, never a hopeful zero</li>
+        <li>Private fields are shown as withheld rather than silently omitted</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- --------------------------------------------------------- landing -->
+  <section class="group">
+    <div class="group-h">
+      <h2>Public site</h2>
+      <span>FOUR DIRECTIONS</span>
+    </div>
+
+    <div class="dir">
+      <div class="letter">A</div>
+      <div>
+        <h3>The Register</h3>
+        <p class="thesis">
+          An ajo is a contribution ledger, so the page is one. Businesses are numbered entries in a
+          ruled table you can read down and compare across, not tiles you scan. Structure comes from
+          hairline rules and column alignment. There is not a single rounded card in the file.
+        </p>
+        <p class="tech"><b>Type</b> Newsreader, Archivo, Spline Sans Mono &nbsp;·&nbsp; <b>Colour</b> aged paper, ink, ledger red, forest</p>
+        <p class="tradeoff">
+          <b>Best if</b> you want the site to feel like a public record that happens to be online.
+          <b>Costs you</b> photography. A table gives businesses less room to be beautiful.
+        </p>
+      </div>
+      <div class="open"><a href="landing-a.html">Open direction A</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">B</div>
+      <div>
+        <h3>Market Day</h3>
+        <p class="thesis">
+          The loud half of the voice. Flat saturated slabs drawn from Nigerian market signage and
+          adire block colour, heavy display type, hard black borders and offset shadows. The moving
+          band across the page repeats the one sentence that matters, so the repetition is the point.
+        </p>
+        <p class="tech"><b>Type</b> Archivo Black, Karla, DM Mono &nbsp;·&nbsp; <b>Colour</b> indigo, market red, cassava cream, palm green</p>
+        <p class="tradeoff">
+          <b>Best if</b> the site has to survive arriving cold from a viral post and be recognisable
+          in a screenshot. <b>Costs you</b> gravity. This is the hardest direction to keep sober as
+          the story gets serious.
+        </p>
+      </div>
+      <div class="open"><a href="landing-b.html">Open direction B</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">C</div>
+      <div>
+        <h3>Dossier</h3>
+        <p class="thesis">
+          The restrained half. If verification is the product, the page should look like what
+          verification produces: a case file. Numbered sections, a persistent metadata rail, mono
+          field labels, and black redaction bars showing the fields the platform checks and
+          deliberately never publishes. The redaction device is the argument.
+        </p>
+        <p class="tech"><b>Type</b> IBM Plex Serif, Sans and Mono &nbsp;·&nbsp; <b>Colour</b> cool paper, near monochrome, one stamp red</p>
+        <p class="tradeoff">
+          <b>Best if</b> trust is the thing you have to win before anything else. <b>Costs you</b>
+          warmth. It is a serious page about people, and it risks reading as bureaucratic.
+        </p>
+      </div>
+      <div class="open"><a href="landing-c.html">Open direction C</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">D</div>
+      <div>
+        <h3>Kiosk</h3>
+        <p class="thesis">
+          The page is a browse surface, not a brochure. Search and filters sit above the fold and the
+          argument for the platform lives underneath the first screen of results. The grid varies its
+          rhythm on purpose: a wide lead item, an in flow explainer answering the question a browser
+          has at that exact moment, then the run. Mobile gets a thumb reachable action bar.
+        </p>
+        <p class="tech"><b>Type</b> Fraunces, Manrope &nbsp;·&nbsp; <b>Colour</b> bone, charcoal, ochre, forest</p>
+        <p class="tradeoff">
+          <b>Best if</b> most visitors arrive wanting to see people, not read a pitch. <b>Costs you</b>
+          the story. The origin and the verification argument both drop below the fold.
+        </p>
+      </div>
+      <div class="open"><a href="landing-d.html">Open direction D</a></div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------- admin -->
+  <section class="group">
+    <div class="group-h">
+      <h2>Admin surface</h2>
+      <span>FOUR DIRECTIONS</span>
+    </div>
+
+    <div class="dir">
+      <div class="letter">A</div>
+      <div>
+        <h3>Ledger desk</h3>
+        <p class="thesis">
+          Reviewing is reading rows and comparing them, so the whole surface is one aligned ledger.
+          Counts are a ruled band rather than four tiles. The confirmation pipeline is drawn inline
+          as a five stage strip, and the CONFIRM guard appears in place rather than in a modal.
+        </p>
+        <p class="tech"><b>Shape</b> text rail, ruled band, dense tables, keyboard hints</p>
+        <p class="tradeoff">
+          <b>Best if</b> the team lives in this screen all day. <b>Costs you</b> onboarding. Dense
+          tables assume you already know the job.
+        </p>
+      </div>
+      <div class="open"><a href="dash-a.html">Open admin A</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">B</div>
+      <div>
+        <h3>Review queue</h3>
+        <p class="thesis">
+          There is no dashboard at all. A reviewer's day is one task repeated, so the product is the
+          task. Three independently scrolling panes: what is waiting, the application itself, and the
+          decision rail with a verification checklist and the note that goes into the applicant's
+          email. You land already working.
+        </p>
+        <p class="tech"><b>Shape</b> three pane inbox, no metrics, decision rail always visible</p>
+        <p class="tradeoff">
+          <b>Best if</b> throughput on applications is the bottleneck. <b>Costs you</b> oversight.
+          Nobody running the whole operation can see it from here.
+        </p>
+      </div>
+      <div class="open"><a href="dash-b.html">Open admin B</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">C</div>
+      <div>
+        <h3>Case file</h3>
+        <p class="thesis">
+          A decision that changes someone's life should not be taken from a row in a list. One
+          application fills the screen as a document. Evidence sits in the margin where you can check
+          it against the prose. Private fields stay redacted behind an "open and log" button, because
+          opening them is itself an audited act. The decision bar follows you down the file.
+        </p>
+        <p class="tech"><b>Shape</b> single document, margin evidence, sticky decision bar, provenance trail</p>
+        <p class="tradeoff">
+          <b>Best if</b> you want every approval to be considered and defensible. <b>Costs you</b>
+          speed. It is the slowest of the four by design.
+        </p>
+      </div>
+      <div class="open"><a href="dash-c.html">Open admin C</a></div>
+    </div>
+
+    <div class="dir">
+      <div class="letter">D</div>
+      <div>
+        <h3>Ops board</h3>
+        <p class="thesis">
+          One screen answering "what needs me today", ordered by what it costs someone if it waits.
+          Decisions first as wide rows, then the support pipeline with the confirmation gate drawn as
+          a physical barrier, then the health of the machinery: email delivery, how long people have
+          been waiting, abuse signals. Every bar is labelled. Nothing is a decorative chart.
+        </p>
+        <p class="tech"><b>Shape</b> stacked bands, consequence ordering, labelled bars, audit stream</p>
+        <p class="tradeoff">
+          <b>Best if</b> one person is accountable for the whole operation. <b>Costs you</b> focus.
+          The actual reviewing happens one click away.
+        </p>
+      </div>
+      <div class="open"><a href="dash-d.html">Open admin D</a></div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------- pairs -->
+  <section class="pairs">
+    <h2>How they pair</h2>
+    <p>
+      Each admin direction shares a type system and palette with its landing letter, so you can judge
+      a whole product rather than two unrelated pages. The pairings are not locked. Mixing is expected.
+    </p>
+    <table class="pairtable">
+      <thead><tr><th></th><th>PUBLIC</th><th>ADMIN</th><th>WHAT THE PAIR CLAIMS THE PRODUCT IS</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="nm">The Register</td><td class="nm">Ledger desk</td><td>A public record, kept properly</td></tr>
+        <tr><td>B</td><td class="nm">Market Day</td><td class="nm">Review queue</td><td>A movement with a working back office</td></tr>
+        <tr><td>C</td><td class="nm">Dossier</td><td class="nm">Case file</td><td>A verification body that publishes its findings</td></tr>
+        <tr><td>D</td><td class="nm">Kiosk</td><td class="nm">Ops board</td><td>A marketplace of people, run by one accountable team</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="next">
+    <h2>What I need from you to go further</h2>
+    <ol>
+      <li><b>The inspiration folder.</b> I could not find it anywhere on this machine. Drop the images in <span style="font-family:var(--mono);font-size:12.5px">design-lab/inspo/</span> and I will read every one before the next pass.</li>
+      <li><b>A direction, or parts of several.</b> "B's hero with C's redaction device and D's filter bar" is a perfectly good answer.</li>
+      <li><b>Photography.</b> Three of these four assume real photographs of business owners. Direction A is the only one that survives without them.</li>
+      <li><b>Who the site is for on arrival.</b> Someone deciding whether to trust this, or someone already ready to browse. That single answer separates C from D.</li>
+    </ol>
+  </section>
+
+</div>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a class="on" href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Admin B · Review queue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   ADMIN B — "Review queue"   (pairs with landing B)
+   Thesis: there is no dashboard. A reviewer's day is one task repeated, so the
+   product should be the task, not a summary of it. Three panes that scroll
+   independently: what is waiting, the thing itself, and the decision. Nothing
+   here is a metric tile. You land already working.
+   =========================================================================== */
+
+:root{
+  --bg:#f4f2ee;--pane:#fff;--pane-2:#faf9f6;
+  --ink:#141414;--ink-2:#585550;--ink-3:#8c8880;
+  --line:#e3e0d9;--line-2:#cbc7bd;
+  --indigo:#1b2e6b;--red:#c0361d;--green:#166043;--amber:#8a6410;
+  --sans:"Karla",system-ui,sans-serif;--mono:"DM Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+
+.shell{display:flex;flex-direction:column;height:100%;padding-bottom:36px}
+
+/* ------------------------------------------------------------- topbar --- */
+.top{display:flex;align-items:center;gap:16px;height:52px;padding:0 16px;background:var(--indigo);color:#dfe4f2;flex:0 0 auto}
+.top .mark{font-weight:700;font-size:16px;letter-spacing:-.02em;color:#fff}
+.top .mark span{color:#e8b33a}
+.top .crumb{font-family:var(--mono);font-size:11.5px;color:#9aa6c9}
+.top .find{margin-left:auto;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);padding:0 12px;height:32px;border-radius:2px;min-width:230px}
+.top .find input{border:0;outline:0;background:transparent;font:inherit;font-size:13px;color:#fff;width:100%}
+.top .find input::placeholder{color:#8f9cc2}
+.top .me{display:flex;align-items:center;gap:8px;font-size:13px}
+.top .me b{color:#fff;font-weight:600}
+.top .me em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:#9aa6c9;border:1px solid #3c4d85;padding:2px 6px}
+@media(max-width:900px){.top .find{display:none}}
+
+.sample{flex:0 0 auto;background:#fdf4e3;border-bottom:1px solid var(--line);padding:6px 16px;font-family:var(--mono);font-size:11px;color:#8a6410}
+
+/* -------------------------------------------------------------- panes --- */
+.panes{flex:1 1 auto;display:grid;grid-template-columns:290px minmax(0,1fr) 340px;min-height:0}
+@media(max-width:1120px){.panes{grid-template-columns:250px minmax(0,1fr)}.pane-c{display:none}}
+@media(max-width:760px){.panes{grid-template-columns:1fr}.pane-a{display:none}}
+.pane{min-height:0;overflow-y:auto;background:var(--pane)}
+.pane-a{border-right:1px solid var(--line);background:var(--pane-2)}
+.pane-c{border-left:1px solid var(--line);background:var(--pane-2)}
+
+/* pane A: the queue */
+.tabs{display:flex;position:sticky;top:0;background:var(--pane-2);border-bottom:1px solid var(--line);z-index:2}
+.tabs button{flex:1;border:0;background:transparent;padding:11px 6px;font-size:12.5px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--indigo)}
+.qmeta{padding:9px 14px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.q{display:block;padding:12px 14px;border-bottom:1px solid var(--line);text-decoration:none;border-left:3px solid transparent}
+.q:hover{background:#f2efe9}
+.q[aria-current="true"]{background:var(--pane);border-left-color:var(--indigo)}
+.q .r1{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.q .n{font-weight:700;font-size:14px;letter-spacing:-.01em;line-height:1.25}
+.q .age{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.q .age.late{color:var(--red)}
+.q .r2{margin-top:4px;font-size:12px;color:var(--ink-2)}
+.q .r3{margin-top:7px;display:flex;align-items:center;gap:7px}
+.pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;padding:2px 6px;border:1px solid currentColor}
+.p-sub{color:var(--ink-2)}.p-rev{color:var(--amber)}.p-info{color:var(--ink-3)}
+.q .docs{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+
+/* pane B: the application */
+.doc{padding:22px 30px 40px;max-width:760px}
+.doc h1{font-size:25px;font-weight:700;letter-spacing:-.025em;line-height:1.15}
+.doc .sub{margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.doc .strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.fact{font-family:var(--mono);font-size:11px;padding:4px 9px;background:var(--pane-2);border:1px solid var(--line)}
+.fact b{font-weight:500;color:var(--ink-3)}
+
+.block{margin-top:24px}
+.block h2{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.block p{margin-top:8px;font-size:14.5px;line-height:1.68;color:var(--ink);max-width:66ch;white-space:pre-line}
+
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+@media(max-width:600px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.shots div{aspect-ratio:4/3;background:var(--pane-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+
+.docs-list{margin-top:10px;border:1px solid var(--line)}
+.docs-list .d{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px}
+.docs-list .d:last-child{border-bottom:0}
+.docs-list .d .k{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);width:130px;flex:0 0 auto}
+.docs-list .d .v{flex:1;min-width:0}
+.docs-list .d a{font-family:var(--mono);font-size:11px;text-decoration:none;border:1px solid var(--line-2);padding:4px 9px;background:var(--pane)}
+.docs-list .d a:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.private{font-family:var(--mono);font-size:10px;color:var(--red);border:1px solid var(--red);padding:2px 6px;flex:0 0 auto}
+
+/* pane C: the decision */
+.dec{padding:16px 16px 30px}
+.dec h2{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--ink-3);text-transform:uppercase}
+.check{margin-top:10px;border:1px solid var(--line);background:var(--pane)}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.check label:last-child{border-bottom:0}
+.check input{margin-top:3px;accent-color:var(--indigo);flex:0 0 auto}
+.check span small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-top:2px}
+
+.dec textarea{width:100%;margin-top:9px;min-height:96px;resize:vertical;font:inherit;font-size:13px;padding:10px;border:1px solid var(--line-2);background:var(--pane);outline:0}
+.dec textarea:focus{border-color:var(--indigo)}
+.hint{margin-top:7px;font-family:var(--mono);font-size:10px;color:var(--ink-3);line-height:1.6}
+
+.warn{margin-top:16px;border-left:3px solid var(--amber);background:#fdf6e6;padding:10px 12px;font-size:12.5px;color:#7a5a12;line-height:1.55}
+
+.buttons{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.b{display:block;width:100%;text-align:center;padding:11px 14px;border:1px solid var(--ink);background:transparent;font-size:13.5px;font-weight:600;text-decoration:none;transition:background .13s ease,color .13s ease,border-color .13s ease}
+.b-approve{background:var(--green);border-color:var(--green);color:#fff}
+.b-approve:hover{background:#0f4c34}
+.b-info{background:var(--pane);color:var(--ink)}
+.b-info:hover{background:var(--ink);color:#fff}
+.b-reject{background:transparent;border-color:var(--red);color:var(--red)}
+.b-reject:hover{background:var(--red);color:#fff}
+.dec .who{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:#141414;color:#a8a49b;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:500;margin-right:10px}
+.lab a{color:#a8a49b;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#3d3b36}
+.lab a.on{color:#fff;border-color:#5a5750;background:#252420}
+.lab .sep{width:1px;height:14px;background:#3d3b36;margin:0 8px}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="top">
+    <div class="mark">AJO<span>MERCY</span></div>
+    <div class="crumb">Review / Applications / APP-0141</div>
+    <label class="find"><input type="search" placeholder="Find a business, reference or email"></label>
+    <div class="me"><b>Woli Arole</b><em>SUPER ADMIN</em></div>
+  </header>
+
+  <div class="sample">Design sample. Every application, name and figure below is placeholder data for layout purposes only.</div>
+
+  <div class="panes">
+
+    <!-- ------------------------------------------------------- pane A -->
+    <aside class="pane pane-a">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true">Waiting 14</button>
+        <button role="tab" aria-selected="false">Mine 2</button>
+        <button role="tab" aria-selected="false">Info 3</button>
+      </div>
+      <div class="qmeta"><span>OLDEST FIRST</span><span>14 ITEMS</span></div>
+
+      <a class="q" href="#">
+        <div class="r1"><span class="n">Placeholder Business One</span><span class="age late">9d</span></div>
+        <div class="r2">Food and drink · Lagos</div>
+        <div class="r3"><span class="pill p-sub">SUBMITTED</span><span class="docs">3 documents</span></div>
+      </a>
+
+      <a class="q" href="#" aria-current="true">
+        <div class="r1"><span class="n">Placeholder Business Two</span><span class="age late">7d</span></div>
+        <div class="r2">Tailoring · Oyo</div>
+        <div class="r3"><span class="pill p-rev">UNDER REVIEW</span><span class="docs">2 documents</span></div>
+      </a>
+
+      <a class="q" href="#">
+        <div class="r1"><span class="n">Placeholder Business Three</span><span class="age">4d</span></div>
+        <div class="r2">Retail · Kano</div>
+        <div class="r3"><span class="pill p-info">NEEDS MORE INFO</span><span class="docs">1 document</span></div>
+      </a>
+
+      <a class="q" href="#">
+        <div class="r1"><span class="n">Placeholder Business Four</span><span class="age">2d</span></div>
+        <div class="r2">Services · Rivers</div>
+        <div class="r3"><span class="pill p-sub">SUBMITTED</span><span class="docs">3 documents</span></div>
+      </a>
+
+      <a class="q" href="#">
+        <div class="r1"><span class="n">Placeholder Business Five</span><span class="age">1d</span></div>
+        <div class="r2">Farming · Enugu</div>
+        <div class="r3"><span class="pill p-sub">SUBMITTED</span><span class="docs">4 documents</span></div>
+      </a>
+
+      <a class="q" href="#">
+        <div class="r1"><span class="n">Placeholder Business Six</span><span class="age">18h</span></div>
+        <div class="r2">Retail · Kaduna</div>
+        <div class="r3"><span class="pill p-sub">SUBMITTED</span><span class="docs">2 documents</span></div>
+      </a>
+    </aside>
+
+    <!-- ------------------------------------------------------- pane B -->
+    <main class="pane">
+      <div class="doc">
+        <h1>Placeholder Business Two</h1>
+        <div class="sub">APP/0141 · submitted 7 days ago · taken by Woli Arole</div>
+
+        <div class="strip">
+          <span class="fact"><b>FOUNDER</b> Placeholder Name</span>
+          <span class="fact"><b>CATEGORY</b> Tailoring</span>
+          <span class="fact"><b>LOCATION</b> Placeholder area, Oyo</span>
+          <span class="fact"><b>STARTED</b> Not set</span>
+          <span class="fact"><b>SEEKING</b> Not set</span>
+        </div>
+
+        <section class="block">
+          <h2>Their story</h2>
+          <p>Placeholder text standing in for what the owner wrote about the business. In the real application this is their own words, with a minimum length enforced at submission so a reviewer has something to actually read.</p>
+        </section>
+
+        <section class="block">
+          <h2>What is in the way</h2>
+          <p>Placeholder text standing in for the current challenge the owner described.</p>
+        </section>
+
+        <section class="block">
+          <h2>What support would enable</h2>
+          <p>Placeholder text standing in for what the owner said support would let them do.</p>
+        </section>
+
+        <section class="block">
+          <h2>Photographs</h2>
+          <div class="shots"><div>business photo</div><div>business photo</div><div>profile photo</div></div>
+        </section>
+
+        <section class="block">
+          <h2>Documents and private fields</h2>
+          <div class="docs-list">
+            <div class="d"><span class="k">IDENTITY DOC</span><span class="v">placeholder-id.jpg</span><span class="private">NEVER PUBLISHED</span><a href="#">View</a></div>
+            <div class="d"><span class="k">PROOF OF BUSINESS</span><span class="v">placeholder-proof.pdf</span><span class="private">NEVER PUBLISHED</span><a href="#">View</a></div>
+            <div class="d"><span class="k">HOME ADDRESS</span><span class="v">Placeholder address</span><span class="private">NEVER PUBLISHED</span></div>
+            <div class="d"><span class="k">PERSONAL PHONE</span><span class="v">Placeholder number</span><span class="private">NEVER PUBLISHED</span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ------------------------------------------------------- pane C -->
+    <aside class="pane pane-c">
+      <div class="dec">
+        <h2>Before you decide</h2>
+        <div class="check">
+          <label><input type="checkbox"><span>Identity document matches the founder name<small>opened and read</small></span></label>
+          <label><input type="checkbox"><span>Business appears to exist and to be theirs<small>proof document or photographs</small></span></label>
+          <label><input type="checkbox"><span>Story is written by the applicant<small>not copied from another profile</small></span></label>
+          <label><input type="checkbox"><span>No duplicate account or shared device signal<small>see risk signals</small></span></label>
+        </div>
+
+        <h2 style="margin-top:18px">Note to the applicant</h2>
+        <textarea placeholder="This text is sent to them in the decision email. Write it as if you are speaking to a person, because you are."></textarea>
+        <p class="hint">Required when requesting information or rejecting. Optional on approval.</p>
+
+        <div class="warn">
+          Approving publishes their public profile immediately and sends the approval email. It does
+          not select them for support and it promises them nothing.
+        </div>
+
+        <div class="buttons">
+          <button class="b b-approve">Approve and publish</button>
+          <button class="b b-info">Request more information</button>
+          <button class="b b-reject">Reject</button>
+        </div>
+
+        <p class="who">
+          Acting as Woli Arole, super admin.<br>
+          Every decision is written to the audit log with your account attached.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a class="on" href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

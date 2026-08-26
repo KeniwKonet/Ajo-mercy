@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Direction B · Market Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   DIRECTION B — "Market Day"
+   Thesis: the loud half of the voice. Drawn from Nigerian market signage and
+   adire block colour: flat, saturated, hand-painted confidence. No gradient
+   appears anywhere in this file. Colour is applied in full-bleed slabs and
+   type is the loudest element on the page, which is what a market stall does.
+   =========================================================================== */
+
+:root{
+  --indigo:#1b2e6b;
+  --indigo-d:#132250;
+  --red:#d93a1f;
+  --cream:#f5e9d0;
+  --cream-d:#eadcbc;
+  --green:#0e5138;
+  --black:#101010;
+  --display:"Archivo Black",system-ui,sans-serif;
+  --body:"Karla",system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--cream);color:var(--black);
+  font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 26px}
+.display{font-family:var(--display);letter-spacing:-.02em;line-height:.92;text-transform:none}
+
+/* ----------------------------------------------------------------- bar -- */
+.bar{background:var(--indigo);color:var(--cream)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:62px}
+.mark{font-family:var(--display);font-size:21px;letter-spacing:-.02em}
+.mark span{color:var(--red);background:var(--cream);padding:0 6px;margin-left:2px}
+.bar nav{display:flex;gap:4px;font-weight:700;font-size:13.5px}
+.bar nav a{text-decoration:none;padding:7px 12px}
+.bar nav a:hover{background:var(--red);color:#fff}
+@media(max-width:760px){.bar nav{display:none}}
+
+/* ---------------------------------------------------------------- hero -- */
+/* Asymmetric slab split. The right slab is not decoration: it carries the
+   three steps, so the loudest colour on the page is doing work. */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media(max-width:940px){.hero{grid-template-columns:1fr}}
+
+.hero-l{background:var(--cream);padding:70px 26px 64px;display:flex;align-items:center;justify-content:flex-end}
+.hero-l-in{max-width:620px;width:100%}
+.hero-l h1{font-family:var(--display);font-size:clamp(44px,6.6vw,92px);line-height:.9;letter-spacing:-.03em}
+.hero-l h1 .hit{background:var(--red);color:var(--cream);padding:0 .12em;display:inline-block}
+.hero-l p{margin-top:26px;max-width:44ch;font-size:17.5px;line-height:1.5}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.slab{
+  display:inline-block;font-family:var(--display);font-size:15px;letter-spacing:-.01em;
+  padding:15px 26px;text-decoration:none;border:3px solid var(--black);
+  box-shadow:6px 6px 0 var(--black);
+  transition:transform .1s ease,box-shadow .1s ease;
+}
+.slab:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--black)}
+.slab-red{background:var(--red);color:#fff}
+.slab-cream{background:var(--cream);color:var(--black)}
+.fine{margin-top:20px;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+
+.hero-r{background:var(--indigo);color:var(--cream);padding:56px 40px}
+@media(max-width:940px){.hero-r{padding:44px 26px}}
+.hero-r .step{padding:24px 0;border-top:2px solid rgba(245,233,208,.24)}
+.hero-r .step:first-child{border-top:0;padding-top:0}
+.hero-r .step .n{font-family:var(--display);font-size:40px;line-height:1;color:var(--red)}
+.hero-r .step h3{font-family:var(--display);font-size:19px;margin-top:8px;letter-spacing:-.01em}
+.hero-r .step p{margin-top:6px;font-size:14.5px;line-height:1.5;color:#c2cbe4;max-width:40ch}
+
+/* --------------------------------------------------------------- band --- */
+/* The moving band repeats the single most important sentence in the product.
+   Repetition is the message, not an animation for its own sake. */
+.band{background:var(--green);color:var(--cream);overflow:hidden;padding:13px 0;border-top:4px solid var(--black);border-bottom:4px solid var(--black)}
+.band-track{display:flex;gap:0;width:max-content;animation:slide 34s linear infinite}
+.band-track span{font-family:var(--display);font-size:15px;letter-spacing:.01em;padding:0 26px;white-space:nowrap}
+.band-track span::after{content:"✳";color:var(--red);margin-left:26px}
+@keyframes slide{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.band-track{animation:none}}
+
+/* ------------------------------------------------------------ the stalls */
+.stalls .wrap{padding:64px 26px 20px}
+.head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.head-row h2{font-family:var(--display);font-size:clamp(30px,4.2vw,52px);line-height:.94;letter-spacing:-.025em}
+.head-row a{font-family:var(--display);font-size:14px;text-decoration:none;border-bottom:4px solid var(--red);padding-bottom:2px}
+.note{font-family:var(--mono);font-size:12px;margin-top:18px;padding:8px 12px;background:var(--cream-d);display:inline-block}
+
+/* Deliberately uneven: one lead stall, then a run of narrow ones. A grid of
+   six identical boxes is the thing we are avoiding. */
+.stall-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:26px;padding-bottom:64px}
+@media(max-width:900px){.stall-grid{grid-template-columns:1fr}}
+.stall{border:3px solid var(--black);background:#fff;display:flex;flex-direction:column}
+.stall.lead{grid-column:span 2;flex-direction:row}
+@media(max-width:900px){.stall.lead{grid-column:span 1;flex-direction:column}}
+.stall .shot{background:var(--indigo);min-height:150px;flex:0 0 44%;display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--black)}
+.stall.lead .shot{border-bottom:0;border-right:3px solid var(--black);min-height:250px}
+@media(max-width:900px){.stall.lead .shot{border-right:0;border-bottom:3px solid var(--black)}}
+.stall .shot em{font-family:var(--mono);font-style:normal;font-size:11px;color:#8c9ac4}
+.stall .body{padding:20px;display:flex;flex-direction:column;flex:1}
+.stall h3{font-family:var(--display);font-size:22px;line-height:1.02;letter-spacing:-.015em}
+.stall.lead h3{font-size:30px}
+.stall .where{font-family:var(--mono);font-size:12px;margin-top:8px;color:#5a5a5a}
+.stall p{margin-top:12px;font-size:14.5px;line-height:1.5;flex:1}
+.stall .go{margin-top:18px;align-self:flex-start;font-family:var(--display);font-size:13px;text-decoration:none;background:var(--black);color:var(--cream);padding:9px 16px}
+.stall .go:hover{background:var(--red)}
+.tag{display:inline-block;font-family:var(--display);font-size:10.5px;letter-spacing:.04em;background:var(--red);color:#fff;padding:4px 8px;align-self:flex-start;margin-bottom:10px}
+
+/* -------------------------------------------------------------- origin -- */
+.origin{background:var(--indigo);color:var(--cream);border-top:4px solid var(--black)}
+.origin .wrap{padding:70px 26px}
+.origin blockquote{font-family:var(--display);font-size:clamp(26px,4vw,48px);line-height:1.02;letter-spacing:-.025em;max-width:20ch}
+.origin blockquote .hit{color:var(--red)}
+.origin-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px;margin-top:38px;max-width:900px}
+@media(max-width:760px){.origin-cols{grid-template-columns:1fr;gap:20px}}
+.origin-cols p{font-size:15.5px;line-height:1.62;color:#c2cbe4}
+.origin .go{display:inline-block;margin-top:32px;font-family:var(--display);font-size:14px;text-decoration:none;background:var(--cream);color:var(--indigo);padding:13px 22px;border:3px solid var(--black);box-shadow:6px 6px 0 var(--black)}
+
+/* --------------------------------------------------------------- trust -- */
+.trust .wrap{padding:64px 26px 40px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:end}
+@media(max-width:860px){.trust .wrap{grid-template-columns:1fr;gap:18px;padding-bottom:32px}}
+.trust h2{font-family:var(--display);font-size:clamp(30px,4.4vw,56px);line-height:.94;letter-spacing:-.028em}
+.trust .lead{max-width:46ch;font-size:16.5px;line-height:1.55;padding-bottom:6px}
+.trust-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:4px solid var(--black)}
+@media(max-width:860px){.trust-row{grid-template-columns:1fr}}
+.trust-cell{padding:26px 26px 30px;border-right:3px solid var(--black)}
+.trust-cell:last-child{border-right:0}
+@media(max-width:860px){.trust-cell{border-right:0;border-bottom:3px solid var(--black)}}
+.trust-cell:nth-child(1){background:var(--cream-d)}
+.trust-cell:nth-child(2){background:var(--red);color:#fff}
+.trust-cell:nth-child(3){background:var(--green);color:var(--cream)}
+.trust-cell h3{font-family:var(--display);font-size:20px;line-height:1.06;letter-spacing:-.015em}
+.trust-cell p{margin-top:12px;font-size:14.5px;line-height:1.55}
+
+/* -------------------------------------------------------------- routes -- */
+.routes{border-top:4px solid var(--black);display:grid;grid-template-columns:1.2fr 1fr 1fr}
+@media(max-width:860px){.routes{grid-template-columns:1fr}}
+.route{padding:44px 30px 50px;border-right:3px solid var(--black)}
+.route:last-child{border-right:0}
+@media(max-width:860px){.route{border-right:0;border-bottom:3px solid var(--black)}}
+.route:nth-child(1){background:var(--cream)}
+.route:nth-child(2){background:var(--cream-d)}
+.route:nth-child(3){background:#e0d0ab}
+.route h3{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);line-height:1;letter-spacing:-.02em}
+.route p{margin-top:14px;font-size:15px;line-height:1.55;max-width:36ch}
+.route .go{display:inline-block;margin-top:22px;font-family:var(--display);font-size:13.5px;text-decoration:none;border-bottom:5px solid var(--red);padding-bottom:2px}
+
+/* -------------------------------------------------------------- footer -- */
+footer{background:var(--black);color:#c9c4bb;border-top:4px solid var(--red)}
+footer .wrap{padding:40px 26px 48px;display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+footer .mark{color:var(--cream)}
+footer p{max-width:52ch;font-family:var(--mono);font-size:12.5px;line-height:1.6}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:#101010;color:#a9a49b;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:500;margin-right:10px}
+.lab a{color:#a9a49b;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#3a3a3a}
+.lab a.on{color:#fff;border-color:#565656;background:#242424}
+.lab .sep{width:1px;height:14px;background:#3a3a3a;margin:0 8px}
+body{padding-bottom:52px}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="mark">AJO<span>MERCY</span></div>
+    <nav>
+      <a href="#stalls">Businesses</a>
+      <a href="#origin">Story</a>
+      <a href="#trust">Verification</a>
+      <a href="#routes">Apply</a>
+      <a href="#">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-l">
+    <div class="hero-l-in">
+      <h1>Find a business worth <span class="hit">backing</span>.</h1>
+      <p>
+        Nigerian business owners tell us what they are building and what is in the way.
+        We check it. Then people and brands who want to help choose who to back.
+      </p>
+      <div class="hero-cta">
+        <a class="slab slab-red" href="#stalls">Browse businesses</a>
+        <a class="slab slab-cream" href="#routes">Apply as a business</a>
+      </div>
+      <p class="fine">Free to apply. Registering does not guarantee selection or support.</p>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="step">
+      <div class="n">1</div>
+      <h3>A business applies</h3>
+      <p>Owner, business, documents, and the story behind it.</p>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <h3>A person reviews it</h3>
+      <p>Woli Arole and the Ajo Mercy team check every application by hand. Nothing goes live automatically.</p>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <h3>Supporters choose</h3>
+      <p>Individuals and brands pick who they want to back. We confirm before anyone is told they have been supported.</p>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-track">
+    <span>WE NEVER TOUCH THE MONEY</span><span>SUPPORT IS ARRANGED DIRECTLY</span><span>SELECTION IS NOT CONFIRMATION</span>
+    <span>WE NEVER TOUCH THE MONEY</span><span>SUPPORT IS ARRANGED DIRECTLY</span><span>SELECTION IS NOT CONFIRMATION</span>
+  </div>
+</div>
+
+<section class="stalls" id="stalls">
+  <div class="wrap">
+    <div class="head-row">
+      <h2>The businesses</h2>
+      <a href="#">Browse all</a>
+    </div>
+    <p class="note">Design sample. Every business below is a placeholder. Real profiles come from the database.</p>
+
+    <div class="stall-grid">
+      <article class="stall lead">
+        <div class="shot"><em>photograph</em></div>
+        <div class="body">
+          <span class="tag">FEATURED</span>
+          <h3>Placeholder Business One</h3>
+          <div class="where">Placeholder area, Lagos · Food and drink</div>
+          <p>Two or three lines in the owner's own words about what they make, who buys it, and what is standing in the way right now.</p>
+          <a class="go" href="#">Read the profile</a>
+        </div>
+      </article>
+
+      <article class="stall">
+        <div class="shot"><em>photograph</em></div>
+        <div class="body">
+          <h3>Placeholder Business Two</h3>
+          <div class="where">Placeholder area, Oyo</div>
+          <p>A short line in the owner's own words.</p>
+          <a class="go" href="#">Read the profile</a>
+        </div>
+      </article>
+
+      <article class="stall">
+        <div class="shot"><em>photograph</em></div>
+        <div class="body">
+          <h3>Placeholder Business Three</h3>
+          <div class="where">Placeholder area, Kano</div>
+          <p>A short line in the owner's own words.</p>
+          <a class="go" href="#">Read the profile</a>
+        </div>
+      </article>
+
+      <article class="stall">
+        <div class="shot"><em>photograph</em></div>
+        <div class="body">
+          <h3>Placeholder Business Four</h3>
+          <div class="where">Placeholder area, Rivers</div>
+          <p>A short line in the owner's own words.</p>
+          <a class="go" href="#">Read the profile</a>
+        </div>
+      </article>
+
+      <article class="stall">
+        <div class="shot"><em>photograph</em></div>
+        <div class="body">
+          <h3>Placeholder Business Five</h3>
+          <div class="where">Placeholder area, Enugu</div>
+          <p>A short line in the owner's own words.</p>
+          <a class="go" href="#">Read the profile</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="origin" id="origin">
+  <div class="wrap">
+    <blockquote>
+      Who actually needs the money, and how do I <span class="hit">know</span> they are real?
+    </blockquote>
+    <div class="origin-cols">
+      <p>
+        An argument about Ajo turned into a queue of people asking the same question. Brands started
+        calling. Individuals started offering. Business owners started sending DMs. None of it had a
+        system behind it, so most of it went nowhere.
+      </p>
+      <p>
+        Ajo Mercy is the system. Applications get read. Documents get checked. Businesses that pass
+        get a profile with their real story on it. Supporters and brands choose from those, and no one
+        is told they have been supported until the team has confirmed it.
+      </p>
+    </div>
+    <a class="go" href="#">Read the full process</a>
+  </div>
+</section>
+
+<section class="trust" id="trust">
+  <div class="wrap">
+    <h2>Verification is the whole product.</h2>
+    <p class="lead">
+      Anyone can build a page that collects names. The hard part is knowing that the business on the
+      other end is real, that the story is theirs, and that support reaches the person it was meant for.
+    </p>
+  </div>
+  <div class="trust-row">
+    <div class="trust-cell">
+      <h3>Reviewed by a person, not a filter</h3>
+      <p>Woli Arole is the Super Admin. He and the review team see every application, every document and every photograph before a profile goes live.</p>
+    </div>
+    <div class="trust-cell">
+      <h3>Selection is not confirmation</h3>
+      <p>When a supporter picks a business, that business is told it is under consideration. Only after the team confirms does anyone hear the word confirmed.</p>
+    </div>
+    <div class="trust-cell">
+      <h3>We never touch the money</h3>
+      <p>Ajo Mercy does not hold, escrow or transfer funds. Support is arranged directly, and we stay in the loop to make sure it lands.</p>
+    </div>
+  </div>
+</section>
+
+<section class="routes" id="routes">
+  <div class="route">
+    <h3>You run a business</h3>
+    <p>Tell us what you are building and what is in the way. Applications are read in the order they arrive.</p>
+    <a class="go" href="#">Apply as an Alajo</a>
+  </div>
+  <div class="route">
+    <h3>You want to help</h3>
+    <p>Register, get approved, then choose the businesses you want to back.</p>
+    <a class="go" href="#">Support a business</a>
+  </div>
+  <div class="route">
+    <h3>You represent a brand</h3>
+    <p>Set a budget, tell us what you are looking for, and pick from verified businesses.</p>
+    <a class="go" href="#">Register your brand</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mark">AJO<span>MERCY</span></div>
+    <p>
+      Ajo Mercy does not process, hold, custody, escrow or transfer support funds.
+      Registering does not guarantee selection or support.
+    </p>
+  </div>
+</footer>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a class="on" href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

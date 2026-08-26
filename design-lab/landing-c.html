@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Direction C · Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   DIRECTION C — "Dossier"
+   Thesis: the restrained half of the voice. If verification is the product,
+   the page should read like the artefact verification produces: a case file.
+   Numbered sections, a persistent metadata rail, mono field labels, and
+   redaction bars that show what the platform deliberately does not publish.
+   The redaction device is the argument. Nothing else on the page shouts.
+   =========================================================================== */
+
+:root{
+  --paper:#f2f1ed;
+  --paper-2:#e9e8e2;
+  --card:#fbfbf9;
+  --ink:#1a1a18;
+  --ink-2:#57554e;
+  --ink-3:#8b887f;
+  --line:#dcdad2;
+  --line-2:#c2bfb4;
+  --stamp:#9b2c1e;
+  --verified:#2f5842;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 26px}
+
+.doc{display:grid;grid-template-columns:196px minmax(0,1fr);gap:0}
+@media(max-width:920px){.doc{grid-template-columns:1fr}}
+.rail{border-right:1px solid var(--line);padding:22px 26px 60px 0}
+@media(max-width:920px){.rail{border-right:0;border-bottom:1px solid var(--line);padding:16px 0}}
+.rail-sticky{position:sticky;top:22px}
+.field{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink-3);margin-bottom:14px}
+.field b{display:block;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+.body-col{padding:22px 0 0 40px;min-width:0}
+@media(max-width:920px){.body-col{padding-left:0}}
+
+/* -------------------------------------------------------------- header -- */
+.top{border-bottom:1px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+.mark{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-.01em}
+.mark em{font-style:italic;color:var(--stamp)}
+.top nav{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.top nav a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+.top nav a:hover{border-bottom-color:var(--ink);color:var(--ink)}
+@media(max-width:760px){.top nav{display:none}}
+.docref{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* ---------------------------------------------------------------- open -- */
+h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(32px,4.4vw,54px);line-height:1.04;letter-spacing:-.02em;max-width:16ch;
+}
+.abstract{
+  margin-top:22px;max-width:56ch;font-family:var(--serif);
+  font-size:17.5px;line-height:1.6;color:var(--ink-2);
+}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{
+  display:inline-block;font-family:var(--mono);font-size:12.5px;letter-spacing:-.01em;
+  padding:10px 18px;text-decoration:none;border:1px solid var(--ink);
+  transition:background .14s ease,color .14s ease;
+}
+.btn-fill{background:var(--ink);color:var(--paper)}
+.btn-fill:hover{background:var(--stamp);border-color:var(--stamp)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.caveat{
+  margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+  border-left:2px solid var(--line-2);padding-left:12px;max-width:52ch;line-height:1.65;
+}
+
+/* ------------------------------------------------------------- section -- */
+.sec{margin-top:56px;padding-top:16px;border-top:1px solid var(--ink)}
+.sec-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sec-h .num{font-family:var(--mono);font-size:12px;color:var(--stamp)}
+.sec-h h2{font-family:var(--serif);font-weight:500;font-size:24px;letter-spacing:-.014em}
+.sec-h .aside{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* §1 procedure */
+.proc{margin-top:22px;counter-reset:p}
+.proc li{
+  list-style:none;display:grid;grid-template-columns:70px 1fr;gap:16px;
+  padding:16px 0;border-bottom:1px dashed var(--line);
+}
+.proc li .pn{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding-top:3px}
+.proc li h3{font-family:var(--serif);font-size:17px;font-weight:500}
+.proc li p{margin-top:4px;font-size:14px;color:var(--ink-2);max-width:58ch}
+
+/* §2 entries with redaction */
+.samplebar{
+  margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  background:var(--paper-2);padding:8px 12px;
+}
+.entry{border:1px solid var(--line);background:var(--card);margin-top:16px}
+.entry-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.entry-h h3{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-.01em}
+.entry-h .ref{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.chip{
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;padding:3px 7px;
+  border:1px solid var(--verified);color:var(--verified);margin-left:auto;
+}
+.rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:700px){.rows{grid-template-columns:1fr}}
+.row{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);min-width:0}
+.rows .row:nth-child(2n){border-right:0}
+.row dt{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.02em;padding-top:2px}
+.row dd{font-size:14px;color:var(--ink);min-width:0}
+.full{grid-column:1/-1;border-right:0}
+.full dd{color:var(--ink-2);line-height:1.6}
+
+/* The redaction bar is the whole thesis, rendered. These fields exist, they
+   are checked, and they are never published. */
+.redact{
+  display:inline-block;background:var(--ink);color:transparent;
+  padding:2px 0;width:100%;max-width:190px;height:16px;vertical-align:middle;
+  position:relative;
+}
+.redact-note{font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:10px;white-space:nowrap}
+.entry-f{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 18px;background:var(--paper-2)}
+.entry-f a{font-family:var(--mono);font-size:12px;text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px}
+.entry-f a:hover{color:var(--stamp);border-bottom-color:var(--stamp)}
+.entry-f span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+
+/* §3 prose with sidenotes */
+.prose{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:34px}
+@media(max-width:820px){.prose{grid-template-columns:1fr;gap:16px}}
+.prose-main{max-width:62ch}
+.prose-main .q{font-family:var(--serif);font-size:22px;line-height:1.4;letter-spacing:-.01em}
+.prose-main p+p{margin-top:15px}
+.prose-main .run{font-size:15px;line-height:1.68;color:var(--ink-2)}
+.prose-main .run:first-of-type{margin-top:20px}
+.sidenote{font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px}
+.sidenote+.sidenote{margin-top:18px}
+
+/* §4 clauses */
+.clause{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.clause .cn{font-family:var(--mono);font-size:11px;color:var(--stamp);padding-top:3px}
+.clause h3{font-family:var(--serif);font-size:17px;font-weight:500}
+.clause p{margin-top:4px;font-size:14px;color:var(--ink-2);max-width:60ch}
+
+/* §5 routes */
+.routes{margin-top:22px;border:1px solid var(--line);background:var(--card)}
+.route{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) 170px;gap:20px;align-items:center;padding:18px;border-bottom:1px solid var(--line)}
+.route:last-child{border-bottom:0}
+@media(max-width:760px){.route{grid-template-columns:1fr;gap:6px;align-items:start}}
+.route h3{font-family:var(--serif);font-size:17px;font-weight:500}
+.route p{font-size:13.5px;color:var(--ink-2)}
+.route a{justify-self:end;font-family:var(--mono);font-size:12px;text-decoration:none;border:1px solid var(--ink);padding:8px 14px;white-space:nowrap}
+@media(max-width:760px){.route a{justify-self:start;margin-top:6px}}
+.route a:hover{background:var(--ink);color:var(--paper)}
+
+/* -------------------------------------------------------------- notice -- */
+.notice{
+  margin:48px 0 0;border:1px solid var(--stamp);padding:16px 18px;background:#fdf4f2;
+}
+.notice p{font-family:var(--mono);font-size:12px;line-height:1.7;color:#7d2417}
+footer{margin-top:44px;border-top:1px solid var(--ink)}
+footer .inner{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;padding:20px 0 40px;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:var(--ink);color:#a8a49b;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:500;margin-right:10px}
+.lab a{color:#a8a49b;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#413f39}
+.lab a.on{color:#fff;border-color:#5d5a51;background:#2a2823}
+.lab .sep{width:1px;height:14px;background:#413f39;margin:0 8px}
+body{padding-bottom:52px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">Ajo <em>Mercy</em></div>
+    <nav>
+      <a href="#s2">Register</a>
+      <a href="#s1">Method</a>
+      <a href="#s4">Safeguards</a>
+      <a href="#s5">Apply</a>
+    </nav>
+    <div class="docref">Sign in</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="doc">
+
+    <aside class="rail">
+      <div class="rail-sticky">
+        <div class="field"><b>Document</b>Public summary</div>
+        <div class="field"><b>Issued by</b>Ajo Mercy review team</div>
+        <div class="field"><b>Custodian of funds</b>None. The platform holds no money at any point.</div>
+        <div class="field"><b>Contents</b>
+          §1 Method<br>
+          §2 The register<br>
+          §3 Origin<br>
+          §4 Safeguards<br>
+          §5 Apply
+        </div>
+      </div>
+    </aside>
+
+    <main class="body-col">
+
+      <h1>Find a business worth backing.</h1>
+      <p class="abstract">
+        Nigerian business owners tell us what they are building and what is in the way.
+        We check it. Then people and brands who want to help choose who to back.
+      </p>
+      <div class="acts">
+        <a class="btn btn-fill" href="#s2">Browse the register</a>
+        <a class="btn btn-line" href="#s5">Apply as a business</a>
+      </div>
+      <p class="caveat">
+        Free to apply. Registering does not guarantee selection or support, and a selection is not a
+        confirmation of support.
+      </p>
+
+      <!-- ------------------------------------------------------------ §1 -->
+      <section class="sec" id="s1">
+        <div class="sec-h">
+          <span class="num">§1</span>
+          <h2>Method</h2>
+          <span class="aside">Three stages. No stage is automatic.</span>
+        </div>
+        <ol class="proc">
+          <li>
+            <span class="pn">Stage 01</span>
+            <div>
+              <h3>A business applies</h3>
+              <p>Owner, business, documents, and the story behind it.</p>
+            </div>
+          </li>
+          <li>
+            <span class="pn">Stage 02</span>
+            <div>
+              <h3>A person reviews it</h3>
+              <p>Woli Arole and the Ajo Mercy team check every application by hand. Nothing goes live automatically.</p>
+            </div>
+          </li>
+          <li>
+            <span class="pn">Stage 03</span>
+            <div>
+              <h3>Supporters choose</h3>
+              <p>Individuals and brands pick who they want to back. We confirm before anyone is told they have been supported.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ------------------------------------------------------------ §2 -->
+      <section class="sec" id="s2">
+        <div class="sec-h">
+          <span class="num">§2</span>
+          <h2>The register</h2>
+          <span class="aside"><a href="#" style="color:inherit">Browse all</a></span>
+        </div>
+        <p class="samplebar">Design sample. Entries below are placeholders. Real records are read from the database.</p>
+
+        <article class="entry">
+          <div class="entry-h">
+            <h3>Placeholder Business One</h3>
+            <span class="ref">REG/0001</span>
+            <span class="chip">VERIFIED</span>
+          </div>
+          <dl class="rows">
+            <div class="row"><dt>Founder</dt><dd>Placeholder Name</dd></div>
+            <div class="row"><dt>Category</dt><dd>Food and drink</dd></div>
+            <div class="row"><dt>Location</dt><dd>Placeholder area, Lagos</dd></div>
+            <div class="row"><dt>Operating</dt><dd>Not set</dd></div>
+            <div class="row full"><dt>Story</dt><dd>Two or three lines in the owner's own words about what they make, who buys it, and what is standing in the way right now.</dd></div>
+            <div class="row full"><dt>Identity doc</dt><dd><span class="redact"></span><span class="redact-note">checked by the team, never published</span></dd></div>
+            <div class="row full"><dt>Home address</dt><dd><span class="redact" style="max-width:150px"></span><span class="redact-note">checked by the team, never published</span></dd></div>
+          </dl>
+          <div class="entry-f">
+            <span>Selection counts are not published for any entry.</span>
+            <a href="#">Read the full profile</a>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-h">
+            <h3>Placeholder Business Two</h3>
+            <span class="ref">REG/0002</span>
+            <span class="chip">VERIFIED</span>
+          </div>
+          <dl class="rows">
+            <div class="row"><dt>Founder</dt><dd>Placeholder Name</dd></div>
+            <div class="row"><dt>Category</dt><dd>Tailoring</dd></div>
+            <div class="row"><dt>Location</dt><dd>Placeholder area, Oyo</dd></div>
+            <div class="row"><dt>Operating</dt><dd>Not set</dd></div>
+            <div class="row full"><dt>Personal phone</dt><dd><span class="redact" style="max-width:130px"></span><span class="redact-note">checked by the team, never published</span></dd></div>
+          </dl>
+          <div class="entry-f">
+            <span>Selection counts are not published for any entry.</span>
+            <a href="#">Read the full profile</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- ------------------------------------------------------------ §3 -->
+      <section class="sec" id="s3">
+        <div class="sec-h">
+          <span class="num">§3</span>
+          <h2>Origin</h2>
+        </div>
+        <div class="prose">
+          <div class="prose-main">
+            <p class="q">
+              An argument about Ajo turned into a queue of people asking the same question: who
+              actually needs the money, and how do I know they are real?
+            </p>
+            <p class="run">
+              Brands started calling. Individuals started offering. Business owners started sending
+              DMs. None of it had a system behind it, so most of it went nowhere.
+            </p>
+            <p class="run">
+              Ajo Mercy is the system. Applications get read. Documents get checked. Businesses that
+              pass get a profile with their real story on it. Supporters and brands choose from those,
+              and no one is told they have been supported until the team has confirmed it.
+            </p>
+          </div>
+          <div>
+            <p class="sidenote">
+              The review team is named on the About page. Every decision is written to an audit log
+              with the reviewer attached.
+            </p>
+            <p class="sidenote">
+              Figures on the Impact page are counted from the database. Where a figure has not
+              happened yet, the page shows a dash rather than a zero dressed up as progress.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------ §4 -->
+      <section class="sec" id="s4">
+        <div class="sec-h">
+          <span class="num">§4</span>
+          <h2>Safeguards</h2>
+          <span class="aside">Verification is the whole product.</span>
+        </div>
+        <div class="clause">
+          <span class="cn">4.1</span>
+          <div>
+            <h3>Reviewed by a person, not a filter</h3>
+            <p>Woli Arole is the Super Admin. He and the review team see every application, every document and every photograph before a profile goes live.</p>
+          </div>
+        </div>
+        <div class="clause">
+          <span class="cn">4.2</span>
+          <div>
+            <h3>Selection is not confirmation</h3>
+            <p>When a supporter picks a business, that business is told it is under consideration. Only after the team confirms does anyone hear the word confirmed.</p>
+          </div>
+        </div>
+        <div class="clause">
+          <span class="cn">4.3</span>
+          <div>
+            <h3>We never touch the money</h3>
+            <p>Ajo Mercy does not hold, escrow or transfer funds. Support is arranged directly, and we stay in the loop to make sure it lands.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------ §5 -->
+      <section class="sec" id="s5">
+        <div class="sec-h">
+          <span class="num">§5</span>
+          <h2>Apply</h2>
+        </div>
+        <div class="routes">
+          <div class="route">
+            <h3>You run a business</h3>
+            <p>Tell us what you are building and what is in the way. Applications are read in the order they arrive.</p>
+            <a href="#">Apply as an Alajo</a>
+          </div>
+          <div class="route">
+            <h3>You want to help</h3>
+            <p>Register, get approved, then choose the businesses you want to back.</p>
+            <a href="#">Support a business</a>
+          </div>
+          <div class="route">
+            <h3>You represent a brand</h3>
+            <p>Set a budget, tell us what you are looking for, and pick from verified businesses.</p>
+            <a href="#">Register your brand</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="notice">
+        <p>
+          NOTICE. Ajo Mercy does not process, hold, custody, escrow or transfer support funds at any
+          point. Anyone asking you to send money to Ajo Mercy is not acting for Ajo Mercy. Report it
+          through the contact page.
+        </p>
+      </div>
+
+      <footer>
+        <div class="inner">
+          <span>Ajo Mercy</span>
+          <span>Registering does not guarantee selection or support.</span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a class="on" href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>

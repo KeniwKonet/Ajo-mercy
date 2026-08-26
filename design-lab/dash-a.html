@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajo Mercy · Admin A · Ledger desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&family=Archivo:wdth,wght@75..100,400..700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   ADMIN A — "Ledger desk"   (pairs with landing A)
+   Thesis: reviewing is reading rows and comparing them. So the whole surface
+   is one aligned ledger. No tiles, no cards, no widgets. Counts are a ruled
+   band, queues are tables, and the only coloured thing on the page is the
+   thing that needs a human decision.
+   =========================================================================== */
+
+:root{
+  --paper:#f6f1e7;--paper-2:#efe8d9;--white:#fffdf8;
+  --ink:#14110d;--ink-2:#544c40;--ink-3:#8a8073;
+  --rule:#d9cfba;--rule-2:#b8ab90;
+  --red:#a8271c;--green:#1c4231;--amber:#8a6410;
+  --serif:"Newsreader",Georgia,serif;--sans:"Archivo",system-ui,sans-serif;--mono:"Spline Sans Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.app{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:100vh}
+@media(max-width:900px){.app{grid-template-columns:1fr}}
+
+/* ----------------------------------------------------------------- rail -- */
+.rail{border-right:1px solid var(--rule);padding:18px 0 40px}
+@media(max-width:900px){.rail{border-right:0;border-bottom:1px solid var(--rule);padding-bottom:14px}}
+.rail .brand{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.015em;padding:0 18px 16px;border-bottom:1px solid var(--rule)}
+.rail .brand i{font-style:italic;color:var(--red)}
+.rail h4{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3);padding:18px 18px 6px}
+.rail a{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:6px 18px;text-decoration:none;color:var(--ink-2);border-left:2px solid transparent}
+.rail a:hover{color:var(--ink);background:var(--paper-2)}
+.rail a.on{color:var(--ink);font-weight:600;border-left-color:var(--red);background:var(--paper-2)}
+.rail a b{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-3)}
+.rail a.on b{color:var(--red)}
+.whoami{margin-top:22px;padding:14px 18px 0;border-top:1px solid var(--rule);font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-3)}
+.whoami b{display:block;color:var(--ink);font-weight:500}
+
+/* ----------------------------------------------------------------- main -- */
+.main{min-width:0;padding:0 26px 70px}
+.topline{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:20px 0 14px;border-bottom:1px solid var(--ink)}
+.topline h1{font-family:var(--serif);font-size:26px;font-weight:500;letter-spacing:-.018em}
+.topline .keys{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.topline .keys kbd{border:1px solid var(--rule-2);padding:1px 5px;background:var(--white);font:inherit}
+.sample{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:8px 0;border-bottom:1px solid var(--rule)}
+
+/* Counts as a ruled band, not four tiles. */
+.band{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+@media(max-width:900px){.band{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.band div{padding:18px 20px 20px 0;border-right:1px solid var(--rule)}
+.band div:last-child{border-right:0}
+.band .v{font-family:var(--mono);font-size:28px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1}
+.band .v.zero{color:var(--ink-3)}
+.band .l{margin-top:7px;font-size:12.5px;color:var(--ink-2)}
+.band .h{margin-top:2px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.band .urgent .v{color:var(--red)}
+
+/* --------------------------------------------------------------- tables -- */
+.sec{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:9px;border-bottom:1px solid var(--ink)}
+.sec-h h2{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.014em}
+.sec-h .tools{display:flex;gap:14px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.sec-h .tools a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px}
+.sec-h .tools a:hover,.sec-h .tools a.on{color:var(--ink);border-bottom-color:var(--red)}
+
+table{width:100%;border-collapse:collapse}
+thead th{font-family:var(--mono);font-size:10px;letter-spacing:.05em;font-weight:400;color:var(--ink-3);text-align:left;padding:11px 14px 9px 0;border-bottom:1px solid var(--rule)}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:hover{background:var(--paper-2)}
+.ref{width:88px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.who .n{font-family:var(--serif);font-size:16.5px;font-weight:500;line-height:1.2}
+.who .s{margin-top:3px;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.age{width:110px;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+.age.late{color:var(--red)}
+.rev{width:150px;font-size:13px;color:var(--ink-2)}
+.act{width:210px;text-align:right;white-space:nowrap}
+
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.04em;padding:2px 6px;border:1px solid currentColor}
+.t-sub{color:var(--ink-2)}
+.t-rev{color:var(--amber)}
+.t-info{color:var(--ink-3)}
+.t-ok{color:var(--green)}
+.t-no{color:var(--red)}
+
+.mini{font-family:var(--mono);font-size:11.5px;text-decoration:none;border:1px solid var(--rule-2);padding:5px 10px;background:var(--white);margin-left:6px;display:inline-block}
+.mini:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.mini.pri{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.mini.pri:hover{background:var(--red);border-color:var(--red)}
+.mini.danger:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ------------------------------------------------------- confirmations -- */
+/* The two stage guard, made visible. A selection is not a confirmation, and
+   the desk shows exactly which stage each one is at. */
+.pipe{display:flex;align-items:center;gap:0;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.pipe span{padding:3px 8px;border:1px solid var(--rule-2);border-right:0;background:var(--white)}
+.pipe span:last-child{border-right:1px solid var(--rule-2)}
+.pipe span.done{background:var(--green);border-color:var(--green);color:#e6efe9}
+.pipe span.now{background:var(--paper-2);border-color:var(--ink);color:var(--ink);font-weight:600}
+.pipe span.locked{color:#b3a998}
+
+.guard{margin-top:18px;border:1px solid var(--red);background:#fdf3f1;padding:16px 18px}
+.guard h3{font-family:var(--serif);font-size:16px;font-weight:500;color:var(--red)}
+.guard p{margin-top:6px;font-size:13px;color:#7d2417;max-width:70ch}
+.guard .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:13px}
+.guard input{font-family:var(--mono);font-size:12px;padding:8px 10px;border:1px solid var(--rule-2);background:var(--white);width:170px}
+.guard .mini.pri{background:var(--red);border-color:var(--red)}
+.guard .note{font-family:var(--mono);font-size:10.5px;color:#8a5b52}
+
+/* ------------------------------------------------------------- footings -- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:34px}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:26px}}
+.log{border-top:1px solid var(--ink)}
+.log .item{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.log .t{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.log .d{font-size:13px;color:var(--ink-2)}
+.log .d b{color:var(--ink);font-weight:600}
+.empty{padding:26px 0;font-size:13px;color:var(--ink-3);border-bottom:1px solid var(--rule)}
+
+/* ------------------------------------------------------------- mobile --- */
+/* A queue table is genuinely wide and squeezing it would cost the reviewer the
+   comparison the table exists for. So the table scrolls inside its own
+   container and the page itself never does. */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tscroll table{min-width:660px}
+@media(max-width:760px){
+  .topline .keys{display:none}
+  .band{grid-template-columns:1fr 1fr}
+  .band div{padding-right:14px}
+  .guard .row{gap:8px}
+  .guard input{width:100%}
+}
+
+/* ------------------------------------------------------------ switcher -- */
+.lab{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 14px;background:var(--ink);color:#cfc7ba;font-family:var(--mono);font-size:11px}
+.lab b{color:#fff;font-weight:400;margin-right:10px}
+.lab a{color:#cfc7ba;text-decoration:none;padding:3px 8px;border:1px solid transparent}
+.lab a:hover{color:#fff;border-color:#4a423a}
+.lab a.on{color:#fff;border-color:#6b6157;background:#2a251f}
+.lab .sep{width:1px;height:14px;background:#4a423a;margin:0 8px}
+body{padding-bottom:52px}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="rail">
+    <div class="brand">Ajo <i>Mercy</i></div>
+
+    <h4>REVIEW</h4>
+    <a class="on" href="#">Applications <b>14</b></a>
+    <a href="#">Needs more info <b>3</b></a>
+    <a href="#">Profiles <b>0</b></a>
+
+    <h4>SUPPORT</h4>
+    <a href="#">Selections <b>6</b></a>
+    <a href="#">Confirmations <b>2</b></a>
+    <a href="#">Campaigns <b>1</b></a>
+
+    <h4>OPERATIONS</h4>
+    <a href="#">Email log <b>2 failed</b></a>
+    <a href="#">Risk signals <b>1</b></a>
+    <a href="#">Audit log</a>
+    <a href="#">People</a>
+
+    <div class="whoami">
+      <b>Signed in</b>
+      Woli Arole<br>
+      Super admin<br>
+      All permissions
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topline">
+      <h1>The desk</h1>
+      <div class="keys">
+        <kbd>J</kbd> <kbd>K</kbd> move &nbsp; <kbd>Enter</kbd> open &nbsp; <kbd>A</kbd> approve &nbsp; <kbd>I</kbd> request info
+      </div>
+    </div>
+    <p class="sample">Design sample. Every figure and row below is placeholder data for layout purposes only.</p>
+
+    <div class="band">
+      <div class="urgent">
+        <div class="v">14</div>
+        <div class="l">Waiting on review</div>
+        <div class="h">oldest 9 days</div>
+      </div>
+      <div>
+        <div class="v">3</div>
+        <div class="l">Awaiting applicant</div>
+        <div class="h">info requested</div>
+      </div>
+      <div>
+        <div class="v zero">&ndash;</div>
+        <div class="l">Live profiles</div>
+        <div class="h">none approved yet</div>
+      </div>
+      <div>
+        <div class="v">6</div>
+        <div class="l">Selections</div>
+        <div class="h">not yet confirmed</div>
+      </div>
+      <div>
+        <div class="v zero">&ndash;</div>
+        <div class="l">Confirmed support</div>
+        <div class="h">counted from the database</div>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------------------- queue -->
+    <section class="sec">
+      <div class="sec-h">
+        <h2>Applications</h2>
+        <div class="tools">
+          <a class="on" href="#">Oldest first</a>
+          <a href="#">Unassigned</a>
+          <a href="#">Mine</a>
+          <a href="#">All stages</a>
+        </div>
+      </div>
+      <div class="tscroll">
+      <table>
+        <thead>
+          <tr><th class="ref">REF</th><th>BUSINESS</th><th class="age">WAITING</th><th>STAGE</th><th class="rev">REVIEWER</th><th class="act"></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ref">APP/0142</td>
+            <td class="who"><div class="n">Placeholder Business One</div><div class="s">Food and drink · Lagos · 3 documents</div></td>
+            <td class="age late">9d 04h</td>
+            <td><span class="tag t-sub">SUBMITTED</span></td>
+            <td class="rev">Unassigned</td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini pri" href="#">Take</a></td>
+          </tr>
+          <tr>
+            <td class="ref">APP/0141</td>
+            <td class="who"><div class="n">Placeholder Business Two</div><div class="s">Tailoring · Oyo · 2 documents</div></td>
+            <td class="age late">7d 19h</td>
+            <td><span class="tag t-rev">UNDER REVIEW</span></td>
+            <td class="rev">Reviewer name</td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini pri" href="#">Decide</a></td>
+          </tr>
+          <tr>
+            <td class="ref">APP/0139</td>
+            <td class="who"><div class="n">Placeholder Business Three</div><div class="s">Retail · Kano · 1 document</div></td>
+            <td class="age">4d 02h</td>
+            <td><span class="tag t-info">NEEDS MORE INFO</span></td>
+            <td class="rev">Reviewer name</td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini" href="#">Nudge</a></td>
+          </tr>
+          <tr>
+            <td class="ref">APP/0138</td>
+            <td class="who"><div class="n">Placeholder Business Four</div><div class="s">Services · Rivers · 3 documents</div></td>
+            <td class="age">2d 11h</td>
+            <td><span class="tag t-sub">SUBMITTED</span></td>
+            <td class="rev">Unassigned</td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini pri" href="#">Take</a></td>
+          </tr>
+          <tr>
+            <td class="ref">APP/0136</td>
+            <td class="who"><div class="n">Placeholder Business Five</div><div class="s">Farming · Enugu · 4 documents</div></td>
+            <td class="age">1d 06h</td>
+            <td><span class="tag t-sub">SUBMITTED</span></td>
+            <td class="rev">Unassigned</td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini pri" href="#">Take</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------- confirmations -->
+    <section class="sec">
+      <div class="sec-h">
+        <h2>Confirmations desk</h2>
+        <div class="tools"><a href="#">Only mine</a><a class="on" href="#">Needs a decision</a></div>
+      </div>
+      <div class="tscroll">
+      <table>
+        <thead>
+          <tr><th class="ref">REF</th><th>BUSINESS</th><th style="width:400px">STAGE</th><th class="act"></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ref">SEL/0031</td>
+            <td class="who"><div class="n">Placeholder Business Two</div><div class="s">Selected by an approved supporter</div></td>
+            <td>
+              <div class="pipe">
+                <span class="done">Selected</span><span class="done">Shortlisted</span><span class="now">Support recorded</span><span class="locked">Confirmed</span><span class="locked">Announced</span>
+              </div>
+            </td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini pri" href="#">Confirm</a></td>
+          </tr>
+          <tr>
+            <td class="ref">SEL/0029</td>
+            <td class="who"><div class="n">Placeholder Business Five</div><div class="s">Selected under a brand campaign</div></td>
+            <td>
+              <div class="pipe">
+                <span class="done">Selected</span><span class="now">Shortlisted</span><span class="locked">Support recorded</span><span class="locked">Confirmed</span><span class="locked">Announced</span>
+              </div>
+            </td>
+            <td class="act"><a class="mini" href="#">Open</a><a class="mini" href="#">Record support</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="guard">
+        <h3>Confirming SEL/0031 sends the congratulations email</h3>
+        <p>
+          The business has been told it is under consideration and nothing more. Confirming is the
+          first moment anyone hears that support is real, and it cannot be taken back quietly. Type
+          CONFIRM to proceed. Announcing publicly is a separate step with its own permission.
+        </p>
+        <div class="row">
+          <input type="text" placeholder="Type CONFIRM" aria-label="Type CONFIRM to proceed">
+          <a class="mini pri" href="#">Confirm support</a>
+          <a class="mini danger" href="#">Cancel</a>
+          <span class="note">Writes to the audit log against your account.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------- footings -->
+    <div class="two">
+      <section>
+        <div class="sec-h" style="border-bottom-color:var(--rule)"><h2>Recent activity</h2></div>
+        <div class="log">
+          <div class="item"><span class="t">10:42</span><span class="d"><b>Reviewer name</b> requested more information on APP/0139</span></div>
+          <div class="item"><span class="t">10:15</span><span class="d"><b>Woli Arole</b> took APP/0141 for review</span></div>
+          <div class="item"><span class="t">09:58</span><span class="d"><b>System</b> flagged 1 risk signal on SEL/0029</span></div>
+          <div class="item"><span class="t">09:31</span><span class="d"><b>System</b> retried 1 failed email</span></div>
+        </div>
+      </section>
+      <section>
+        <div class="sec-h" style="border-bottom-color:var(--rule)"><h2>Email failures</h2></div>
+        <div class="log">
+          <div class="item"><span class="t">08:20</span><span class="d">alajo.application_received to APP/0142 <b>bounced</b> <a class="mini" href="#">Retry</a></span></div>
+          <div class="item"><span class="t">07:54</span><span class="d">supporter.approved to a supporter account <b>failed</b> <a class="mini" href="#">Retry</a></span></div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<nav class="lab">
+  <b>Design lab</b>
+  <a href="landing-a.html">A Register</a>
+  <a href="landing-b.html">B Market Day</a>
+  <a href="landing-c.html">C Dossier</a>
+  <a href="landing-d.html">D Kiosk</a>
+  <span class="sep"></span>
+  <a class="on" href="dash-a.html">A Ledger desk</a>
+  <a href="dash-b.html">B Review queue</a>
+  <a href="dash-c.html">C Case file</a>
+  <a href="dash-d.html">D Ops board</a>
+  <span class="sep"></span>
+  <a href="index.html">Index</a>
+</nav>
+
+</body>
+</html>
