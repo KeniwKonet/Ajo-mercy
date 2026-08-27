@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { submitSupporterProfileAction } from "./actions";
 import { Alert, Button } from "@/components/ui/primitives";
-import { ChipGroup, Field, FormErrorSummary, Input, Select, Textarea, WordCount } from "@/components/ui/form";
+import { ChipGroup, Field, FormErrorSummary, Input, Select, SelectField, Textarea, WordCount } from "@/components/ui/form";
 import { Turnstile } from "@/components/ui/turnstile";
 import { BUSINESS_CATEGORIES, CATEGORY_LABELS, NIGERIAN_STATES } from "@/lib/types";
 import type { BusinessCategory, SupporterProfile } from "@/lib/types";
