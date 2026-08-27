@@ -213,6 +213,103 @@
   .link-rule:focus-visible {
     background-size: 100% 1px;
   }
+
+  /* ======================================================================
+     LEDGER
+     An ajo is a contribution book before it is anything else: ruled paper,
+     a red margin, entries in sequence, figures that line up column to
+     column. These primitives put that object on the screen. The rules are
+     drawn with gradients rather than borders so they sit *behind* the type
+     the way printed stock does, instead of boxing it in.
+     ====================================================================== */
+
+  /* Ruled paper. The baseline is a custom property so a dense table can
+     tighten it without redefining the gradient. */
+  .ledger-paper {
+    --ledger-baseline: 2rem;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 calc(var(--ledger-baseline) - 1px),
+      color-mix(in oklab, var(--color-rule) 62%, transparent) calc(var(--ledger-baseline) - 1px) var(--ledger-baseline)
+    );
+    background-position: 0 var(--ledger-offset, 0);
+  }
+
+  /* The red margin rule of a contribution book. Two hairlines, not one:
+     a single line reads as a border, a pair reads as stationery. */
+  .ledger-margin {
+    position: relative;
+  }
+  .ledger-margin::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--ledger-gutter, 2.5rem);
+    width: 3px;
+    border-left: 1px solid color-mix(in oklab, var(--color-terracotta) 42%, transparent);
+    border-right: 1px solid color-mix(in oklab, var(--color-terracotta) 22%, transparent);
+    pointer-events: none;
+  }
+
+  /* A register entry. The number hangs in the margin, as it does on paper. */
+  .entry-no {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--color-terracotta);
+  }
+
+  /* Column headings sit above the first rule, small and unemphatic: they
+     label the ledger, they are not headlines. */
+  .ledger-head {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+  }
+
+  /* Rows darken rather than lift. Paper does not float. */
+  .ledger-row {
+    transition: background-color 140ms var(--ease-out-soft);
+  }
+  .ledger-row:hover {
+    background-color: color-mix(in oklab, var(--color-paper-deep) 70%, transparent);
+  }
+
+  /* A struck total, the way a book closes a column. */
+  .ledger-total {
+    border-top: 1px solid var(--color-ink);
+    border-bottom: 3px double var(--color-ink);
+  }
+
+  /* Hand tally, five to a gate. Used where a count is small enough to
+     actually count, which is the honest way to show early numbers. */
+  .tally {
+    display: inline-flex;
+    gap: 0.45em;
+    align-items: flex-end;
+    line-height: 1;
+  }
+  .tally i {
+    display: block;
+    width: 0.9em;
+    height: 1.15em;
+    font-style: normal;
+    border-left: 1.5px solid var(--color-forest);
+    border-image: none;
+  }
+  .tally i[data-gate="true"] {
+    background-image: linear-gradient(
+      to bottom right,
+      transparent calc(50% - 1px),
+      var(--color-forest) calc(50% - 1px) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
 }
 
 @layer utilities {

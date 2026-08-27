@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Container, EmptyState, ButtonLink, Skeleton } from "@/components/ui/primitives";
-import { AlajoCard, AlajoFeature } from "@/components/site/alajo-cards";
+import { FolioHead, LedgerRegister } from "@/components/site/ledger";
 import { DiscoveryFilters } from "./filters";
-import { getCategoryCounts, getStateCounts, listAlajos } from "@/lib/data/alajos";
+import { PAGE_SIZE, getCategoryCounts, getStateCounts, listAlajos } from "@/lib/data/alajos";
 import { discoveryQuerySchema } from "@/lib/validation/schemas";
 import { CATEGORY_LABELS, type BusinessCategory } from "@/lib/types";
 
@@ -54,18 +54,17 @@ export default async function AlajosPage({ searchParams }: { searchParams: Searc
   const isFirstUnfilteredPage =
     page === 1 && !query.q && !query.category && !query.state && !query.need;
 
-  // On the plain first page, the top result gets the full editorial treatment
-  // so the listing does not open as a uniform grid.
-  const lead = isFirstUnfilteredPage ? profiles[0] : undefined;
-  const rest = lead ? profiles.slice(1) : profiles;
+  // Entry numbers continue across pages rather than restarting, the way a
+  // book's line numbers do.
+  const startIndex = (page - 1) * PAGE_SIZE;
 
   return (
     <Container className="py-12 sm:py-16">
       <header className="max-w-2xl">
-        <h1 className="font-display text-4xl sm:text-5xl">The businesses</h1>
+        <h1 className="font-display text-4xl sm:text-5xl">The register</h1>
         <p className="mt-4 text-base leading-relaxed text-ink-soft">
-          Every business here applied, sent documents, and was read by a person before it appeared.
-          Take your time. The stories are the point.
+          Every business here applied, sent documents, and was read by a person before it was
+          entered. Take your time. The stories are the point.
         </p>
       </header>
 
@@ -98,21 +97,25 @@ export default async function AlajosPage({ searchParams }: { searchParams: Searc
               }
             />
           ) : (
-            <div className="space-y-14">
-              {lead && (
-                <>
-                  <AlajoFeature profile={lead} priority />
-                  <hr className="border-rule" />
-                </>
-              )}
-
-              <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
-                {rest.map((profile, index) => (
-                  <AlajoCard key={profile.id} profile={profile} priority={!lead && index < 3} />
-                ))}
+            <div>
+              <FolioHead
+                book={`${total} ${total === 1 ? "entry" : "entries"}`}
+                folio={pageCount > 1 ? `Folio ${page} of ${pageCount}` : undefined}
+              />
+              <div className="mt-4">
+                <LedgerRegister profiles={profiles} startIndex={startIndex} />
               </div>
 
-              {pageCount > 1 && <Pagination page={page} pageCount={pageCount} params={raw} />}
+              <p className="mt-5 font-mono text-2xs text-ink-faint">
+                Entry numbers are positional and shift as the register grows. How many people have
+                selected a business is never published.
+              </p>
+
+              {pageCount > 1 && (
+                <div className="mt-10">
+                  <Pagination page={page} pageCount={pageCount} params={raw} />
+                </div>
+              )}
             </div>
           )}
         </div>
