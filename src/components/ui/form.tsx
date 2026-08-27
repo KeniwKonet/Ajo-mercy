@@ -34,6 +34,35 @@ function useField(): FieldContextValue {
   return ctx;
 }
 
+/**
+ * Most controls belong inside a <Field>, which supplies the id, the error and
+ * the aria wiring. A few legitimately do not: the review panel writes its own
+ * label and description because the control sits inside a decision flow rather
+ * than a form row.
+ *
+ * Throwing at those call sites took the whole admin page down with a
+ * client-side exception. So a standalone control is allowed, provided it
+ * carries its own label. If it does not, we still refuse in development, which
+ * is where an unlabelled input should be caught.
+ */
+function useControl(own: { id?: string; "aria-label"?: string; "aria-labelledby"?: string }) {
+  const ctx = useContext(FieldContext);
+  const fallbackId = useId();
+
+  if (!ctx) {
+    const labelled = Boolean(own.id || own["aria-label"] || own["aria-labelledby"]);
+    if (!labelled && process.env.NODE_ENV !== "production") {
+      throw new Error(
+        "A form control outside <Field> must have an id tied to a <label>, or an aria-label.",
+      );
+    }
+    return { id: own.id ?? fallbackId, describedBy: undefined, invalid: false };
+  }
+
+  // An explicit id still wins, so a caller can point their own label at it.
+  return { id: own.id ?? ctx.id, describedBy: ctx.describedBy, invalid: ctx.invalid };
+}
+
 export function Field({
   label,
   description,
@@ -170,7 +199,7 @@ function controlClasses(invalid: boolean, className?: string) {
 }
 
 export function Input({ className, ...props }: ComponentPropsWithoutRef<"input">) {
-  const { id, describedBy, invalid } = useField();
+  const { id, describedBy, invalid } = useControl(props);
   return (
     <input
       id={id}
@@ -183,7 +212,7 @@ export function Input({ className, ...props }: ComponentPropsWithoutRef<"input">
 }
 
 export function Textarea({ className, rows = 5, ...props }: ComponentPropsWithoutRef<"textarea">) {
-  const { id, describedBy, invalid } = useField();
+  const { id, describedBy, invalid } = useControl(props);
   return (
     <textarea
       id={id}
@@ -227,7 +256,7 @@ export function SelectField({
 }
 
 export function Select({ className, children, ...props }: ComponentPropsWithoutRef<"select">) {
-  const { id, describedBy, invalid } = useField();
+  const { id, describedBy, invalid } = useControl(props);
   return (
     <div className="relative">
       <select
