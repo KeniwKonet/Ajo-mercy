@@ -9,6 +9,7 @@ import type { BusinessCategory } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
 import { DraftNotice } from "@/components/ui/draft-notice";
 import { useFormDraft } from "@/lib/use-form-draft";
+import * as v from "@/lib/validation/live";
 
 export function CampaignForm({
   defaults,
@@ -55,7 +56,7 @@ export function CampaignForm({
         <Input name="name" placeholder="Q4 Small Business Drive" />
       </Field>
 
-      <Field label="What is this campaign for?" required error={state.fieldErrors?.summary}>
+      <Field label="What is this campaign for?" required error={state.fieldErrors?.summary} validate={v.words(10, "A summary")} validateOn="input">
         <Textarea name="summary" rows={4} value={summary} onChange={(e) => setSummary(e.target.value)} />
       </Field>
       <WordCount value={summary} min={10} />
@@ -76,7 +77,7 @@ export function CampaignForm({
           />
         </Field>
 
-        <Field label="Total budget (₦)" optional error={state.fieldErrors?.budgetNgn}>
+        <Field label="Total budget (₦)" optional error={state.fieldErrors?.budgetNgn} validate={v.range(0, 1000000000, "The budget")}>
           <Input
             name="budgetNgn"
             type="number"

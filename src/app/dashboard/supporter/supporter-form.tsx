@@ -10,6 +10,8 @@ import type { BusinessCategory, SupporterProfile } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
 import { DraftNotice } from "@/components/ui/draft-notice";
 import { useFormDraft } from "@/lib/use-form-draft";
+import * as v from "@/lib/validation/live";
+import { nigerianPhone } from "@/lib/validation/shared";
 
 export function SupporterForm({ existing }: { existing: SupporterProfile | null }) {
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(
@@ -43,7 +45,7 @@ export function SupporterForm({ existing }: { existing: SupporterProfile | null 
         the businesses to, and it is why the businesses trust the process.
       </Alert>
 
-      <Field label="Phone number" required error={state.fieldErrors?.phone}>
+      <Field label="Phone number" required error={state.fieldErrors?.phone} validate={v.all(v.required("A phone number"), v.fromSchema(nigerianPhone))}>
         <Input name="phone" type="tel" inputMode="tel" defaultValue={existing?.phone ?? ""} placeholder="0803 000 0000" />
       </Field>
 
@@ -57,12 +59,12 @@ export function SupporterForm({ existing }: { existing: SupporterProfile | null 
           />
         </Field>
 
-        <Field label="Town or city" required error={state.fieldErrors?.city}>
+        <Field label="Town or city" required error={state.fieldErrors?.city} validate={v.required("Town or city")}>
           <Input name="city" defaultValue={existing?.city ?? ""} />
         </Field>
       </div>
 
-      <Field label="What do you do?" required error={state.fieldErrors?.occupation}>
+      <Field label="What do you do?" required error={state.fieldErrors?.occupation} validate={v.required("This")}>
         <Input name="occupation" defaultValue={existing?.occupation ?? ""} placeholder="Teacher, trader, engineer…" />
       </Field>
 

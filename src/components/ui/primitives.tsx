@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { CSSProperties, ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import Link from "next/link";
 
 export function cn(...values: Array<string | false | null | undefined>): string {
@@ -235,8 +235,10 @@ export function EmptyState({
   );
 }
 
-export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse bg-paper-deep", className)} aria-hidden="true" />;
+export function Skeleton({ className, style }: { className?: string; style?: CSSProperties }) {
+  // `style` carries per-item widths and animation delays, so a column of
+  // placeholders varies instead of pulsing in lockstep.
+  return <div className={cn("animate-pulse bg-paper-deep", className)} style={style} aria-hidden="true" />;
 }
 
 // ------------------------------------------------------------------- table --

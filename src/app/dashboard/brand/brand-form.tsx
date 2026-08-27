@@ -10,6 +10,8 @@ import type { BrandProfile, BusinessCategory } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
 import { DraftNotice } from "@/components/ui/draft-notice";
 import { useFormDraft } from "@/lib/use-form-draft";
+import * as v from "@/lib/validation/live";
+import { email as emailSchema, nigerianPhone, url as urlSchema } from "@/lib/validation/shared";
 
 export function BrandForm({ existing }: { existing: BrandProfile | null }) {
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(
@@ -43,7 +45,7 @@ export function BrandForm({ existing }: { existing: BrandProfile | null }) {
       <section className="space-y-6">
         <h2 className="border-b border-rule pb-2 font-display text-lg">The organisation</h2>
 
-        <Field label="Organisation name" required error={state.fieldErrors?.organisationName}>
+        <Field label="Organisation name" required error={state.fieldErrors?.organisationName} validate={v.required("The organisation name")}>
           <Input name="organisationName" defaultValue={existing?.organisation_name ?? ""} />
         </Field>
 
@@ -72,10 +74,10 @@ export function BrandForm({ existing }: { existing: BrandProfile | null }) {
         <WordCount value={about} min={20} />
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Website" optional error={state.fieldErrors?.websiteUrl}>
+          <Field label="Website" optional error={state.fieldErrors?.websiteUrl} validate={v.optional(v.fromSchema(urlSchema))}>
             <Input name="websiteUrl" type="url" placeholder="https://" defaultValue={existing?.website_url ?? ""} />
           </Field>
-          <Field label="LinkedIn" optional error={state.fieldErrors?.linkedinUrl}>
+          <Field label="LinkedIn" optional error={state.fieldErrors?.linkedinUrl} validate={v.optional(v.fromSchema(urlSchema))}>
             <Input name="linkedinUrl" type="url" placeholder="https://" defaultValue={existing?.linkedin_url ?? ""} />
           </Field>
         </div>
@@ -85,16 +87,16 @@ export function BrandForm({ existing }: { existing: BrandProfile | null }) {
         <h2 className="border-b border-rule pb-2 font-display text-lg">Who we speak to</h2>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Contact name" required error={state.fieldErrors?.contactPersonName}>
+          <Field label="Contact name" required error={state.fieldErrors?.contactPersonName} validate={v.required("A contact name")}>
             <Input name="contactPersonName" defaultValue={existing?.contact_person_name ?? ""} />
           </Field>
-          <Field label="Their role" required error={state.fieldErrors?.contactPersonRole}>
+          <Field label="Their role" required error={state.fieldErrors?.contactPersonRole} validate={v.required("Their role")}>
             <Input name="contactPersonRole" defaultValue={existing?.contact_person_role ?? ""} />
           </Field>
-          <Field label="Contact email" required error={state.fieldErrors?.contactEmail}>
+          <Field label="Contact email" required error={state.fieldErrors?.contactEmail} validate={v.all(v.required("An email"), v.fromSchema(emailSchema))}>
             <Input name="contactEmail" type="email" defaultValue={existing?.contact_email ?? ""} />
           </Field>
-          <Field label="Contact phone" required error={state.fieldErrors?.contactPhone}>
+          <Field label="Contact phone" required error={state.fieldErrors?.contactPhone} validate={v.all(v.required("A phone number"), v.fromSchema(nigerianPhone))}>
             <Input name="contactPhone" type="tel" defaultValue={existing?.contact_phone ?? ""} />
           </Field>
         </div>

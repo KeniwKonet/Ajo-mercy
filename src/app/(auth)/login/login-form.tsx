@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/primitives";
 import { Field, FormErrorSummary, Input } from "@/components/ui/form";
 import { Turnstile } from "@/components/ui/turnstile";
 import type { ActionResult } from "@/lib/validation/shared";
+import * as v from "@/lib/validation/live";
+import { email as emailSchema } from "@/lib/validation/shared";
 
 const LINK_ERRORS: Record<string, string> = {
   invalid_link: "That link was not valid. Request a new one below.",
@@ -34,7 +36,7 @@ export function LoginForm({ next, linkError }: { next?: string; linkError?: stri
 
       {next && <input type="hidden" name="next" value={next} />}
 
-      <Field label="Email" required error={state.fieldErrors?.email}>
+      <Field label="Email" required error={state.fieldErrors?.email} validate={v.all(v.required("An email"), v.fromSchema(emailSchema))}>
         <Input name="email" type="email" autoComplete="email" required autoFocus />
       </Field>
 

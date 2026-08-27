@@ -7,6 +7,8 @@ import { Alert, Button } from "@/components/ui/primitives";
 import { Field, FormErrorSummary, Input } from "@/components/ui/form";
 import { Turnstile } from "@/components/ui/turnstile";
 import type { ActionResult } from "@/lib/validation/shared";
+import * as v from "@/lib/validation/live";
+import { email as emailSchema } from "@/lib/validation/shared";
 
 export function ForgotPasswordForm() {
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(
@@ -26,7 +28,7 @@ export function ForgotPasswordForm() {
       {!state.ok && <FormErrorSummary message={state.message} fieldErrors={state.fieldErrors} />}
       {state.ok && state.message && <Alert tone="positive">{state.message}</Alert>}
 
-      <Field label="Email" required error={state.fieldErrors?.email}>
+      <Field label="Email" required error={state.fieldErrors?.email} validate={v.all(v.required("An email"), v.fromSchema(emailSchema))}>
         <Input name="email" type="email" autoComplete="email" required autoFocus />
       </Field>
 
