@@ -125,7 +125,7 @@ export async function listReviewQueue(options: {
   search?: string;
   page?: number;
   pageSize?: number;
-}): Promise<{ items: ReviewQueueItem[]; total: number }> {
+}): Promise<{ items: ReviewQueueItem[]; total: number; failed?: string }> {
   const admin = createAdminSupabase();
   const pageSize = options.pageSize ?? 20;
   const page = options.page ?? 1;
@@ -134,7 +134,7 @@ export async function listReviewQueue(options: {
   let builder = admin
     .from("alajo_applications")
     .select(
-      "id, user_id, status, business_name, founder_name, business_category, state, submitted_at, updated_at, completeness, profiles!inner(email)",
+      "id, user_id, status, business_name, founder_name, business_category, state, submitted_at, updated_at, completeness, profiles!alajo_applications_user_id_fkey!inner(email)",
       { count: "exact" },
     );
 
@@ -151,8 +151,11 @@ export async function listReviewQueue(options: {
     .range(from, from + pageSize - 1);
 
   if (error) {
+    // Returning an empty list here once made a broken query look exactly like
+    // an empty queue, and a real application sat unreviewed because of it. The
+    // caller has to be able to tell the difference.
     console.error("[data] listReviewQueue failed", error.message);
-    return { items: [], total: 0 };
+    return { items: [], total: 0, failed: error.message };
   }
 
   const items = ((data ?? []) as unknown as Array<

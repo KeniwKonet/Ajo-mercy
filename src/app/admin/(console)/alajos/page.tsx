@@ -3,7 +3,7 @@ import Link from "next/link";
 import { requirePermission } from "@/lib/auth";
 import { listReviewQueue } from "@/lib/data/applications";
 import { DashboardPage } from "@/components/dashboard/shell";
-import { DataTable, EmptyState, StatusChip, Td, Th, cn } from "@/components/ui/primitives";
+import { Alert, DataTable, EmptyState, StatusChip, Td, Th, cn } from "@/components/ui/primitives";
 import { APPLICATION_STATUS_LABELS, applicationTone } from "@/lib/state-machine";
 import { formatRelative } from "@/lib/format";
 import { CATEGORY_LABELS, type ApplicationStatus, type BusinessCategory } from "@/lib/types";
@@ -31,7 +31,7 @@ export default async function AdminAlajosPage({
   const tab = TABS.find((t) => t.key === status) ?? TABS[0]!;
   const page = Math.max(1, Number(pageParam) || 1);
 
-  const { items, total } = await listReviewQueue({
+  const { items, total, failed } = await listReviewQueue({
     ...(tab.statuses.length > 0 ? { status: tab.statuses } : {}),
     ...(q ? { search: q } : {}),
     page,
@@ -87,7 +87,13 @@ export default async function AdminAlajosPage({
           </button>
         </form>
 
-        {items.length === 0 ? (
+        {failed ? (
+          <Alert tone="negative" title="The queue could not be loaded">
+            This is a fault, not an empty queue. Applications may be waiting that are not shown
+            here, so do not treat this screen as up to date.
+            <span className="mt-2 block font-mono text-2xs text-ink-faint">{failed}</span>
+          </Alert>
+        ) : items.length === 0 ? (
           <EmptyState
             title="Nothing here"
             description={

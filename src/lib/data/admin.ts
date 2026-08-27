@@ -99,7 +99,7 @@ export async function listSupporterQueue(
       const admin = createAdminSupabase();
       const { data, error } = await admin
         .from("supporter_profiles")
-        .select("*, profiles!inner(full_name, email)")
+        .select("*, profiles!supporter_profiles_user_id_fkey!inner(full_name, email)")
         .in("status", statuses)
         .order("submitted_at", { ascending: true, nullsFirst: false })
         .limit(100);
@@ -128,7 +128,7 @@ export async function listBrandQueue(
       const admin = createAdminSupabase();
       const { data, error } = await admin
         .from("brand_profiles")
-        .select("*, profiles!inner(full_name, email)")
+        .select("*, profiles!brand_profiles_user_id_fkey!inner(full_name, email)")
         .in("status", statuses)
         .order("submitted_at", { ascending: true, nullsFirst: false })
         .limit(100);
