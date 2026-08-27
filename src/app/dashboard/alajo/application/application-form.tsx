@@ -15,11 +15,17 @@ import {
   FormErrorSummary,
   Input,
   Select,
+  SelectField,
+  SelectField,
   Textarea,
   WordCount,
 } from "@/components/ui/form";
 import { Turnstile } from "@/components/ui/turnstile";
 import { ConfirmDialog } from "@/components/ui/dialog";
+import { DraftNotice } from "@/components/ui/draft-notice";
+import { useFormDraft } from "@/lib/use-form-draft";
+import * as v from "@/lib/validation/live";
+import { nigerianPhone, url as urlSchema, socialHandle } from "@/lib/validation/shared";
 import { BUSINESS_CATEGORIES, CATEGORY_LABELS, NIGERIAN_STATES } from "@/lib/types";
 import type { AlajoApplication, AlajoMedia, VerificationRequest } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
@@ -146,17 +152,19 @@ function StepForm({
   children,
   submitLabel = "Save and continue",
   editable,
+  formRef,
 }: {
   step: StepKey;
   state: ActionResult;
   formAction: (formData: FormData) => void;
+  formRef?: React.RefObject<HTMLFormElement | null>;
   pending: boolean;
   children: React.ReactNode;
   submitLabel?: string;
   editable: boolean;
 }) {
   return (
-    <form action={formAction} className="max-w-2xl space-y-6" noValidate>
+    <form ref={formRef} action={formAction} className="max-w-2xl space-y-6" noValidate>
       <input type="hidden" name="step" value={step} />
       {!state.ok && <FormErrorSummary message={state.message} fieldErrors={state.fieldErrors} />}
       {state.ok && state.message && <Alert tone="positive">{state.message}</Alert>}
@@ -221,15 +229,19 @@ function PersonalStep({
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(saveStepAction, { ok: true });
   const formRef = useRef<HTMLFormElement>(null);
   const savedAt = useAutosave(formRef, editable);
+  const draft = useFormDraft(formRef, "application.personal", { enabled: editable });
 
   useEffect(() => {
-    if (state.ok && state.message) onDone();
-  }, [state, onDone]);
+    // The step reached the server, so the local copy has done its job.
+    if (state.ok && state.message) {
+      draft.clear();
+      onDone();
+    }
+  }, [state, onDone, draft]);
 
   return (
-    <div ref={formRef as never}>
-      <StepForm step="personal" state={state} formAction={formAction} pending={pending} editable={editable}>
-        <Field label="Your full name" required error={state.fieldErrors?.founderName}>
+    <StepForm formRef={formRef} step="personal" state={state} formAction={formAction} pending={pending} editable={editable}>
+        <Field label="Your full name" required error={state.fieldErrors?.founderName} validate={v.all(v.required("Your name"), (x) => (x.trim().split(/s+/).length < 2 ? "Please give your first and last name." : null))}>
           <Input name="founderName" defaultValue={application.founder_name ?? ""} autoComplete="name" />
         </Field>
 
@@ -244,12 +256,16 @@ function PersonalStep({
           </Field>
 
           <Field label="Gender" optional error={state.fieldErrors?.gender}>
-            <Select name="gender" defaultValue={application.gender ?? ""}>
-              <option value="">Prefer not to say</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="prefer_not_to_say">Prefer not to say</option>
-            </Select>
+            <SelectField
+              name="gender"
+              defaultValue={application.gender ?? ""}
+              placeholder="Prefer not to say"
+              options={[
+                { value: "female", label: "Female" },
+                { value: "male", label: "Male" },
+                { value: "prefer_not_to_say", label: "Prefer not to say" },
+              ]}
+            />
           </Field>
         </div>
 
@@ -268,13 +284,15 @@ function PersonalStep({
           />
         </Field>
 
-        <Field label="Your address" required error={state.fieldErrors?.personalAddress}>
+        <Field label="Your address" required error={state.fieldErrors?.personalAddress} validate={v.required("Your address")}>
           <Textarea name="personalAddress" rows={3} defaultValue={application.personal_address ?? ""} />
         </Field>
 
-        {savedAt && <p className="text-xs text-ink-faint">Draft saved at {savedAt}</p>}
+        <div className="space-y-1">
+          {savedAt && <p className="text-xs text-ink-faint">Saved to your application at {savedAt}</p>}
+          <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
+        </div>
       </StepForm>
-    </div>
   );
 }
 
@@ -290,31 +308,33 @@ function BusinessStep({
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(saveStepAction, { ok: true });
   const formRef = useRef<HTMLFormElement>(null);
   const savedAt = useAutosave(formRef, editable);
+  const draft = useFormDraft(formRef, "application.business", { enabled: editable });
 
   useEffect(() => {
-    if (state.ok && state.message) onDone();
-  }, [state, onDone]);
+    // The step reached the server, so the local copy has done its job.
+    if (state.ok && state.message) {
+      draft.clear();
+      onDone();
+    }
+  }, [state, onDone, draft]);
 
   return (
-    <div ref={formRef as never}>
-      <StepForm step="business" state={state} formAction={formAction} pending={pending} editable={editable}>
-        <Field label="Business name" required error={state.fieldErrors?.businessName}>
+    <StepForm formRef={formRef} step="business" state={state} formAction={formAction} pending={pending} editable={editable}>
+        <Field label="Business name" required error={state.fieldErrors?.businessName} validate={v.required("The business name")}>
           <Input name="businessName" defaultValue={application.business_name ?? ""} />
         </Field>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Category" required error={state.fieldErrors?.businessCategory}>
-            <Select name="businessCategory" defaultValue={application.business_category ?? ""}>
-              <option value="">Choose one</option>
-              {BUSINESS_CATEGORIES.map((category) => (
-                <option key={category} value={category}>
-                  {CATEGORY_LABELS[category]}
-                </option>
-              ))}
-            </Select>
+            <SelectField
+              name="businessCategory"
+              defaultValue={application.business_category ?? ""}
+              placeholder="Choose one"
+              options={BUSINESS_CATEGORIES.map((category) => ({ value: category, label: CATEGORY_LABELS[category] }))}
+            />
           </Field>
 
-          <Field label="Year you started" required error={state.fieldErrors?.yearStarted}>
+          <Field label="Year you started" required error={state.fieldErrors?.yearStarted} validate={v.all(v.required("The year you started"), v.range(1900, new Date().getFullYear(), "That year"))}>
             <Input
               name="yearStarted"
               type="number"
@@ -336,7 +356,7 @@ function BusinessStep({
         </Field>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="How many people work here?" required error={state.fieldErrors?.employeeCount}>
+          <Field label="How many people work here?" required error={state.fieldErrors?.employeeCount} validate={v.range(0, 100000, "That number")}>
             <Input
               name="employeeCount"
               type="number"
@@ -347,23 +367,21 @@ function BusinessStep({
           </Field>
 
           <Field label="State" required error={state.fieldErrors?.state}>
-            <Select name="state" defaultValue={application.state ?? ""}>
-              <option value="">Choose a state</option>
-              {NIGERIAN_STATES.map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </Select>
+            <SelectField
+              name="state"
+              defaultValue={application.state ?? ""}
+              placeholder="Choose a state"
+              options={NIGERIAN_STATES.map((state) => ({ value: state, label: state }))}
+            />
           </Field>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Town or city" required error={state.fieldErrors?.city}>
+          <Field label="Town or city" required error={state.fieldErrors?.city} validate={v.required("Town or city")}>
             <Input name="city" defaultValue={application.city ?? ""} />
           </Field>
 
-          <Field label="Business phone" required error={state.fieldErrors?.businessPhone}>
+          <Field label="Business phone" required error={state.fieldErrors?.businessPhone} validate={v.all(v.required("A phone number"), v.fromSchema(nigerianPhone))}>
             <Input
               name="businessPhone"
               type="tel"
@@ -373,28 +391,30 @@ function BusinessStep({
           </Field>
         </div>
 
-        <Field label="Business address" required error={state.fieldErrors?.businessAddress}>
+        <Field label="Business address" required error={state.fieldErrors?.businessAddress} validate={v.required("The business address")}>
           <Textarea name="businessAddress" rows={3} defaultValue={application.business_address ?? ""} />
         </Field>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Website" optional error={state.fieldErrors?.websiteUrl}>
+          <Field label="Website" optional error={state.fieldErrors?.websiteUrl} validate={v.optional(v.fromSchema(urlSchema))}>
             <Input name="websiteUrl" type="url" placeholder="https://" defaultValue={application.website_url ?? ""} />
           </Field>
-          <Field label="Instagram" optional error={state.fieldErrors?.instagramHandle}>
+          <Field label="Instagram" optional error={state.fieldErrors?.instagramHandle} validate={v.optional(v.fromSchema(socialHandle))}>
             <Input name="instagramHandle" placeholder="yourbusiness" defaultValue={application.instagram_handle ?? ""} />
           </Field>
-          <Field label="TikTok" optional error={state.fieldErrors?.tiktokHandle}>
+          <Field label="TikTok" optional error={state.fieldErrors?.tiktokHandle} validate={v.optional(v.fromSchema(socialHandle))}>
             <Input name="tiktokHandle" placeholder="yourbusiness" defaultValue={application.tiktok_handle ?? ""} />
           </Field>
-          <Field label="X" optional error={state.fieldErrors?.xHandle}>
+          <Field label="X" optional error={state.fieldErrors?.xHandle} validate={v.optional(v.fromSchema(socialHandle))}>
             <Input name="xHandle" placeholder="yourbusiness" defaultValue={application.x_handle ?? ""} />
           </Field>
         </div>
 
-        {savedAt && <p className="text-xs text-ink-faint">Draft saved at {savedAt}</p>}
+        <div className="space-y-1">
+          {savedAt && <p className="text-xs text-ink-faint">Saved to your application at {savedAt}</p>}
+          <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
+        </div>
       </StepForm>
-    </div>
   );
 }
 
@@ -410,17 +430,21 @@ function StoryStep({
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(saveStepAction, { ok: true });
   const formRef = useRef<HTMLFormElement>(null);
   const savedAt = useAutosave(formRef, editable);
+  const draft = useFormDraft(formRef, "application.story", { enabled: editable });
   const [story, setStory] = useState(application.story ?? "");
   const [challenge, setChallenge] = useState(application.current_challenge ?? "");
   const [enable, setEnable] = useState(application.support_would_enable ?? "");
 
   useEffect(() => {
-    if (state.ok && state.message) onDone();
-  }, [state, onDone]);
+    // The step reached the server, so the local copy has done its job.
+    if (state.ok && state.message) {
+      draft.clear();
+      onDone();
+    }
+  }, [state, onDone, draft]);
 
   return (
-    <div ref={formRef as never}>
-      <StepForm step="story" state={state} formAction={formAction} pending={pending} editable={editable}>
+    <StepForm formRef={formRef} step="story" state={state} formAction={formAction} pending={pending} editable={editable}>
         <Alert tone="neutral">
           This is the part supporters actually read. Write it the way you would tell a friend, not the
           way you would write a proposal.
@@ -431,6 +455,8 @@ function StoryStep({
           required
           description="How the business started, what it has been through, where it is now."
           error={state.fieldErrors?.story}
+          validate={v.words(60, "Your story")}
+          validateOn="input"
         >
           <Textarea name="story" rows={9} value={story} onChange={(e) => setStory(e.target.value)} />
         </Field>
@@ -441,6 +467,8 @@ function StoryStep({
           required
           description="Be specific. 'The generator packed up in March' says more than 'we need funding'."
           error={state.fieldErrors?.currentChallenge}
+          validate={v.words(20, "The challenge")}
+          validateOn="input"
         >
           <Textarea
             name="currentChallenge"
@@ -456,6 +484,8 @@ function StoryStep({
           required
           description="What changes for the business, and for the people who depend on it."
           error={state.fieldErrors?.supportWouldEnable}
+          validate={v.words(20, "This answer")}
+          validateOn="input"
         >
           <Textarea
             name="supportWouldEnable"
@@ -482,9 +512,11 @@ function StoryStep({
           />
         </Field>
 
-        {savedAt && <p className="text-xs text-ink-faint">Draft saved at {savedAt}</p>}
+        <div className="space-y-1">
+          {savedAt && <p className="text-xs text-ink-faint">Saved to your application at {savedAt}</p>}
+          <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
+        </div>
       </StepForm>
-    </div>
   );
 }
 

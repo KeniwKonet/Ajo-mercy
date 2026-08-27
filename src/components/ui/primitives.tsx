@@ -47,8 +47,10 @@ export function SectionLabel({ children, className }: { children: ReactNode; cla
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "quiet";
 type ButtonSize = "sm" | "md" | "lg";
 
+// `press` gives the one-pixel acknowledgement on click; `relative` and
+// `overflow-hidden` exist so a loading button can host the indeterminate bar.
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-sm font-medium transition-colors duration-200 " +
+  "press relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm font-medium " +
   "disabled:cursor-not-allowed disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const buttonVariants: Record<ButtonVariant, string> = {
@@ -83,7 +85,15 @@ export function Button({
 }: ButtonOwnProps & ComponentPropsWithoutRef<"button">) {
   return (
     <button
-      className={cn(buttonBase, buttonVariants[variant], buttonSizes[size], className)}
+      className={cn(
+        buttonBase,
+        buttonVariants[variant],
+        buttonSizes[size],
+        // The travelling bar says "still working" for the stretch where a
+        // spinner alone reads as frozen.
+        loading && "working",
+        className,
+      )}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       {...props}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { submitBrandProfileAction } from "./actions";
 import { Alert, Button } from "@/components/ui/primitives";
 import { ChipGroup, Field, FormErrorSummary, Input, Textarea, WordCount } from "@/components/ui/form";
@@ -8,12 +8,21 @@ import { Turnstile } from "@/components/ui/turnstile";
 import { BUSINESS_CATEGORIES, CATEGORY_LABELS, NIGERIAN_STATES } from "@/lib/types";
 import type { BrandProfile, BusinessCategory } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
+import { DraftNotice } from "@/components/ui/draft-notice";
+import { useFormDraft } from "@/lib/use-form-draft";
 
 export function BrandForm({ existing }: { existing: BrandProfile | null }) {
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(
     submitBrandProfileAction,
     { ok: true },
   );
+  const formRef = useRef<HTMLFormElement>(null);
+  const draft = useFormDraft(formRef, "brand");
+
+  useEffect(() => {
+    // Submitted successfully, so the local copy is no longer needed.
+    if (state.ok && state.message) draft.clear();
+  }, [state, draft]);
   const [categories, setCategories] = useState<BusinessCategory[]>(existing?.preferred_categories ?? []);
   const [states, setStates] = useState<string[]>(existing?.preferred_states ?? []);
   const [about, setAbout] = useState(existing?.about ?? "");
@@ -28,7 +37,7 @@ export function BrandForm({ existing }: { existing: BrandProfile | null }) {
   }
 
   return (
-    <form action={formAction} className="max-w-2xl space-y-8" noValidate>
+    <form ref={formRef} action={formAction} className="max-w-2xl space-y-8" noValidate>
       {!state.ok && <FormErrorSummary message={state.message} fieldErrors={state.fieldErrors} />}
 
       <section className="space-y-6">
@@ -170,6 +179,7 @@ export function BrandForm({ existing }: { existing: BrandProfile | null }) {
           arranged directly between you and them, with our team coordinating.
         </p>
       </div>
+      <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
     </form>
   );
 }

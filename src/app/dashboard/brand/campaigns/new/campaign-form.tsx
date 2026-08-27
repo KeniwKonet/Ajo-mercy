@@ -1,12 +1,14 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { createCampaignAction } from "@/app/dashboard/brand/actions";
 import { Alert, Button } from "@/components/ui/primitives";
 import { ChipGroup, Field, FormErrorSummary, Input, Textarea, WordCount } from "@/components/ui/form";
 import { BUSINESS_CATEGORIES, CATEGORY_LABELS, NIGERIAN_STATES } from "@/lib/types";
 import type { BusinessCategory } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
+import { DraftNotice } from "@/components/ui/draft-notice";
+import { useFormDraft } from "@/lib/use-form-draft";
 
 export function CampaignForm({
   defaults,
@@ -21,6 +23,13 @@ export function CampaignForm({
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(createCampaignAction, {
     ok: true,
   });
+  const formRef = useRef<HTMLFormElement>(null);
+  const draft = useFormDraft(formRef, "campaign");
+
+  useEffect(() => {
+    // Submitted successfully, so the local copy is no longer needed.
+    if (state.ok && state.message) draft.clear();
+  }, [state, draft]);
   const [categories, setCategories] = useState<BusinessCategory[]>(defaults.categories);
   const [states, setStates] = useState<string[]>(defaults.states);
   const [summary, setSummary] = useState("");
@@ -34,7 +43,7 @@ export function CampaignForm({
   }
 
   return (
-    <form action={formAction} className="max-w-2xl space-y-6" noValidate>
+    <form ref={formRef} action={formAction} className="max-w-2xl space-y-6" noValidate>
       {!state.ok && <FormErrorSummary message={state.message} fieldErrors={state.fieldErrors} />}
 
       <Field
@@ -134,6 +143,7 @@ export function CampaignForm({
           when you can start choosing businesses.
         </p>
       </div>
+      <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
     </form>
   );
 }

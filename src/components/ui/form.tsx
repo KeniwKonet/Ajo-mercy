@@ -2,12 +2,18 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useId,
+  useRef,
+  useState,
   type ComponentPropsWithoutRef,
   type ReactNode,
 } from "react";
 import { cn } from "@/components/ui/primitives";
+import type { Validator } from "@/lib/validation/live";
+import { SelectMenu, type SelectOption } from "@/components/ui/select-menu";
 
 /**
  * Field wires a label, description, control and error message together with the
@@ -36,6 +42,8 @@ export function Field({
   optional,
   children,
   className,
+  validate,
+  validateOn = "blur",
 }: {
   label: string;
   description?: string;
@@ -44,22 +52,92 @@ export function Field({
   optional?: boolean;
   children: ReactNode;
   className?: string;
+  /** Checked in the browser as the person types. The server checks again. */
+  validate?: Validator;
+  /**
+   * "blur" waits until they leave the field before the first complaint, which
+   * avoids shouting at someone halfway through typing their email. "input"
+   * reports immediately and suits fields with a target to reach, like a word
+   * count, where live feedback is encouragement rather than nagging.
+   */
+  validateOn?: "blur" | "input";
 }) {
   const id = useId();
-  const errorText = Array.isArray(error) ? error[0] : error;
+  const [liveError, setLiveError] = useState<string | null>(null);
+  const [touched, setTouched] = useState(validateOn === "input");
+  const [settled, setSettled] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const serverError = Array.isArray(error) ? error[0] : error;
+  // A fresh server error outranks the local one: it knows things we do not,
+  // like whether an email is already registered.
+  const errorText = serverError ?? liveError ?? undefined;
+
+  const run = useCallback(
+    (value: string, markTouched: boolean) => {
+      if (!validate) return;
+      if (markTouched) setTouched(true);
+      const message = validate(value);
+      setLiveError(message);
+      setSettled(message === null && value.trim() !== "");
+    },
+    [validate],
+  );
+
+  const valueOf = (target: EventTarget | null): string | null => {
+    if (
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLSelectElement
+    ) {
+      if (target instanceof HTMLInputElement && (target.type === "checkbox" || target.type === "radio")) {
+        return null;
+      }
+      return target.value;
+    }
+    return null;
+  };
+
+  // React's onBlur is focusout, so it reaches here from the control inside.
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const value = valueOf(event.target);
+    if (value !== null) run(value, true);
+  };
+
+  const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
+    const value = valueOf(event.target);
+    if (value === null) return;
+    if (!touched && validateOn === "blur") return;
+    if (timer.current) clearTimeout(timer.current);
+    // Short enough to feel immediate, long enough not to flash an error
+    // between two keystrokes of a word.
+    timer.current = setTimeout(() => run(value, false), 220);
+  };
+
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+
   const descId = description ? `${id}-desc` : undefined;
   const errId = errorText ? `${id}-err` : undefined;
   const describedBy = [descId, errId].filter(Boolean).join(" ") || undefined;
 
   return (
     <FieldContext.Provider value={{ id, describedBy, invalid: Boolean(errorText) }}>
-      <div className={cn("space-y-1.5", className)}>
+      <div className={cn("space-y-1.5", className)} onBlur={handleBlur} onInput={handleInput}>
         <label htmlFor={id} className="flex items-baseline justify-between gap-3 text-sm font-medium text-ink">
           <span>
             {label}
             {required && <span className="ml-1 text-terracotta" aria-hidden="true">*</span>}
           </span>
-          {optional && <span className="text-xs font-normal text-ink-faint">Optional</span>}
+          {optional && !settled && <span className="text-xs font-normal text-ink-faint">Optional</span>}
+          {/* A quiet tick is the only reward a correct field needs. */}
+          {settled && !errorText && (
+            <span className="field-ok flex items-center gap-1 text-xs font-normal text-success">
+              <svg viewBox="0 0 12 12" className="size-3" aria-hidden="true">
+                <path d="M2.5 6.5 5 9l4.5-5.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Looks right
+            </span>
+          )}
         </label>
         {description && (
           <p id={descId} className="text-xs leading-relaxed text-ink-faint">
@@ -68,7 +146,11 @@ export function Field({
         )}
         {children}
         {errorText && (
-          <p id={errId} className="flex items-start gap-1.5 text-xs font-medium text-danger">
+          <p
+            id={errId}
+            role="status"
+            className="field-error flex items-start gap-1.5 text-xs font-medium text-danger"
+          >
             <span aria-hidden="true" className="mt-px">↳</span>
             {errorText}
           </p>
@@ -109,6 +191,36 @@ export function Textarea({ className, rows = 5, ...props }: ComponentPropsWithou
       aria-describedby={describedBy}
       aria-invalid={invalid || undefined}
       className={controlClasses(invalid, cn("resize-y leading-relaxed", className))}
+      {...props}
+    />
+  );
+}
+
+/**
+ * The designed dropdown. Falls back to `NativeSelect` where a caller still
+ * passes <option> children directly.
+ */
+export function SelectField({
+  options,
+  placeholder,
+  ...props
+}: {
+  name: string;
+  options: SelectOption[];
+  defaultValue?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  onValueChange?: (value: string) => void;
+}) {
+  const { id, describedBy, invalid } = useField();
+  return (
+    <SelectMenu
+      id={id}
+      describedBy={describedBy}
+      invalid={invalid}
+      options={options}
+      placeholder={placeholder}
       {...props}
     />
   );

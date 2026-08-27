@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { submitSupporterProfileAction } from "./actions";
 import { Alert, Button } from "@/components/ui/primitives";
 import { ChipGroup, Field, FormErrorSummary, Input, Select, Textarea, WordCount } from "@/components/ui/form";
@@ -8,12 +8,21 @@ import { Turnstile } from "@/components/ui/turnstile";
 import { BUSINESS_CATEGORIES, CATEGORY_LABELS, NIGERIAN_STATES } from "@/lib/types";
 import type { BusinessCategory, SupporterProfile } from "@/lib/types";
 import type { ActionResult } from "@/lib/validation/shared";
+import { DraftNotice } from "@/components/ui/draft-notice";
+import { useFormDraft } from "@/lib/use-form-draft";
 
 export function SupporterForm({ existing }: { existing: SupporterProfile | null }) {
   const [state, formAction, pending] = useActionState<ActionResult, FormData>(
     submitSupporterProfileAction,
     { ok: true },
   );
+  const formRef = useRef<HTMLFormElement>(null);
+  const draft = useFormDraft(formRef, "supporter");
+
+  useEffect(() => {
+    // Submitted successfully, so the local copy is no longer needed.
+    if (state.ok && state.message) draft.clear();
+  }, [state, draft]);
   const [interests, setInterests] = useState<BusinessCategory[]>(existing?.interests ?? []);
   const [motivation, setMotivation] = useState(existing?.motivation ?? "");
 
@@ -26,7 +35,7 @@ export function SupporterForm({ existing }: { existing: SupporterProfile | null 
   }
 
   return (
-    <form action={formAction} className="max-w-2xl space-y-6" noValidate>
+    <form ref={formRef} action={formAction} className="max-w-2xl space-y-6" noValidate>
       {!state.ok && <FormErrorSummary message={state.message} fieldErrors={state.fieldErrors} />}
 
       <Alert tone="neutral">
@@ -40,14 +49,12 @@ export function SupporterForm({ existing }: { existing: SupporterProfile | null 
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="State" required error={state.fieldErrors?.state}>
-          <Select name="state" defaultValue={existing?.state ?? ""}>
-            <option value="">Choose a state</option>
-            {NIGERIAN_STATES.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </Select>
+          <SelectField
+            name="state"
+            defaultValue={existing?.state ?? ""}
+            placeholder="Choose a state"
+            options={NIGERIAN_STATES.map((s) => ({ value: s, label: s }))}
+          />
         </Field>
 
         <Field label="Town or city" required error={state.fieldErrors?.city}>
@@ -106,6 +113,7 @@ export function SupporterForm({ existing }: { existing: SupporterProfile | null 
           Approval lets you select businesses. It does not commit you to anything.
         </p>
       </div>
+      <DraftNotice savedAt={draft.savedAt} restored={draft.restored} onDiscard={draft.clear} />
     </form>
   );
 }

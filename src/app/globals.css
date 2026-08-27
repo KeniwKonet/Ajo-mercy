@@ -313,6 +313,85 @@
 }
 
 @layer utilities {
+  /* ======================================================================
+     MOTION
+     Every animation here reports a state change: a field became valid, a
+     menu opened, a row is waiting on the network. Nothing moves to be
+     decorative, and all of it is switched off under prefers-reduced-motion
+     at the bottom of this file.
+     ====================================================================== */
+
+  /* A validation message arriving. Short and downward, so it reads as the
+     message dropping into place under the field rather than a popup. */
+  .field-error {
+    animation: field-error 200ms var(--ease-out-soft) both;
+  }
+  @keyframes field-error {
+    from { opacity: 0; transform: translateY(-3px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* The confirmation tick. Slower and gentler than the error: good news does
+     not need to be urgent. */
+  .field-ok {
+    animation: field-ok 260ms var(--ease-out-soft) both;
+  }
+  @keyframes field-ok {
+    from { opacity: 0; transform: translateX(4px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* A dropdown unfolding from the edge it is anchored to. */
+  .menu-pop {
+    animation: menu-pop 150ms var(--ease-out-soft) both;
+  }
+  @keyframes menu-pop {
+    from { opacity: 0; transform: scaleY(0.94) translateY(-2px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Sections arriving as they are scrolled to. Applied by <Reveal>, which
+     only adds the class once the element is actually on screen. */
+  .on-view {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .on-view[data-seen="true"] {
+    animation: on-view 620ms var(--ease-out-soft) forwards;
+  }
+  @keyframes on-view {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Pressable things acknowledge the press. One pixel is enough. */
+  .press {
+    transition:
+      transform 120ms var(--ease-out-soft),
+      background-color 150ms var(--ease-out-soft),
+      border-color 150ms var(--ease-out-soft),
+      color 150ms var(--ease-out-soft);
+  }
+  .press:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  /* A quiet indeterminate bar for work that has no measurable progress. */
+  .working::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 40%;
+    background: currentColor;
+    opacity: 0.5;
+    animation: working 1100ms var(--ease-in-out-soft) infinite;
+  }
+  @keyframes working {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(350%); }
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(12px);
@@ -363,9 +442,17 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal {
+  /* Anything that hides content until an animation runs must be shown
+     outright, or reduced-motion users get a blank page. */
+  .reveal,
+  .on-view,
+  .on-view[data-seen="true"] {
     opacity: 1;
     transform: none;
+    animation: none !important;
+  }
+  .working::after {
+    display: none;
   }
 }
 

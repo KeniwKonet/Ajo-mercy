@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Display, EmptyState, ButtonLink } from "@/components/ui/primitives";
 import { FolioHead, LedgerRegister, Tally } from "@/components/site/ledger";
+import { Reveal } from "@/components/ui/reveal";
 import { getImpactStats, listFeaturedAlajos, listRecentAlajos } from "@/lib/data/alajos";
 import { formatNairaCompact, formatNumber } from "@/lib/format";
 
@@ -130,6 +131,7 @@ export default async function HomePage() {
       {/* A closing column, ruled and totalled the way a book closes a page. */}
       <section aria-label="Running totals" className="border-b border-rule bg-paper-warm">
         <Container className="py-12 sm:py-14">
+          <Reveal>
           <FolioHead
             book="Running totals"
             note="Counted from the database. A dash means it has not happened yet."
@@ -169,6 +171,7 @@ export default async function HomePage() {
           <p className="ledger-total mt-8 py-2 font-mono text-2xs text-ink-faint">
             Figures are counted, never estimated. Nothing here is projected forward.
           </p>
+          </Reveal>
         </Container>
       </section>
 
