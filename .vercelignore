@@ -1,0 +1,7 @@
+# Design explorations. Static HTML that Next never serves (only public/ is
+# served), excluded so it is not uploaded to the deployment at all.
+design-lab
+
+# Local-only tooling.
+tests
+scripts/seed.mjs
