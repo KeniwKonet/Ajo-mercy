@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, StatusChip } from "@/components/ui/primitives";
+import { VerificationPanel, VerifiedMark } from "@/components/ui/trust";
 import { AlajoRail } from "@/components/site/alajo-cards";
 import { SupportPanel } from "./support-panel";
 import { getAlajoBySlug, listAlajoSlugs, listRecentAlajos, publicMediaUrl } from "@/lib/data/alajos";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { formatNaira, yearsOperating } from "@/lib/format";
+import { formatDate, formatNaira, yearsOperating } from "@/lib/format";
 import { siteUrl } from "@/lib/env";
 
 export const revalidate = 300;
@@ -109,8 +110,8 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
       <Container className="py-8 sm:py-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:gap-16">
           <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <StatusChip tone="positive">Verified by Ajo Mercy</StatusChip>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <VerifiedMark />
               {profile.status === "featured" && <StatusChip tone="feature">Featured</StatusChip>}
             </div>
 
@@ -118,14 +119,16 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               {profile.business_name}
             </h1>
 
-            <p className="mt-5 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
-              {CATEGORY_LABELS[profile.business_category]}
-              <span className="mx-2 text-rule-strong">/</span>
-              {location}
+            <p className="mt-4 text-lg font-medium text-ink-soft">{profile.founder_name}</p>
+
+            <p className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-faint">
+              <span>{CATEGORY_LABELS[profile.business_category]}</span>
+              <span aria-hidden="true" className="text-rule-strong">·</span>
+              <span>{location}</span>
               {years && (
                 <>
-                  <span className="mx-2 text-rule-strong">/</span>
-                  {years} in business
+                  <span aria-hidden="true" className="text-rule-strong">·</span>
+                  <span>{years} in business</span>
                 </>
               )}
             </p>
@@ -251,6 +254,11 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               alajoProfileId={profile.id}
               businessName={profile.business_name}
               requestedAmount={profile.requested_amount_ngn}
+            />
+
+            <VerificationPanel
+              approvedOn={profile.approved_at ? formatDate(profile.approved_at) : null}
+              className="mt-8"
             />
 
             <dl className="mt-8 border-t border-rule">

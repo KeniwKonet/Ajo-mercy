@@ -27,16 +27,29 @@ export function Reveal({
   as?: "div" | "section" | "li";
 }) {
   const ref = useRef<HTMLElement>(null);
+
+  /**
+   * Content is visible until we have proven we can reveal it.
+   *
+   * Hiding first and revealing on scroll means anything that never receives an
+   * intersection callback stays invisible for good: a print, a screenshot, a
+   * browser that fires nothing because the page never scrolls. So the element
+   * renders plainly, and only arms itself once mounted and only if it is
+   * genuinely below the fold, where nobody can see it change.
+   */
+  const [armed, setArmed] = useState(false);
   const [seen, setSeen] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (typeof IntersectionObserver === "undefined") return;
 
-    if (typeof IntersectionObserver === "undefined") {
-      setSeen(true);
-      return;
-    }
+    const box = node.getBoundingClientRect();
+    // Already on screen, or the page is not tall enough to scroll to it.
+    if (box.top < window.innerHeight) return;
+
+    setArmed(true);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -60,8 +73,8 @@ export function Reveal({
     <Tag
       ref={ref as never}
       data-seen={seen || undefined}
-      style={delay ? { animationDelay: `${delay}ms` } : undefined}
-      className={cn("on-view", className)}
+      style={delay && armed ? { animationDelay: `${delay}ms` } : undefined}
+      className={cn(armed && "on-view", className)}
     >
       {children}
     </Tag>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, Display, ButtonLink } from "@/components/ui/primitives";
+import { Container, ButtonLink } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -31,8 +31,8 @@ const STAGES = [
   {
     n: "04",
     title: "Supporters and brands choose",
-    body: "Approved individuals and verified organisations browse the businesses, read the stories, and select the ones they want to back. Selections are capped so attention spreads rather than piling onto whoever is loudest.",
-    detail: "Selection counts are not published. This is not a popularity contest.",
+    body: "Approved individuals and verified organisations browse the businesses, read the stories, and choose the ones they want to back. A supporter can choose as many businesses as they want.",
+    detail: "How many people have chosen a business is never published. This is not a popularity contest.",
   },
   {
     n: "05",
@@ -58,11 +58,17 @@ export default function HowItWorksPage() {
   return (
     <>
       <Container className="py-14 sm:py-20">
-        <div className="max-w-2xl">
-          <Display size="lg">How this works</Display>
-          <p className="mt-6 text-lg leading-relaxed text-ink-soft">
-            Seven steps, and a person involved at every one that matters. The slow parts are slow on
-            purpose.
+        <div className="max-w-3xl">
+          <p className="eyebrow flex items-center gap-2.5">
+            <span aria-hidden="true" className="h-px w-7 bg-terracotta" />
+            From application to announcement
+          </p>
+          <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02]">
+            A person reads every single one.
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">
+            There is no algorithm deciding who appears here. The slow parts are slow on purpose, and
+            this page is the whole process with nothing left out.
           </p>
         </div>
       </Container>
@@ -74,12 +80,12 @@ export default function HowItWorksPage() {
               key={stage.n}
               className="grid gap-4 border-b border-rule py-8 md:grid-cols-[4rem_1fr_18rem] md:gap-10"
             >
-              <span className="font-mono text-sm text-terracotta tabular">{stage.n}</span>
+              <span className="tabular text-sm font-bold text-terracotta">{stage.n}</span>
               <div>
-                <h2 className="font-display text-2xl leading-snug">{stage.title}</h2>
-                <p className="mt-3 max-w-prose leading-relaxed text-ink-soft">{stage.body}</p>
+                <h2 className="text-xl font-bold leading-snug tracking-tight sm:text-2xl">{stage.title}</h2>
+                <p className="mt-3 max-w-prose text-base leading-relaxed text-ink-soft">{stage.body}</p>
               </div>
-              <p className="self-start text-sm leading-relaxed text-ink-faint md:pt-1">{stage.detail}</p>
+              <p className="self-start border-l-2 border-rule pl-4 text-sm leading-relaxed text-ink-faint md:pt-1">{stage.detail}</p>
             </li>
           ))}
         </ol>
@@ -89,7 +95,7 @@ export default function HowItWorksPage() {
           trust proposition, not a disclaimer we hide in the footer. */}
       <section className="border-y border-rule bg-forest text-paper">
         <Container className="py-14 sm:py-20">
-          <h2 className="font-display text-3xl text-paper sm:text-4xl">What we do not do</h2>
+          <h2 className="font-display text-4xl text-paper sm:text-5xl">What we do not do</h2>
           <ul className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
@@ -106,7 +112,7 @@ export default function HowItWorksPage() {
               },
             ].map((item) => (
               <li key={item.title} className="border-t border-paper/15 pt-5">
-                <h3 className="font-display text-lg text-paper">{item.title}</h3>
+                <h3 className="text-base font-bold text-paper">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-paper/70">{item.body}</p>
               </li>
             ))}

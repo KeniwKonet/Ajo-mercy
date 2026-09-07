@@ -121,7 +121,9 @@ sends traffic all at once. The signed-in state resolves in a small client island
 - IPs and device signals are stored **salted-hashed only**. Enough to notice one
   machine running many accounts (`admin_selection_risk`), deliberately not enough
   to track a person.
-- Selection credits cap how many businesses one supporter can back.
+- Supporters may select as many businesses as they want. `selection_credits`
+  is null by default, which means unlimited; setting a number on one row caps
+  that account, which is the throttle for an abusive supporter.
 - Selection counts are never published. This is a choice, not an oversight:
   publishing them turns support into a popularity contest.
 - Uploads are checked for MIME type, size **and magic bytes**, and the storage
@@ -158,6 +160,7 @@ as well as the app.
 | `0002_functions_and_state_machines.sql` | Identity helpers, transition table and triggers, slugs, rate limiting, public stats view |
 | `0003_rls_policies.sql` | RLS on every table, storage buckets and policies |
 | `0004_operations.sql` | Atomic approval, atomic selection, dashboard counts, abuse view |
+| `0005_unlimited_selections.sql` | Selections uncapped by default; per-account caps still enforced |
 
 Multi-table workflows live in SQL functions so they are atomic: approving an
 application publishes the profile and activates the account in one transaction,

@@ -77,7 +77,7 @@ export function SupportPanel({
                 <Button className="w-full" onClick={() => setOpen(true)}>
                   Select this business
                 </Button>
-                {Number.isFinite(eligibility.remaining) && (
+                {eligibility.remaining !== null && (
                   <p className="mt-2 text-center text-xs text-ink-faint">
                     {eligibility.remaining} {eligibility.remaining === 1 ? "selection" : "selections"} left
                   </p>

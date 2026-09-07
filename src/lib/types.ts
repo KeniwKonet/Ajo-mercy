@@ -240,7 +240,8 @@ export type SupporterProfile = {
   reviewed_at: string | null;
   reviewed_by: string | null;
   decision_reason: string | null;
-  selection_credits: number;
+  /** Maximum selections allowed. Null means unlimited, which is the default. */
+  selection_credits: number | null;
   created_at: string;
   updated_at: string;
 }

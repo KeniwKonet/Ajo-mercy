@@ -53,12 +53,12 @@ export interface EmailTemplateData {
   };
 
   "supporter.application_received": { name: string; dashboardUrl: string };
-  "supporter.approved": { name: string; discoverUrl: string; credits: number };
+  "supporter.approved": { name: string; discoverUrl: string; credits: number | null };
   "supporter.rejected": { name: string; message?: string };
   "supporter.selection_recorded": {
     name: string;
     businessName: string;
-    remainingCredits: number;
+    remainingCredits: number | null;
     discoverUrl: string;
   };
 
@@ -279,7 +279,9 @@ const renderers: { [K in EmailEventType]: Renderer<K> } = {
         `${d.name}, your supporter account is approved. You can now browse verified Nigerian businesses and select the ones you want to support.`,
       ) +
       paragraph(
-        `You have ${d.credits} ${d.credits === 1 ? "selection" : "selections"} available. We cap selections so that attention spreads across businesses rather than piling onto whoever is loudest.`,
+        d.credits === null
+          ? "You can select as many businesses as you want to back. Choosing a business tells us you are interested; it is not a promise of money, and nothing is asked of you until the team has spoken to you."
+          : `Your account is limited to ${d.credits} ${d.credits === 1 ? "selection" : "selections"}. Get in touch if you need that changed.`,
       ) +
       button("Find a business to back", d.discoverUrl),
   }),
@@ -306,7 +308,9 @@ const renderers: { [K in EmailEventType]: Renderer<K> } = {
         "The Ajo Mercy team reviews selections before any support is confirmed, so the business has not been told they are receiving anything yet. That step is deliberate.",
       ) +
       paragraph(
-        `You have ${d.remainingCredits} ${d.remainingCredits === 1 ? "selection" : "selections"} left.`,
+        d.remainingCredits === null
+          ? "You can select as many businesses as you want to back."
+          : `You have ${d.remainingCredits} ${d.remainingCredits === 1 ? "selection" : "selections"} left.`,
       ) +
       button("Keep browsing", d.discoverUrl),
   }),

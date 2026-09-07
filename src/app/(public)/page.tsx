@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, Display, EmptyState, ButtonLink } from "@/components/ui/primitives";
-import { FolioHead, LedgerRegister, Tally } from "@/components/site/ledger";
+import { Container, EmptyState, ButtonLink } from "@/components/ui/primitives";
+import { SectionHeader } from "@/components/ui/trust";
+import { BusinessCard, BusinessFeature } from "@/components/site/business-card";
+import { JourneyDiagram, JourneyStrip } from "@/components/site/journey";
 import { Reveal } from "@/components/ui/reveal";
 import { getImpactStats, listFeaturedAlajos, listRecentAlajos } from "@/lib/data/alajos";
 import { formatNairaCompact, formatNumber } from "@/lib/format";
 
 export const metadata: Metadata = {
-  title: "Find a business worth backing",
+  title: "Good businesses deserve to be seen",
   description:
-    "Ajo Mercy verifies Nigerian business owners and connects them with individuals and brands who want to back them. Every profile is reviewed by a person.",
+    "Ajo Mercy verifies Nigerian business owners and connects them with individuals and brands who want to back them. Every business here was read by a person before it appeared.",
   alternates: { canonical: "/" },
 };
 
@@ -22,230 +24,166 @@ export default async function HomePage() {
     getImpactStats(),
   ]);
 
-  // Featured entries open the register, then the rest in the order they were
-  // verified. Duplicates are dropped so a featured business is not listed twice.
   const featuredIds = new Set(featured.map((p) => p.id));
-  const entries = [...featured, ...recent.filter((p) => !featuredIds.has(p.id))].slice(0, 8);
-  const hasEntries = entries.length > 0;
+  const all = [...featured, ...recent.filter((p) => !featuredIds.has(p.id))];
+  const lead = all[0] ?? null;
+  const rest = all.slice(1, 7);
+  const hasBusinesses = Boolean(lead);
 
   return (
     <>
-      {/* --------------------------------------------------------- opening */}
+      {/* ------------------------------------------------------------ hero
+          Answers what this is, who it is for, and what you can do, above the
+          fold. The diagram carries the same argument without the words. */}
       <section className="border-b border-rule">
-        <Container className="py-14 sm:py-20">
-          <FolioHead
-            book="Ajo Mercy · Register of verified businesses"
-            note="Kept by hand. Nothing is entered automatically."
-          />
-
-          <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <Container className="py-14 sm:py-20 lg:py-24">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="reveal">
-              <Display size="xl" className="max-w-[14ch]">
-                Find a business worth backing.
-              </Display>
-              <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-                Nigerian business owners tell us what they are building and what is in the way. We
-                check it. Then people and brands who want to help choose who to back.
+              <p className="eyebrow flex items-center gap-2.5">
+                <span aria-hidden="true" className="h-px w-7 bg-terracotta" />
+                Discover verified Nigerian businesses
               </p>
+
+              <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98]">
+                Good businesses
+                <br />
+                deserve to be <em className="italic">seen</em>.
+              </h1>
+
+              <p className="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft">
+                Nigerian business owners tell us what they are building and what is in the way. A
+                person checks every one. Then people and brands who want to help choose who to back.
+              </p>
+
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <ButtonLink href="/alajos" size="lg">
-                  Open the register
+                  Discover businesses
                 </ButtonLink>
                 <ButtonLink href="/become-an-alajo" variant="secondary" size="lg">
-                  Apply as a business
+                  Become an Alajo
                 </ButtonLink>
               </div>
-              <p className="mt-5 text-xs text-ink-faint">
-                Free to apply. Registering does not guarantee selection or support.
+
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-faint">
+                Free to apply. Ajo Mercy never holds or transfers money, and registering does not
+                guarantee selection or support.
               </p>
             </div>
 
-            {/* The three stages, entered like a book: number in the margin,
-                each line sitting on its own rule. */}
-            <div className="reveal reveal-2 ledger-margin self-end [--ledger-gutter:0px]">
-              <ol className="pl-6">
-                {[
-                  {
-                    n: "01",
-                    title: "A business applies",
-                    body: "Owner, business, documents, and the story behind it.",
-                  },
-                  {
-                    n: "02",
-                    title: "A person reviews it",
-                    body: "Woli Arole and the Ajo Mercy team check every application by hand. Nothing goes live automatically.",
-                  },
-                  {
-                    n: "03",
-                    title: "Supporters choose",
-                    body: "Individuals and brands pick who they want to back. We confirm before anyone is told they have been supported.",
-                  },
-                ].map((step) => (
-                  <li key={step.n} className="flex gap-5 border-b border-rule py-5 first:pt-0 last:border-b-0">
-                    <span className="entry-no pt-1.5">{step.n}</span>
-                    <div>
-                      <p className="font-display text-lg leading-snug">{step.title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-ink-soft">{step.body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            <Reveal delay={90} className="lg:pl-6">
+              <JourneyDiagram />
+            </Reveal>
           </div>
         </Container>
       </section>
 
-      {/* -------------------------------------------------------- register */}
+      {/* ------------------------------------------------------- businesses
+          Discovery comes before explanation. Someone who arrives cold should
+          meet a real person's business before they meet an argument. */}
       <section className="border-b border-rule">
-        <Container className="py-14 sm:py-18">
-          <div className="flex items-baseline justify-between gap-6 pb-4">
-            <h2 className="font-display text-2xl sm:text-3xl">The register</h2>
-            <Link href="/alajos" className="link-rule shrink-0 text-sm text-ink-soft hover:text-ink">
-              Every entry
-            </Link>
-          </div>
+        <Container className="py-16 sm:py-20">
+          <SectionHeader
+            title="The businesses"
+            lead="Every one of them applied, sent documents, and was read by a person before it appeared here."
+            aside={
+              <Link href="/alajos" className="link-rule font-semibold text-ink">
+                See all businesses
+              </Link>
+            }
+          />
 
-          {hasEntries ? (
-            <>
-              <LedgerRegister profiles={entries} />
-              <p className="mt-5 font-mono text-2xs text-ink-faint">
-                Entry numbers are positional and change as the register grows. A business is
-                identified by its profile, not its line.
-              </p>
-            </>
+          {hasBusinesses && lead ? (
+            <div className="space-y-16 pt-10">
+              <BusinessFeature profile={lead} priority />
+              {rest.length > 0 && (
+                <div className="grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                  {rest.map((profile, i) => (
+                    <Reveal key={profile.id} delay={i * 60}>
+                      <BusinessCard profile={profile} />
+                    </Reveal>
+                  ))}
+                </div>
+              )}
+            </div>
           ) : (
-            <EmptyState
-              title="No entries yet"
-              description="Applications are open and under review. Verified businesses are written into the register as the team works through them."
-              action={
-                <ButtonLink href="/become-an-alajo" variant="secondary">
-                  Apply as a business
-                </ButtonLink>
-              }
-            />
+            <div className="pt-10">
+              <EmptyState
+                title="No verified businesses yet"
+                description="Applications are open and under review. Businesses appear here as the team finishes checking them, and never before."
+                action={
+                  <ButtonLink href="/become-an-alajo" variant="secondary">
+                    Apply as a business
+                  </ButtonLink>
+                }
+              />
+            </div>
           )}
         </Container>
       </section>
 
-      {/* ------------------------------------------------------------ tally */}
-      {/* A closing column, ruled and totalled the way a book closes a page. */}
-      <section aria-label="Running totals" className="border-b border-rule bg-paper-warm">
-        <Container className="py-12 sm:py-14">
+      {/* ---------------------------------------------------------- journey */}
+      <section className="border-b border-rule bg-paper-warm">
+        <Container className="py-16 sm:py-20">
           <Reveal>
-          <FolioHead
-            book="Running totals"
-            note="Counted from the database. A dash means it has not happened yet."
-          />
-          {/* Two ruled columns, closed with a struck rule the way a book totals
-              a page. The tally only appears while a number is small enough that
-              a person would actually count it. */}
-          <dl className="mt-6 grid gap-x-14 sm:grid-cols-2">
-            {[
-              { label: "Businesses verified", value: stats.alajos_approved, tally: true },
-              { label: "Businesses supported", value: stats.businesses_supported, tally: true },
-              {
-                label: "Support facilitated",
-                value: stats.support_facilitated_ngn,
-                money: true,
-              },
-              { label: "States reached", value: stats.states_reached, tally: true },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex items-baseline justify-between gap-6 border-b border-rule py-4"
-              >
-                <dt className="text-sm text-ink-soft">{item.label}</dt>
-                <dd className="flex items-baseline gap-5">
-                  {item.tally && item.value > 0 && <Tally count={item.value} />}
-                  <span className="tabular min-w-[6ch] text-right font-mono text-base text-ink">
-                    {item.value === 0
-                      ? "—"
-                      : item.money
-                        ? formatNairaCompact(item.value)
-                        : formatNumber(item.value)}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <p className="ledger-total mt-8 py-2 font-mono text-2xs text-ink-faint">
-            Figures are counted, never estimated. Nothing here is projected forward.
-          </p>
+            <SectionHeader
+              title={<span className="font-display text-3xl sm:text-4xl">How this works</span>}
+              lead="Four stages, and a person at two of them."
+              aside={
+                <Link href="/how-it-works" className="link-rule font-semibold text-ink">
+                  The full process
+                </Link>
+              }
+              className="border-b-0 pb-0"
+            />
+            <JourneyStrip className="mt-9 border border-rule" />
           </Reveal>
         </Container>
       </section>
 
-      {/* --------------------------------------------------------- origin */}
-      <section className="border-b border-rule">
-        <Container className="py-16 sm:py-20">
-          <div className="grid gap-10 lg:grid-cols-[0.4fr_1fr] lg:gap-16">
-            <p className="font-mono text-2xs leading-relaxed text-ink-faint">
-              Where this came from.
-              <br />
-              Written by the team.
-            </p>
-            <div className="prose-editorial">
-              <p className="font-display text-2xl leading-[1.35] text-ink sm:text-3xl">
-                An argument about Ajo turned into a queue of people asking the same question: who
-                actually needs the money, and how do I know they are real?
-              </p>
-              <p className="mt-6 text-base leading-relaxed text-ink-soft">
-                Brands started calling. Individuals started offering. Business owners started sending
-                DMs. None of it had a system behind it, so most of it went nowhere.
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-ink-soft">
-                Ajo Mercy is the book. Applications get read. Documents get checked. Businesses that
-                pass are written into the register with their real story on it. Supporters and brands
-                choose from those, and no one is told they have been supported until the team has
-                confirmed it.
-              </p>
-              <p className="mt-6">
-                <Link href="/how-it-works" className="link-rule text-sm font-medium text-ink">
-                  Read the full process
-                </Link>
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* ----------------------------------------------------------- trust */}
+      {/* ------------------------------------------------------------ trust */}
       <section className="border-b border-rule bg-forest text-paper">
-        <Container className="py-16 sm:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
+        <Container className="py-16 sm:py-24">
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
             <div>
-              <h2 className="font-display text-3xl leading-tight text-paper sm:text-4xl">
-                Verification is the whole product.
+              <p className="eyebrow flex items-center gap-2.5 text-ochre">
+                <span aria-hidden="true" className="h-px w-7 bg-ochre" />
+                Why Ajo Mercy
+              </p>
+              <h2 className="mt-5 font-display text-4xl leading-[1.04] text-paper sm:text-5xl">
+                Anyone can collect names. The hard part is knowing they are real.
               </h2>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-paper/75">
-                Anyone can build a page that collects names. The hard part is knowing that the
-                business on the other end is real, that the story is theirs, and that support reaches
-                the person it was meant for.
+              <p className="mt-7 max-w-md text-base leading-relaxed text-paper/75">
+                Verification is not a feature of this product. It is the product. Everything else
+                exists to make a checked business easier to find and easier to back.
               </p>
             </div>
-            <ul className="space-y-6">
+
+            <ul className="space-y-7">
               {[
                 {
-                  n: "i",
                   title: "Reviewed by a person, not a filter",
-                  body: "Woli Arole is the Super Admin. He and the review team see every application, every document and every photograph before an entry goes live.",
+                  body: "Woli Arole is the Super Admin. He and the review team see every application, every document and every photograph before a business goes live.",
                 },
                 {
-                  n: "ii",
-                  title: "Selection is not confirmation",
-                  body: "When a supporter picks a business, that business is told it is under consideration. Only after the team confirms does anyone hear the word confirmed.",
+                  title: "Choosing is not confirming",
+                  body: "When a supporter picks a business, that business is told it is under consideration and nothing more. Only after the team confirms does anyone hear that support is real.",
                 },
                 {
-                  n: "iii",
                   title: "We never touch the money",
-                  body: "Ajo Mercy does not hold, escrow or transfer funds. Support is arranged directly, and we stay in the loop to make sure it lands.",
+                  body: "Ajo Mercy does not hold, escrow or transfer funds at any point. Support is arranged directly between the two sides, and we stay in the loop to make sure it lands.",
                 },
-              ].map((item) => (
-                <li key={item.title} className="flex gap-5 border-t border-paper/15 pt-5">
-                  <span className="pt-1 font-mono text-2xs text-ochre">{item.n}</span>
+                {
+                  title: "No leaderboards",
+                  body: "How many people have chosen a business is never published. Attention should follow the story, not the scoreboard.",
+                },
+              ].map((item, i) => (
+                <li key={item.title} className="flex gap-5 border-t border-paper/15 pt-6">
+                  <span className="tabular pt-1 text-2xs font-bold text-ochre">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <div>
-                    <p className="font-display text-lg text-paper">{item.title}</p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-paper/70">{item.body}</p>
+                    <h3 className="text-base font-bold text-paper">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-paper/70">{item.body}</p>
                   </div>
                 </li>
               ))}
@@ -254,42 +192,79 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ------------------------------------------------------------- CTA */}
+      {/* ----------------------------------------------------------- counts
+          Counted from the database. A dash where nothing has happened yet. */}
+      <section aria-label="Platform numbers" className="border-b border-rule">
+        <Container className="py-14">
+          <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { label: "Businesses verified", value: stats.alajos_approved },
+              { label: "Businesses supported", value: stats.businesses_supported },
+              { label: "Support facilitated", value: stats.support_facilitated_ngn, money: true },
+              { label: "States reached", value: stats.states_reached },
+            ].map((item) => (
+              <div key={item.label} className="border-t-2 border-ink pt-4">
+                <dd className="tabular font-display text-4xl leading-none">
+                  {item.value === 0
+                    ? "—"
+                    : item.money
+                      ? formatNairaCompact(item.value)
+                      : formatNumber(item.value)}
+                </dd>
+                <dt className="mt-3 text-sm font-medium text-ink-soft">{item.label}</dt>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-8 text-xs text-ink-faint">
+            Every figure is counted from the platform database. A dash means it has not happened yet.
+          </p>
+        </Container>
+      </section>
+
+      {/* ------------------------------------------------------------- ways in */}
       <section>
-        <Container className="py-14 sm:py-20">
-          <FolioHead book="Three ways into the book" />
-          <div>
+        <Container className="py-16 sm:py-20">
+          <SectionHeader title="Three ways in" className="border-b-0 pb-0" />
+          <div className="mt-8 grid gap-px bg-rule md:grid-cols-3">
             {[
               {
                 title: "You run a business",
                 body: "Tell us what you are building and what is in the way. Applications are read in the order they arrive.",
-                cta: "Apply as an Alajo",
+                cta: "Become an Alajo",
                 href: "/become-an-alajo",
               },
               {
                 title: "You want to help",
-                body: "Register, get approved, then choose the businesses you want to back.",
+                body: "Register, get approved, then choose as many businesses as you want to back.",
                 cta: "Support a business",
                 href: "/support",
               },
               {
                 title: "You represent a brand",
-                body: "Set a budget, tell us what you are looking for, and pick from verified businesses.",
+                body: "Set a budget, tell us what you are looking for, and choose from verified businesses.",
                 cta: "Register your brand",
                 href: "/brands",
               },
-            ].map((row) => (
+            ].map((card) => (
               <Link
-                key={row.title}
-                href={row.href}
-                className="ledger-row group grid items-baseline gap-x-8 gap-y-2 border-b border-rule py-6 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto]"
+                key={card.title}
+                href={card.href}
+                className="group flex flex-col bg-paper p-7 transition-colors hover:bg-paper-warm sm:p-8"
               >
-                <h3 className="font-display text-xl text-ink group-hover:text-terracotta">
-                  {row.title}
-                </h3>
-                <p className="max-w-prose text-sm leading-relaxed text-ink-soft">{row.body}</p>
-                <span className="justify-self-start border-b border-ink pb-0.5 text-sm font-medium text-ink group-hover:border-terracotta group-hover:text-terracotta md:justify-self-end">
-                  {row.cta}
+                <h3 className="text-xl font-bold tracking-tight">{card.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{card.body}</p>
+                <span className="mt-7 inline-flex items-center gap-2 self-start border-b-2 border-ink pb-1 text-sm font-semibold transition-colors group-hover:border-terracotta group-hover:text-terracotta">
+                  {card.cta}
+                  <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
+                    <path
+                      d="M3 8h9M8.5 4l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </span>
               </Link>
             ))}

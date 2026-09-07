@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { DashboardPage } from "@/components/dashboard/shell";
-import { Alert, ButtonLink, Stat, StatusChip } from "@/components/ui/primitives";
+import { Alert, ButtonLink, Stat, StatusChip, cn } from "@/components/ui/primitives";
 import { SupporterForm } from "./supporter-form";
 import { APPLICATION_STATUS_LABELS, applicationTone } from "@/lib/state-machine";
 import type { SupporterProfile } from "@/lib/types";
@@ -72,20 +72,32 @@ export default async function SupporterOverviewPage() {
           </Alert>
         )}
 
-        <section className="grid gap-px border border-rule bg-rule sm:grid-cols-3">
+        {/* With no cap there is nothing to count down, so the third figure is
+            dropped rather than shown as a meaningless number. */}
+        <section
+          className={cn(
+            "grid gap-px border border-rule bg-rule",
+            supporter.selection_credits === null ? "sm:grid-cols-2" : "sm:grid-cols-3",
+          )}
+        >
           <div className="bg-paper px-5">
-            <Stat value={supporter.selection_credits} label="Selections allowed" />
+            <Stat
+              value={supporter.selection_credits === null ? "Unlimited" : supporter.selection_credits}
+              label="Selections allowed"
+            />
           </div>
           <div className="bg-paper px-5">
             <Stat value={used} label="Selections used" />
           </div>
-          <div className="bg-paper px-5">
-            <Stat
-              value={Math.max(0, supporter.selection_credits - used)}
-              label="Selections left"
-              hint="Ask us if you need more"
-            />
-          </div>
+          {supporter.selection_credits !== null && (
+            <div className="bg-paper px-5">
+              <Stat
+                value={Math.max(0, supporter.selection_credits - used)}
+                label="Selections left"
+                hint="Ask us if you need more"
+              />
+            </div>
+          )}
         </section>
 
         {supporter.status === "approved" && (

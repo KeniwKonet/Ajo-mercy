@@ -26,7 +26,8 @@ export type Eligibility =
   | { state: "wrong_role" }
   | { state: "no_credits"; remaining: 0 }
   | { state: "already_selected" }
-  | { state: "eligible"; remaining: number; kind: "supporter" | "brand" };
+  /** `remaining: null` means unlimited. */
+  | { state: "eligible"; remaining: number | null; kind: "supporter" | "brand" };
 
 /** What the support panel needs to know, without exposing anyone else's data. */
 export async function getSelectionEligibility(alajoProfileId: string): Promise<Eligibility> {
@@ -64,6 +65,12 @@ export async function getSelectionEligibility(alajoProfileId: string): Promise<E
 
     if ((dupe ?? 0) > 0) return { state: "already_selected" };
 
+    // A null allowance is unlimited. Only a deliberate per-account cap, set
+    // by an admin, produces a number here.
+    if (supporter.selection_credits === null) {
+      return { state: "eligible", remaining: null, kind: "supporter" };
+    }
+
     const remaining = supporter.selection_credits - (used ?? 0);
     if (remaining <= 0) return { state: "no_credits", remaining: 0 };
     return { state: "eligible", remaining, kind: "supporter" };
@@ -86,7 +93,7 @@ export async function getSelectionEligibility(alajoProfileId: string): Promise<E
       .neq("status", "withdrawn");
 
     if ((dupe ?? 0) > 0) return { state: "already_selected" };
-    return { state: "eligible", remaining: Number.POSITIVE_INFINITY, kind: "brand" };
+    return { state: "eligible", remaining: null, kind: "brand" };
   }
 
   return { state: "wrong_role" };

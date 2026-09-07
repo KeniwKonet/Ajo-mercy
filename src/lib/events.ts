@@ -415,7 +415,7 @@ async function handle(event: DomainEvent): Promise<void> {
         data: {
           name: to.name,
           discoverUrl: `${siteUrl}/alajos`,
-          credits: (data as { selection_credits: number } | null)?.selection_credits ?? 3,
+          credits: (data as { selection_credits: number | null } | null)?.selection_credits ?? null,
         },
       });
       await notify(to.userId, "supporter_approved", "You are approved", "Start browsing verified businesses.", "/alajos");
@@ -464,7 +464,7 @@ async function handle(event: DomainEvent): Promise<void> {
           .select("selection_credits")
           .eq("user_id", sel.selector_id)
           .maybeSingle();
-        const credits = (sp as { selection_credits: number } | null)?.selection_credits ?? 0;
+        const credits = (sp as { selection_credits: number | null } | null)?.selection_credits ?? null;
 
         await sendEmail({
           type: "supporter.selection_recorded",

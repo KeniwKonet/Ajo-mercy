@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Container, EmptyState, ButtonLink, Skeleton } from "@/components/ui/primitives";
-import { FolioHead, LedgerRegister } from "@/components/site/ledger";
+import { BusinessCard, BusinessFeature } from "@/components/site/business-card";
+import { PageHeader } from "@/components/ui/trust";
+import { Reveal } from "@/components/ui/reveal";
 import { DiscoveryFilters } from "./filters";
-import { PAGE_SIZE, getCategoryCounts, getStateCounts, listAlajos } from "@/lib/data/alajos";
+import { getCategoryCounts, getStateCounts, listAlajos } from "@/lib/data/alajos";
 import { discoveryQuerySchema } from "@/lib/validation/schemas";
 import { CATEGORY_LABELS, type BusinessCategory } from "@/lib/types";
 
@@ -54,19 +56,18 @@ export default async function AlajosPage({ searchParams }: { searchParams: Searc
   const isFirstUnfilteredPage =
     page === 1 && !query.q && !query.category && !query.state && !query.need;
 
-  // Entry numbers continue across pages rather than restarting, the way a
-  // book's line numbers do.
-  const startIndex = (page - 1) * PAGE_SIZE;
+  // The lead treatment is only for the plain first page. Once someone has
+  // filtered, every result is equally relevant and the grid is the honest shape.
+  const lead = isFirstUnfilteredPage ? profiles[0] : undefined;
+  const gridItems = lead ? profiles.slice(1) : profiles;
 
   return (
     <Container className="py-12 sm:py-16">
-      <header className="max-w-2xl">
-        <h1 className="font-display text-4xl sm:text-5xl">The register</h1>
-        <p className="mt-4 text-base leading-relaxed text-ink-soft">
-          Every business here applied, sent documents, and was read by a person before it was
-          entered. Take your time. The stories are the point.
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="Verified businesses"
+        title={<span className="font-display text-4xl sm:text-5xl">Discover</span>}
+        lead="Every business here applied, sent documents, and was read by a person before it appeared. Take your time. The stories are the point."
+      />
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-14">
         <aside className="lg:sticky lg:top-24 lg:self-start">
@@ -98,17 +99,35 @@ export default async function AlajosPage({ searchParams }: { searchParams: Searc
             />
           ) : (
             <div>
-              <FolioHead
-                book={`${total} ${total === 1 ? "entry" : "entries"}`}
-                folio={pageCount > 1 ? `Folio ${page} of ${pageCount}` : undefined}
-              />
-              <div className="mt-4">
-                <LedgerRegister profiles={profiles} startIndex={startIndex} />
+              <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-rule pb-3">
+                <p className="text-sm font-semibold">
+                  {total} {total === 1 ? "business" : "businesses"}
+                </p>
+                {pageCount > 1 && (
+                  <p className="text-xs text-ink-faint">
+                    Page {page} of {pageCount}
+                  </p>
+                )}
               </div>
 
-              <p className="mt-5 font-mono text-2xs text-ink-faint">
-                Entry numbers are positional and shift as the register grows. How many people have
-                selected a business is never published.
+              {/* The first result on an unfiltered page gets room; the rest run
+                  as a grid. A uniform grid from the top reads as a directory
+                  rather than a set of people. */}
+              <div className="space-y-14 pt-9">
+                {lead && <BusinessFeature profile={lead} priority />}
+                {gridItems.length > 0 && (
+                  <div className="grid gap-x-7 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+                    {gridItems.map((profile, i) => (
+                      <Reveal key={profile.id} delay={i * 50}>
+                        <BusinessCard profile={profile} priority={!lead && i < 3} />
+                      </Reveal>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <p className="mt-8 text-xs text-ink-faint">
+                How many people have chosen a business is never published.
               </p>
 
               {pageCount > 1 && (

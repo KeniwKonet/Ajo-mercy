@@ -1,21 +1,34 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, JetBrains_Mono, Manrope } from "next/font/google";
 import { siteUrl } from "@/lib/env";
 import "./globals.css";
 
-const fraunces = Fraunces({
+/**
+ * Two voices, deliberately.
+ *
+ * Manrope carries the product: navigation, forms, tables, every place someone
+ * is trying to get something done. It is a variable face, so the whole weight
+ * range costs one file.
+ *
+ * Instrument Serif is the editorial voice and appears only where the product
+ * has something to say. Using it for every heading would spend the contrast
+ * that makes it work.
+ */
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fraunces",
-  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-sans-face",
 });
 
-const archivo = Archivo({
+const instrument = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-archivo",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-display-face",
 });
 
+/** Reference numbers, timestamps and ids only. Never body copy. */
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
@@ -72,7 +85,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG" className={`${fraunces.variable} ${archivo.variable} ${mono.variable}`}>
+    <html lang="en-NG" className={`${manrope.variable} ${instrument.variable} ${mono.variable}`}>
       <body>
         <a
           href="#main"
