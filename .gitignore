@@ -8,3 +8,7 @@ build
 *.tsbuildinfo
 .DS_Store
 .vercel
+
+# Internal handbook. Contains live admin credentials, so it must never
+# reach the public repository. Share it directly instead.
+docs/handbook.html
