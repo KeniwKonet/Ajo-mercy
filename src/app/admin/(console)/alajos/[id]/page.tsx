@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePermission } from "@/lib/auth";
-import { getReviewDetail } from "@/lib/data/applications";
+import { getReviewDetail, listReviewQueue } from "@/lib/data/applications";
+import { ReviewRail } from "@/components/dashboard/review-rail";
 import { createAdminSupabase } from "@/lib/supabase/admin";
 import { publicMediaUrl } from "@/lib/data/media-url";
 import { can } from "@/lib/rbac";
@@ -27,6 +28,14 @@ export default async function ReviewApplicationPage({
   if (!detail) notFound();
 
   const { application, applicant, media, allRequests, profile, notes, completeness, missing } = detail;
+
+  // The open queue, so the reviewer can move to the next one without going
+  // back to the list. Oldest first, matching the queue page exactly.
+  const queue = await listReviewQueue({
+    status: ["submitted", "under_review"],
+    page: 1,
+    pageSize: 40,
+  });
 
   // Documents live in a private bucket, so the reviewer gets short-lived signed
   // URLs rather than anything permanently reachable.
@@ -55,7 +64,12 @@ export default async function ReviewApplicationPage({
 
       {/* Three columns on a wide screen; a single readable stack on anything
           narrower, because reviewing on a phone is a real scenario here. */}
-      <div className="grid gap-8 pt-6 xl:grid-cols-[1fr_1.15fr_20rem] xl:gap-8">
+      <div className="grid gap-8 pt-6 xl:grid-cols-[14rem_minmax(0,1fr)_19rem] xl:gap-7">
+        {/* LEFT: what else is waiting. */}
+        <ReviewRail items={queue.items} currentId={application.id} total={queue.total} />
+
+        {/* CENTRE: the applicant and the business, read top to bottom. */}
+        <div className="min-w-0 space-y-10">
         {/* ------------------------------------------------ applicant ----- */}
         <section aria-labelledby="applicant" className="min-w-0">
           <h2 id="applicant" className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
@@ -302,6 +316,8 @@ export default async function ReviewApplicationPage({
             </div>
           )}
         </section>
+
+        </div>
 
         {/* ------------------------------------------------------ decision - */}
         <aside className="xl:sticky xl:top-6 xl:self-start">
