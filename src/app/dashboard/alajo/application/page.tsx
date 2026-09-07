@@ -18,8 +18,8 @@ export default async function AlajoApplicationPage() {
 
   return (
     <DashboardPage
-      title="My application"
-      description="Save as you go. Nothing reaches the review team until you submit."
+      title="Tell us what you are building"
+      description="Five short steps. Everything saves as you go, and nothing reaches the review team until you send it."
     >
       <ApplicationForm
         application={workspace.application!}

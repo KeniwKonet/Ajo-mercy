@@ -4,14 +4,15 @@ import { requireRole } from "@/lib/auth";
 import { getAlajoWorkspace } from "@/lib/data/applications";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { DashboardPage } from "@/components/dashboard/shell";
-import { Alert, ButtonLink, EmptyState, StatusChip, Stat } from "@/components/ui/primitives";
+import { Alert, ButtonLink, EmptyState, Stat } from "@/components/ui/primitives";
+import { StatusBadge, StatusExplainer, type StatusKind } from "@/components/ui/trust";
 import {
   ALAJO_PROFILE_STATUS_LABELS,
   APPLICATION_STATUS_LABELS,
   applicationTone,
 } from "@/lib/state-machine";
 import { formatDate, formatNaira, formatRelative } from "@/lib/format";
-import type { SupportConfirmation } from "@/lib/types";
+import type { ApplicationStatus, SupportConfirmation } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Overview", robots: { index: false, follow: false } };
 
@@ -47,13 +48,12 @@ export default async function AlajoOverviewPage() {
     <DashboardPage
       title={`Welcome, ${profile.full_name.split(" ")[0]}`}
       description={application.business_name ?? undefined}
-      actions={
-        <StatusChip tone={applicationTone(application.status)}>
-          {APPLICATION_STATUS_LABELS[application.status]}
-        </StatusChip>
-      }
+      actions={<StatusBadge kind={statusKind(application.status)} />}
     >
       <div className="space-y-8">
+        {/* The badge alone makes someone guess. The sentence tells them what
+            is true right now and whether anything is expected of them. */}
+        <StatusExplainer kind={statusKind(application.status)} />
         {/* The single most important thing on this page: what to do next. */}
         {application.status === "more_information_required" && (
           <Alert tone="attention" title="We need a few things from you">
@@ -160,9 +160,10 @@ export default async function AlajoOverviewPage() {
                       {confirmation.amount_ngn ? ` · ${formatNaira(confirmation.amount_ngn)}` : ""}
                     </p>
                   </div>
-                  <StatusChip tone={confirmation.status === "completed" ? "positive" : "progress"}>
-                    {confirmation.status}
-                  </StatusChip>
+                  <StatusBadge
+                    size="sm"
+                    kind={confirmation.status === "completed" ? "confirmed" : "selected"}
+                  />
                 </li>
               ))}
             </ul>
@@ -176,4 +177,28 @@ export default async function AlajoOverviewPage() {
       </div>
     </DashboardPage>
   );
+}
+
+/**
+ * The application state machine has its own vocabulary; the interface has one
+ * shared one. This is the single place the two are mapped, so a status word
+ * never differs between the applicant's screen and the reviewer's.
+ */
+function statusKind(status: ApplicationStatus): StatusKind {
+  switch (status) {
+    case "draft":
+      return "draft";
+    case "submitted":
+      return "submitted";
+    case "under_review":
+      return "review";
+    case "more_information_required":
+      return "needs_info";
+    case "approved":
+      return "approved";
+    case "rejected":
+      return "rejected";
+    default:
+      return "submitted";
+  }
 }

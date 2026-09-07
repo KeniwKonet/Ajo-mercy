@@ -51,6 +51,17 @@ export function Reveal({
 
     setArmed(true);
 
+    /**
+     * Failsafe.
+     *
+     * An observer that never fires leaves the content hidden for good. That
+     * happens in more situations than it sounds: a full-page screenshot, a
+     * print, a page tall enough that the section is never scrolled into view.
+     * So the reveal runs on its own after a short wait regardless, and a real
+     * scroll simply gets there first.
+     */
+    const failsafe = setTimeout(() => setSeen(true), 1200);
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -66,7 +77,10 @@ export function Reveal({
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(failsafe);
+      observer.disconnect();
+    };
   }, []);
 
   return (

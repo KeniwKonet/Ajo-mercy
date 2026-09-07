@@ -30,14 +30,61 @@ import type { AlajoApplication, AlajoMedia, VerificationRequest } from "@/lib/ty
 import type { ActionResult } from "@/lib/validation/shared";
 
 const STEPS = [
-  { key: "personal", label: "About you" },
-  { key: "business", label: "The business" },
-  { key: "story", label: "Your story" },
-  { key: "documents", label: "Photos & documents" },
-  { key: "review", label: "Review & submit" },
+  {
+    key: "personal",
+    label: "About you",
+    note: "Who you are. Your date of birth, address and phone number stay private and are never published.",
+    fields: ["founder_name", "personal_phone", "personal_address"],
+  },
+  {
+    key: "business",
+    label: "The business",
+    note: "What you run and where. This is the part supporters use to find you.",
+    fields: ["business_name", "business_category", "state", "city", "business_description"],
+  },
+  {
+    key: "story",
+    label: "Your story",
+    note: "The part people actually read. Write it the way you would tell a friend.",
+    fields: ["story", "current_challenge", "support_would_enable"],
+  },
+  {
+    key: "documents",
+    label: "Photos and documents",
+    note: "Photographs of the business, and one identity document so the team can verify you.",
+    fields: [],
+  },
+  {
+    key: "review",
+    label: "Check and send",
+    note: "Nothing reaches the review team until you send it.",
+    fields: [],
+  },
 ] as const;
 
 type StepKey = (typeof STEPS)[number]["key"];
+type Step = (typeof STEPS)[number];
+
+/**
+ * Whether a step has everything it needs.
+ *
+ * Read from the saved application rather than from local form state, so a tick
+ * only ever means "this reached the server". The documents step counts an
+ * uploaded identity document, since that is the one the review team cannot
+ * proceed without.
+ */
+function stepIsDone(step: Step, application: AlajoApplication, media: AlajoMedia[]): boolean {
+  if (step.key === "documents") {
+    return media.some((m) => m.kind === "document");
+  }
+  if (step.key === "review") {
+    return application.status !== "draft";
+  }
+  return step.fields.every((field) => {
+    const value = application[field as keyof AlajoApplication];
+    return typeof value === "string" ? value.trim().length > 0 : value !== null && value !== undefined;
+  });
+}
 
 export function ApplicationForm({
   application,
@@ -58,6 +105,7 @@ export function ApplicationForm({
   const [step, setStep] = useState<StepKey>(
     application.founder_name ? (application.business_name ? "story" : "business") : "personal",
   );
+  const currentStep = STEPS.find((s) => s.key === step) ?? STEPS[0];
 
   return (
     <div className="space-y-8">
@@ -79,28 +127,62 @@ export function ApplicationForm({
         </Alert>
       )}
 
-      {/* Step navigation doubles as a progress indicator. */}
-      <nav aria-label="Application steps" className="overflow-x-auto">
-        <ol className="flex min-w-max gap-1 border-b border-rule">
+      {/* The stepper carries three things at once: where you are, what is
+          already done, and why this step is asking. A row of tabs told you
+          none of that, which is what made the form feel like paperwork. */}
+      <nav aria-label="Application steps">
+        <ol className="grid gap-px overflow-hidden rounded-md border border-rule bg-rule sm:grid-cols-5">
           {STEPS.map((item, index) => {
             const active = step === item.key;
+            const done = stepIsDone(item, application, media);
             return (
-              <li key={item.key}>
+              <li key={item.key} className="bg-paper">
                 <button
                   type="button"
                   onClick={() => setStep(item.key)}
                   aria-current={active ? "step" : undefined}
                   className={cn(
-                    "flex items-baseline gap-2 border-b-2 px-4 py-3 text-sm transition-colors",
-                    active
-                      ? "border-forest font-medium text-ink"
-                      : "border-transparent text-ink-soft hover:text-ink",
+                    "flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors sm:flex-col sm:items-start sm:gap-2",
+                    active ? "bg-forest text-paper" : "hover:bg-paper-warm",
                   )}
                 >
-                  <span className="font-mono text-2xs text-ink-faint tabular">
-                    {String(index + 1).padStart(2, "0")}
+                  <span
+                    className={cn(
+                      "grid size-6 shrink-0 place-items-center rounded-full border text-2xs font-bold tabular",
+                      active
+                        ? "border-paper/40 bg-paper/15 text-paper"
+                        : done
+                          ? "border-success bg-success text-paper"
+                          : "border-rule-strong text-ink-faint",
+                    )}
+                  >
+                    {done && !active ? (
+                      <svg viewBox="0 0 14 14" className="size-3" aria-hidden="true">
+                        <path
+                          d="M3 7.4 5.8 10 11 4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ) : (
+                      index + 1
+                    )}
                   </span>
-                  {item.label}
+                  <span
+                    className={cn(
+                      "text-sm font-semibold leading-snug",
+                      active ? "text-paper" : done ? "text-ink" : "text-ink-soft",
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                  {/* Screen readers get the state that colour alone carries. */}
+                  <span className="sr-only">
+                    {active ? "current step" : done ? "complete" : "not started"}
+                  </span>
                 </button>
               </li>
             );
@@ -108,14 +190,18 @@ export function ApplicationForm({
         </ol>
       </nav>
 
-      <div className="flex items-center gap-3">
-        <div className="h-1 flex-1 overflow-hidden bg-paper-deep">
-          <div
-            className="h-full bg-forest transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-            style={{ width: `${completeness}%` }}
-          />
-        </div>
-        <span className="text-xs text-ink-faint tabular">{completeness}% complete</span>
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <p className="max-w-2xl text-sm leading-relaxed text-ink-soft">{currentStep.note}</p>
+        <span className="tabular shrink-0 text-xs font-semibold text-ink-faint">
+          {completeness}% complete
+        </span>
+      </div>
+
+      <div className="h-1 overflow-hidden rounded-full bg-paper-deep">
+        <div
+          className="h-full rounded-full bg-forest transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+          style={{ width: `${completeness}%` }}
+        />
       </div>
 
       {step === "personal" && (

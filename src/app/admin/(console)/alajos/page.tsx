@@ -3,8 +3,9 @@ import Link from "next/link";
 import { requirePermission } from "@/lib/auth";
 import { listReviewQueue } from "@/lib/data/applications";
 import { DashboardPage } from "@/components/dashboard/shell";
-import { Alert, DataTable, EmptyState, StatusChip, Td, Th, cn } from "@/components/ui/primitives";
-import { APPLICATION_STATUS_LABELS, applicationTone } from "@/lib/state-machine";
+import { Alert, DataTable, EmptyState, Td, Th, cn } from "@/components/ui/primitives";
+import { StatusBadge, type StatusKind } from "@/components/ui/trust";
+
 import { formatRelative } from "@/lib/format";
 import { CATEGORY_LABELS, type ApplicationStatus, type BusinessCategory } from "@/lib/types";
 
@@ -140,9 +141,7 @@ export default async function AdminAlajosPage({
                       {item.submitted_at ? formatRelative(item.submitted_at) : "—"}
                     </Td>
                     <Td>
-                      <StatusChip tone={applicationTone(item.status)}>
-                        {APPLICATION_STATUS_LABELS[item.status]}
-                      </StatusChip>
+                      <StatusBadge size="sm" kind={statusKind(item.status)} />
                     </Td>
                   </tr>
                 ))}
@@ -182,4 +181,24 @@ function buildHref(status: string, q: string | undefined, page: number): string 
   if (q) params.set("q", q);
   if (page > 1) params.set("page", String(page));
   return `/admin/alajos${params.toString() ? `?${params}` : ""}`;
+}
+
+/** Same mapping as the applicant's dashboard, so the words never differ. */
+function statusKind(status: ApplicationStatus): StatusKind {
+  switch (status) {
+    case "draft":
+      return "draft";
+    case "submitted":
+      return "submitted";
+    case "under_review":
+      return "review";
+    case "more_information_required":
+      return "needs_info";
+    case "approved":
+      return "approved";
+    case "rejected":
+      return "rejected";
+    default:
+      return "submitted";
+  }
 }

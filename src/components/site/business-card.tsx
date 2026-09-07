@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { BusinessPhoto } from "@/components/site/business-photo";
 import Link from "next/link";
 import { cn } from "@/components/ui/primitives";
 import { VerifiedMark } from "@/components/ui/trust";
@@ -32,29 +32,19 @@ function Photo({
   sizes: string;
   priority?: boolean;
 }) {
-  const src = publicMediaUrl(profile.cover?.storage_path ?? profile.avatar?.storage_path);
-
+  // No photograph, or a photograph that fails to load, both fall back to a
+  // monogram on warm paper. A stock image of somebody else's shop would not
+  // be honest, and a broken-image icon reads as a broken site.
   return (
-    <div className={cn("relative overflow-hidden rounded-md bg-paper-deep", className)}>
-      {src ? (
-        <Image
-          src={src}
-          alt={`${profile.business_name}, ${profile.city ?? profile.state}`}
-          fill
-          sizes={sizes}
-          unoptimized
-          priority={priority}
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.04]"
-        />
-      ) : (
-        // No photograph yet. A monogram on warm paper is honest; a stock
-        // image of somebody else's shop would not be.
-        <div className="absolute inset-0 grid place-items-center">
-          <span className="font-display text-4xl text-rule-strong">
-            {initials(profile.business_name)}
-          </span>
-        </div>
-      )}
+    <div className={cn("relative", className)}>
+      <BusinessPhoto
+        src={publicMediaUrl(profile.cover?.storage_path ?? profile.avatar?.storage_path) ?? null}
+        alt={`${profile.business_name}, ${profile.city ?? profile.state}`}
+        monogram={initials(profile.business_name)}
+        sizes={sizes}
+        priority={priority}
+        className="size-full"
+      />
       {profile.status === "featured" && (
         <span className="absolute left-3 top-3 rounded-sm bg-ochre px-2 py-1 text-2xs font-bold uppercase tracking-[0.08em] text-ink">
           Featured
