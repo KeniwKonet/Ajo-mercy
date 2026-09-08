@@ -121,7 +121,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
             <div
               aria-hidden="true"
               className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url("${businessArt(profile.slug ?? profile.business_name)}")` }}
+              style={{ backgroundImage: `url("${businessArt(profile.slug ?? profile.business_name, "banner")}")` }}
             />
           )}
           {/* Enough scrim for the control to read on any photograph. */}
