@@ -141,8 +141,8 @@ export default async function AdminDashboardPage() {
                     item.count === 0
                       ? "text-ink-faint"
                       : item.muted
-                        ? "text-forest"
-                        : "text-terracotta",
+                        ? "text-lime"
+                        : "text-orange",
                   )}
                 >
                   {item.count === 0 ? "—" : formatNumber(item.count)}
@@ -151,7 +151,7 @@ export default async function AdminDashboardPage() {
                   aria-hidden="true"
                   className={cn(
                     "grid size-9 shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-0.5",
-                    item.count === 0 ? "bg-widget-tile text-ink-faint" : "bg-widget-tile text-forest",
+                    item.count === 0 ? "bg-widget-tile text-ink-faint" : "bg-widget-tile text-lime",
                   )}
                 >
                   <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -194,7 +194,7 @@ export default async function AdminDashboardPage() {
                   <li key={item.id}>
                     <Link
                       href={`/admin/alajos/${item.id}`}
-                      className="flex flex-wrap items-center justify-between gap-3 py-3.5 transition-colors hover:bg-paper-warm"
+                      className="flex flex-wrap items-center justify-between gap-3 py-3.5 transition-colors hover:bg-widget-black-2"
                     >
                       <div className="min-w-0">
                         <p className="font-medium text-ink">

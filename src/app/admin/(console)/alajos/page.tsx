@@ -78,11 +78,11 @@ export default async function AdminAlajosPage({
             defaultValue={q ?? ""}
             placeholder="Business or founder name"
             aria-label="Search applications"
-            className="h-9 w-full max-w-xs border border-rule-strong bg-card px-3 text-sm focus-visible:border-forest focus-visible:outline-none"
+            className="h-9 w-full max-w-xs border border-muted-on-black/25 bg-widget-black-2 px-3 text-sm focus-visible:border-forest focus-visible:outline-none"
           />
           <button
             type="submit"
-            className="h-9 shrink-0 border border-rule-strong px-3 text-sm hover:border-ink"
+            className="h-9 shrink-0 border border-muted-on-black/25 px-3 text-sm hover:border-ink"
           >
             Search
           </button>
@@ -119,7 +119,7 @@ export default async function AdminAlajosPage({
               </thead>
               <tbody>
                 {items.map((item) => (
-                  <tr key={item.id} className="transition-colors hover:bg-paper-warm">
+                  <tr key={item.id} className="transition-colors hover:bg-widget-black-2">
                     <Td>
                       <Link href={`/admin/alajos/${item.id}`} className="font-medium text-ink hover:underline">
                         {item.business_name ?? "Untitled"}
@@ -133,7 +133,7 @@ export default async function AdminAlajosPage({
                     </Td>
                     <Td className="text-ink-soft">{item.state ?? "—"}</Td>
                     <Td className="text-right tabular">
-                      <span className={item.completeness < 100 ? "text-terracotta" : "text-ink-soft"}>
+                      <span className={item.completeness < 100 ? "text-orange" : "text-ink-soft"}>
                         {item.completeness}%
                       </span>
                     </Td>

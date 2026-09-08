@@ -30,13 +30,13 @@ const COLUMNS: Array<{ heading: string; links: Array<{ href: string; label: stri
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-rule bg-paper-warm">
+    <footer className="mt-24 border-t border-rule bg-widget-black-2">
       <div className="mx-auto w-full max-w-[84rem] px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="max-w-sm">
             <p className="font-display text-2xl">
-              <span className="font-semibold text-forest">Ajo</span>
-              <span className="italic text-terracotta"> Mercy</span>
+              <span className="font-semibold text-lime">Ajo</span>
+              <span className="italic text-orange"> Mercy</span>
             </p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
               A conversation about Ajo turned into a queue of people wanting to help and no way to

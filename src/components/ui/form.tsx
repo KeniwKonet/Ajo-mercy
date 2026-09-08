@@ -152,15 +152,15 @@ export function Field({
   return (
     <FieldContext.Provider value={{ id, describedBy, invalid: Boolean(errorText) }}>
       <div className={cn("space-y-1.5", className)} onBlur={handleBlur} onInput={handleInput}>
-        <label htmlFor={id} className="flex items-baseline justify-between gap-3 text-sm font-medium text-ink">
+        <label htmlFor={id} className="flex items-baseline justify-between gap-3 text-sm font-bold text-ink">
           <span>
             {label}
-            {required && <span className="ml-1 text-terracotta" aria-hidden="true">*</span>}
+            {required && <span className="ml-1 text-orange" aria-hidden="true">*</span>}
           </span>
           {optional && !settled && <span className="text-xs font-normal text-ink-faint">Optional</span>}
           {/* A quiet tick is the only reward a correct field needs. */}
           {settled && !errorText && (
-            <span className="field-ok flex items-center gap-1 text-xs font-normal text-success">
+            <span className="field-ok flex items-center gap-1 text-xs font-normal text-lime">
               <svg viewBox="0 0 12 12" className="size-3" aria-hidden="true">
                 <path d="M2.5 6.5 5 9l4.5-5.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -178,7 +178,7 @@ export function Field({
           <p
             id={errId}
             role="status"
-            className="field-error flex items-start gap-1.5 text-xs font-medium text-danger"
+            className="field-error flex items-start gap-1.5 text-xs font-semibold text-orange"
           >
             <span aria-hidden="true" className="mt-px">↳</span>
             {errorText}
@@ -190,12 +190,12 @@ export function Field({
 }
 
 const controlBase =
-  "w-full rounded-sm border bg-card px-3 py-2 text-sm text-ink placeholder:text-ink-faint " +
-  "transition-colors focus:outline-none focus-visible:border-forest focus-visible:ring-2 focus-visible:ring-forest/20 " +
-  "disabled:cursor-not-allowed disabled:bg-paper-deep disabled:text-ink-faint";
+  "w-full rounded-md border border-transparent bg-widget-black-2 px-4 py-3 text-sm text-ivory-text " +
+  "placeholder:text-muted-on-black transition-colors focus:outline-none focus-visible:border-lime " +
+  "disabled:cursor-not-allowed disabled:opacity-50";
 
 function controlClasses(invalid: boolean, className?: string) {
-  return cn(controlBase, invalid ? "border-danger" : "border-rule-strong hover:border-rule-strong", className);
+  return cn(controlBase, invalid ? "!border-orange" : "hover:border-muted-on-black/40", className);
 }
 
 export function Input({ className, ...props }: ComponentPropsWithoutRef<"input">) {
@@ -205,7 +205,7 @@ export function Input({ className, ...props }: ComponentPropsWithoutRef<"input">
       id={id}
       aria-describedby={describedBy}
       aria-invalid={invalid || undefined}
-      className={controlClasses(invalid, cn("h-10", className))}
+      className={controlClasses(invalid, cn("h-12", className))}
       {...props}
     />
   );
@@ -291,7 +291,7 @@ export function Checkbox({
       <input
         id={id}
         type="checkbox"
-        className="mt-0.5 size-4 shrink-0 cursor-pointer rounded-xs border-rule-strong text-forest accent-[var(--color-forest)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+        className="mt-0.5 size-4 shrink-0 cursor-pointer rounded-xs accent-[var(--color-lime)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
         {...props}
       />
       <div className="space-y-0.5">
@@ -336,8 +336,8 @@ export function ChipGroup<T extends string>({
               className={cn(
                 "rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
                 isSelected
-                  ? "border-forest bg-forest text-paper"
-                  : "border-rule-strong bg-card text-ink-soft hover:border-ink hover:text-ink",
+                  ? "border-forest bg-widget-black text-ivory-text"
+                  : "border-muted-on-black/25 bg-widget-black-2 text-ink-soft hover:border-ink hover:text-ink",
                 !isSelected && atMax && "cursor-not-allowed opacity-40",
               )}
             >
@@ -383,7 +383,7 @@ export function WordCount({ value, min }: { value: string; min: number }) {
   const words = value.trim().split(/\s+/).filter(Boolean).length;
   const met = words >= min;
   return (
-    <p className={cn("text-xs tabular", met ? "text-ink-faint" : "text-terracotta")} aria-live="polite">
+    <p className={cn("text-xs tabular", met ? "text-ink-faint" : "text-orange")} aria-live="polite">
       {words} {words === 1 ? "word" : "words"}
       {!met && ` · ${min - words} more needed`}
     </p>

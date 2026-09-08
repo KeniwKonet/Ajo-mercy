@@ -50,7 +50,7 @@ export function SupportPanel({
   const succeeded = state.ok && Boolean(state.message);
 
   return (
-    <div className="border border-rule bg-card p-5">
+    <div className="widget !p-0 p-5">
       <p className="font-display text-lg">Support this Alajo</p>
       {requestedAmount ? (
         <p className="mt-1 text-sm text-ink-soft">
@@ -152,7 +152,7 @@ function IneligibleNotice({ eligibility }: { eligibility: Eligibility }) {
         <div className="space-y-3">
           <Link
             href="/register?role=supporter"
-            className="block rounded-sm bg-forest px-4 py-3 text-center text-sm font-medium text-paper transition-colors hover:bg-forest-deep"
+            className="block rounded-sm bg-widget-black px-4 py-3 text-center text-sm font-medium text-ivory-text transition-colors hover:brightness-95"
           >
             Register to support
           </Link>

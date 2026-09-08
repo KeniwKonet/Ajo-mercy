@@ -51,7 +51,7 @@ export function LedgerSkeleton({ rows = 5 }: { rows?: number }) {
 export function TableSkeleton({ rows = 6, cols = 5 }: { rows?: number; cols?: number }) {
   return (
     <div aria-hidden="true" className="border border-rule">
-      <div className="flex gap-4 border-b border-rule bg-paper-warm px-4 py-3">
+      <div className="flex gap-4 border-b border-rule bg-widget-black-2 px-4 py-3">
         {Array.from({ length: cols }, (_, i) => (
           <Skeleton key={i} className="h-2.5 flex-1" />
         ))}

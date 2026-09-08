@@ -60,7 +60,7 @@ export default async function ReviewWorkspaceDirection({
                       href={`/admin/designs/v3?id=${item.id}`}
                       aria-current={active ? "true" : undefined}
                       className={`block border-b border-rule px-4 py-3 transition-colors ${
-                        active ? "border-l-2 border-l-forest bg-paper-warm" : "hover:bg-paper-warm"
+                        active ? "border-l-2 border-l-forest bg-widget-black-2" : "hover:bg-widget-black-2"
                       }`}
                     >
                       <div className="flex items-baseline justify-between gap-2">
@@ -69,7 +69,7 @@ export default async function ReviewWorkspaceDirection({
                         </p>
                         <span
                           className={`shrink-0 text-2xs tabular ${
-                            item.completeness < 100 ? "text-terracotta" : "text-ink-faint"
+                            item.completeness < 100 ? "text-orange" : "text-ink-faint"
                           }`}
                         >
                           {item.completeness}%
@@ -118,19 +118,19 @@ export default async function ReviewWorkspaceDirection({
               <div className="flex gap-2">
                 <button
                   type="button"
-                  className="border border-rule-strong px-3 py-1.5 text-xs hover:border-ink"
+                  className="border border-muted-on-black/25 px-3 py-1.5 text-xs hover:border-ink"
                 >
                   Request info
                 </button>
                 <button
                   type="button"
-                  className="border border-rule-strong px-3 py-1.5 text-xs hover:border-ink"
+                  className="border border-muted-on-black/25 px-3 py-1.5 text-xs hover:border-ink"
                 >
                   Reject
                 </button>
                 <Link
                   href={`/admin/alajos/${detail.application.id}`}
-                  className="bg-forest px-3 py-1.5 text-xs font-medium text-paper hover:bg-forest-deep"
+                  className="bg-widget-black px-3 py-1.5 text-xs font-medium text-ivory-text hover:brightness-95"
                 >
                   Open full review
                 </Link>
@@ -145,7 +145,7 @@ export default async function ReviewWorkspaceDirection({
                       const url = publicMediaUrl(photo.storage_path);
                       if (!url) return null;
                       return (
-                        <div key={photo.id} className="relative aspect-[4/3] w-44 shrink-0 bg-paper-deep">
+                        <div key={photo.id} className="relative aspect-[4/3] w-44 shrink-0 bg-widget-black-2">
                           <Image
                             src={url}
                             alt={photo.caption ?? "Business photograph"}
@@ -175,7 +175,7 @@ export default async function ReviewWorkspaceDirection({
 
                 {detail.application.current_challenge && (
                   <section className="mt-6 border-l-2 border-terracotta pl-4">
-                    <h3 className="font-mono text-2xs uppercase tracking-[0.14em] text-terracotta">
+                    <h3 className="font-mono text-2xs uppercase tracking-[0.14em] text-orange">
                       Challenge
                     </h3>
                     <p className="mt-1.5 leading-relaxed text-ink-soft">
@@ -228,7 +228,7 @@ export default async function ReviewWorkspaceDirection({
 
                 {detail.missing.length > 0 && (
                   <div className="mt-5 border-l-2 border-terracotta bg-terracotta-wash px-3 py-2.5">
-                    <p className="text-2xs font-semibold uppercase tracking-[0.1em] text-terracotta-deep">
+                    <p className="text-2xs font-semibold uppercase tracking-[0.1em] text-orange">
                       Missing
                     </p>
                     <ul className="mt-1.5 space-y-0.5">
@@ -248,7 +248,7 @@ export default async function ReviewWorkspaceDirection({
                     </p>
                     <ul className="mt-2 space-y-2">
                       {detail.notes.slice(0, 3).map((note) => (
-                        <li key={note.id} className="border-l-2 border-rule-strong pl-2.5 text-xs text-ink-soft">
+                        <li key={note.id} className="border-l-2 border-muted-on-black/25 pl-2.5 text-xs text-ink-soft">
                           {note.body}
                         </li>
                       ))}

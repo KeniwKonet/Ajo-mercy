@@ -90,7 +90,7 @@ export default async function ReviewApplicationPage({
                   className="size-14 object-cover"
                 />
               ) : (
-                <div className="flex size-14 items-center justify-center bg-paper-deep font-display text-lg text-ink-faint">
+                <div className="flex size-14 items-center justify-center bg-widget-black-2 font-display text-lg text-ink-faint">
                   {applicant.full_name.slice(0, 1) || "?"}
                 </div>
               );
@@ -132,7 +132,7 @@ export default async function ReviewApplicationPage({
               {documents.map((doc, index) => {
                 const url = signedDocuments[index];
                 return (
-                  <li key={doc.id} className="border border-rule bg-card px-3 py-2.5">
+                  <li key={doc.id} className="widget !p-0 px-3 py-2.5">
                     <p className="text-sm font-medium text-ink">
                       {(doc.document_type ?? "document").replace(/_/g, " ")}
                     </p>
@@ -165,7 +165,7 @@ export default async function ReviewApplicationPage({
               </h2>
               <ul className="mt-3 space-y-2.5">
                 {notes.map((note) => (
-                  <li key={note.id} className="border-l-2 border-rule-strong pl-3">
+                  <li key={note.id} className="border-l-2 border-muted-on-black/25 pl-3">
                     <p className="text-sm text-ink">{note.body}</p>
                     <p className="mt-0.5 text-2xs text-ink-faint">
                       {note.author_name ?? "Team"} · {formatDateTime(note.created_at)}
@@ -263,7 +263,7 @@ export default async function ReviewApplicationPage({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative aspect-square bg-paper-deep"
+                    className="relative aspect-square bg-widget-black-2"
                   >
                     <Image
                       src={url}
@@ -300,7 +300,7 @@ export default async function ReviewApplicationPage({
               </h3>
               <ul className="mt-3 space-y-2">
                 {allRequests.map((request) => (
-                  <li key={request.id} className="border border-rule bg-card px-3 py-2">
+                  <li key={request.id} className="widget !p-0 px-3 py-2">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm text-ink">{request.message}</p>
                       <StatusChip tone={request.resolved_at ? "positive" : "attention"}>

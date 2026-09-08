@@ -47,7 +47,7 @@ export function DashboardShell({
     <div className="min-h-dvh lg:grid lg:grid-cols-[16rem_1fr]">
       <aside className="widget !rounded-none !p-0 lg:sticky lg:top-0 lg:h-dvh lg:overflow-y-auto lg:!m-3 lg:!rounded-3xl lg:!p-2">
         <div className="flex items-center justify-between gap-3 px-5 py-4 lg:block">
-          <Link href={homeHref} className="font-display text-xl tracking-tight text-paper">
+          <Link href={homeHref} className="font-display text-xl tracking-tight text-ivory-text">
             <span>Ajo</span>
             <span className="italic text-lime"> Mercy</span>
           </Link>
@@ -138,14 +138,16 @@ export function DashboardPage({
 }) {
   return (
     <div className="px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
-      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-rule pb-6">
+      <div className="widget flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl sm:text-3xl">{title}</h1>
-          {description && <p className="mt-1.5 max-w-xl text-sm text-ink-soft">{description}</p>}
+          <h1 className="font-display text-2xl text-ivory-text sm:text-3xl">{title}</h1>
+          {description && (
+            <p className="mt-1.5 max-w-xl text-sm text-muted-on-black">{description}</p>
+          )}
         </div>
         {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
       </div>
-      <div className="pt-7">{children}</div>
+      <div className="pt-6">{children}</div>
     </div>
   );
 }

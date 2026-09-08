@@ -91,13 +91,13 @@ export default async function AlajoPublicProfilePage() {
 
         {/* A read-only rendering of the live profile, so what is public is
             never a mystery to the person it is about. */}
-        <section className="border border-rule bg-card">
+        <section className="widget !p-0">
           <h2 className="border-b border-rule px-5 py-3 font-display text-lg">
             What is published
           </h2>
 
           {coverUrl && (
-            <div className="relative aspect-[16/9] border-b border-rule bg-paper-deep">
+            <div className="relative aspect-[16/9] border-b border-rule bg-widget-black-2">
               <Image
                 src={coverUrl}
                 alt={publicProfile.business_name}

@@ -60,7 +60,7 @@ export default function HowItWorksPage() {
       <Container className="py-14 sm:py-20">
         <div className="max-w-3xl">
           <p className="eyebrow flex items-center gap-2.5">
-            <span aria-hidden="true" className="h-px w-7 bg-terracotta" />
+            <span aria-hidden="true" className="h-px w-7 bg-orange" />
             From application to announcement
           </p>
           <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02]">
@@ -80,7 +80,7 @@ export default function HowItWorksPage() {
               key={stage.n}
               className="grid gap-4 border-b border-rule py-8 md:grid-cols-[4rem_1fr_18rem] md:gap-10"
             >
-              <span className="tabular text-sm font-bold text-terracotta">{stage.n}</span>
+              <span className="tabular text-sm font-bold text-orange">{stage.n}</span>
               <div>
                 <h2 className="text-xl font-bold leading-snug tracking-tight sm:text-2xl">{stage.title}</h2>
                 <p className="mt-3 max-w-prose text-base leading-relaxed text-ink-soft">{stage.body}</p>
@@ -93,9 +93,9 @@ export default function HowItWorksPage() {
 
       {/* What we deliberately do not do. Stating this plainly is part of the
           trust proposition, not a disclaimer we hide in the footer. */}
-      <section className="border-y border-rule bg-forest text-paper">
+      <section className="border-y border-rule bg-widget-black text-ivory-text">
         <Container className="py-14 sm:py-20">
-          <h2 className="font-display text-4xl text-paper sm:text-5xl">What we do not do</h2>
+          <h2 className="font-display text-4xl text-ivory-text sm:text-5xl">What we do not do</h2>
           <ul className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
@@ -112,8 +112,8 @@ export default function HowItWorksPage() {
               },
             ].map((item) => (
               <li key={item.title} className="border-t border-paper/15 pt-5">
-                <h3 className="text-base font-bold text-paper">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-paper/70">{item.body}</p>
+                <h3 className="text-base font-bold text-ivory-text">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ivory-text/70">{item.body}</p>
               </li>
             ))}
           </ul>

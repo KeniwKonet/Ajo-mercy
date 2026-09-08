@@ -55,7 +55,7 @@ export default async function BrandsPage() {
         </div>
       </Container>
 
-      <section className="border-y border-rule bg-paper-warm">
+      <section className="border-y border-rule bg-widget-black-2">
         <Container className="py-14 sm:py-18">
           <h2 className="font-display text-2xl sm:text-3xl">How a campaign runs</h2>
           <ol className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
@@ -82,7 +82,7 @@ export default async function BrandsPage() {
               },
             ].map((step) => (
               <li key={step.n}>
-                <span className="font-mono text-sm text-terracotta tabular">{step.n}</span>
+                <span className="font-mono text-sm text-orange tabular">{step.n}</span>
                 <h3 className="mt-2 font-display text-lg leading-snug">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.body}</p>
               </li>

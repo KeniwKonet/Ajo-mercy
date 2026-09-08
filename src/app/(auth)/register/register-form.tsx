@@ -63,7 +63,7 @@ export function RegisterForm({ defaultRole }: { defaultRole: "alajo" | "supporte
             className={`flex cursor-pointer gap-3 border p-3.5 transition-colors ${
               role === option.value
                 ? "border-forest bg-forest-wash"
-                : "border-rule-strong bg-card hover:border-ink"
+                : "border-muted-on-black/25 bg-widget-black-2 hover:border-ink"
             }`}
           >
             <input

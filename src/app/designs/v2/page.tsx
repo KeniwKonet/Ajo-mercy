@@ -19,7 +19,7 @@ export default async function MovementDirection() {
   const [profiles, stats] = await Promise.all([listRecentAlajos(6), getImpactStats()]);
 
   return (
-    <div className="bg-ink text-paper">
+    <div className="bg-ink text-ivory-text">
       {/* --------------------------------------------------------- top bar */}
       <div className="flex items-center justify-between gap-4 px-5 py-4 sm:px-8">
         <span className="font-display text-lg tracking-tight">
@@ -35,7 +35,7 @@ export default async function MovementDirection() {
 
       {/* ----------------------------------------------------------- hero */}
       <section className="border-y border-paper/15 px-5 py-16 sm:px-8 sm:py-24">
-        <p className="font-mono text-2xs uppercase tracking-[0.24em] text-paper/40">
+        <p className="font-mono text-2xs uppercase tracking-[0.24em] text-ivory-text/40">
           From the Ajo tussle to real impact
         </p>
 
@@ -65,7 +65,7 @@ export default async function MovementDirection() {
 
       {/* -------------------------------------------------------- marquee */}
       <div className="overflow-hidden border-b border-paper/15 py-4" aria-hidden="true">
-        <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-mono text-2xs uppercase tracking-[0.2em] text-paper/45">
+        <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-mono text-2xs uppercase tracking-[0.2em] text-ivory-text/45">
           {Array.from({ length: 2 }).map((_, copy) => (
             <span key={copy} className="flex gap-10">
               {[
@@ -88,7 +88,7 @@ export default async function MovementDirection() {
 
       {/* ------------------------------------------------------- manifesto */}
       <section className="px-5 py-16 sm:px-8 sm:py-20">
-        <h2 className="font-mono text-2xs uppercase tracking-[0.2em] text-paper/40">What changed</h2>
+        <h2 className="font-mono text-2xs uppercase tracking-[0.2em] text-ivory-text/40">What changed</h2>
         <ol className="mt-8 grid gap-px bg-paper/15 md:grid-cols-3">
           {[
             {
@@ -110,7 +110,7 @@ export default async function MovementDirection() {
             <li key={item.n} className="bg-ink p-7">
               <span className="font-mono text-sm text-ochre tabular">{item.n}</span>
               <h3 className="mt-4 font-display text-2xl leading-tight">{item.head}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-paper/60">{item.body}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ivory-text/60">{item.body}</p>
             </li>
           ))}
         </ol>
@@ -139,7 +139,7 @@ export default async function MovementDirection() {
                 <Link
                   key={profile.id}
                   href={`/alajos/${profile.slug}`}
-                  className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden bg-forest p-6 text-paper"
+                  className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden bg-widget-black p-6 text-ivory-text"
                 >
                   {url && (
                     <Image
@@ -155,7 +155,7 @@ export default async function MovementDirection() {
                       {CATEGORY_LABELS[profile.business_category]}
                     </p>
                     <h3 className="mt-2 font-display text-2xl leading-tight">{profile.business_name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-paper/75">
+                    <p className="mt-2 text-sm leading-relaxed text-ivory-text/75">
                       {truncate(profile.current_challenge ?? profile.story, 100)}
                     </p>
                   </div>
@@ -178,13 +178,13 @@ export default async function MovementDirection() {
               <p className="font-display text-6xl leading-none tracking-[-0.03em] text-ochre tabular sm:text-7xl">
                 {Number(value) === 0 ? "—" : formatNumber(Number(value))}
               </p>
-              <p className="mt-3 font-mono text-2xs uppercase tracking-[0.16em] text-paper/50">
+              <p className="mt-3 font-mono text-2xs uppercase tracking-[0.16em] text-ivory-text/50">
                 {label}
               </p>
             </div>
           ))}
         </div>
-        <p className="mt-10 max-w-lg text-sm leading-relaxed text-paper/45">
+        <p className="mt-10 max-w-lg text-sm leading-relaxed text-ivory-text/45">
           Counted from the database, not written by hand. A dash means it has not happened yet, and
           we would rather show you that than a number we made up.
         </p>
@@ -215,7 +215,7 @@ export default async function MovementDirection() {
             Bring a brand
           </Link>
         </div>
-        <p className="mx-auto mt-10 max-w-md text-2xs leading-relaxed text-paper/40">
+        <p className="mx-auto mt-10 max-w-md text-2xs leading-relaxed text-ivory-text/40">
           Applying is free. Registering does not guarantee selection or support. Ajo Mercy does not
           hold, custody or transfer support funds.
         </p>

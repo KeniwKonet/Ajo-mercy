@@ -10,8 +10,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div className="grid min-h-dvh lg:grid-cols-[1fr_0.85fr]">
       <div className="flex flex-col px-5 py-8 sm:px-10 lg:px-16">
         <Link href="/" className="font-display text-xl tracking-tight">
-          <span className="font-semibold text-forest">Ajo</span>
-          <span className="italic text-terracotta"> Mercy</span>
+          <span className="font-semibold text-lime">Ajo</span>
+          <span className="italic text-orange"> Mercy</span>
         </Link>
         <main id="main" className="flex flex-1 items-center py-12">
           <div className="w-full max-w-md">{children}</div>
@@ -21,8 +21,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </p>
       </div>
 
-      <aside className="hidden flex-col justify-between bg-forest px-14 py-12 text-paper lg:flex">
-        <p className="font-mono text-2xs uppercase tracking-[0.16em] text-paper/50">
+      <aside className="hidden flex-col justify-between bg-widget-black px-14 py-12 text-ivory-text lg:flex">
+        <p className="font-mono text-2xs uppercase tracking-[0.16em] text-ivory-text/50">
           From the Ajo tussle to real impact
         </p>
         <div>
@@ -36,14 +36,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               "Being selected is not the same as being supported. We confirm first.",
               "Registering does not guarantee selection or support.",
             ].map((line) => (
-              <li key={line} className="flex gap-3 text-sm leading-relaxed text-paper/70">
+              <li key={line} className="flex gap-3 text-sm leading-relaxed text-ivory-text/70">
                 <span aria-hidden="true" className="mt-2 h-px w-4 shrink-0 bg-paper/40" />
                 {line}
               </li>
             ))}
           </ul>
         </div>
-        <p className="text-xs text-paper/40">Woli Arole is the Super Admin of this platform.</p>
+        <p className="text-xs text-ivory-text/40">Woli Arole is the Super Admin of this platform.</p>
       </aside>
     </div>
   );

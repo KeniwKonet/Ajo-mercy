@@ -180,7 +180,7 @@ export function ReviewPanel({
               {decision !== "request_info" && (
                 <div>
                   <label htmlFor="internal-reason" className="text-sm font-medium text-ink">
-                    Internal reason{decision === "reject" && <span className="ml-1 text-terracotta">*</span>}
+                    Internal reason{decision === "reject" && <span className="ml-1 text-orange">*</span>}
                   </label>
                   <p className="mt-0.5 mb-1.5 text-xs text-ink-faint">
                     Never shown to the applicant. Kept on the audit log.
@@ -279,7 +279,7 @@ function DecisionButton({
       aria-pressed={active}
       className={cn(
         "border px-3.5 py-2.5 text-left transition-colors",
-        active ? accents[tone] : "border-rule-strong bg-card hover:border-ink",
+        active ? accents[tone] : "border-muted-on-black/25 bg-widget-black-2 hover:border-ink",
         disabled && "cursor-not-allowed opacity-40",
       )}
     >
@@ -300,7 +300,7 @@ function RequestInfoBuilder({
   const [message, setMessage] = useState("");
 
   return (
-    <div className="space-y-3 border border-rule bg-paper-warm p-3.5">
+    <div className="space-y-3 border border-rule bg-widget-black-2 p-3.5">
       <p className="text-sm font-medium text-ink">What needs to change?</p>
 
       {items.length > 0 && (
@@ -328,7 +328,7 @@ function RequestInfoBuilder({
           value={fieldKey}
           onChange={(e) => setFieldKey(e.target.value)}
           aria-label="Which part of the application"
-          className="h-9 w-full border border-rule-strong bg-card px-2 text-sm"
+          className="h-9 w-full border border-muted-on-black/25 bg-widget-black-2 px-2 text-sm"
         >
           {REQUESTABLE_FIELDS.map((key) => (
             <option key={key} value={key}>

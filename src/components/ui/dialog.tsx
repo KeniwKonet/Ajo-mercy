@@ -51,8 +51,8 @@ export function Modal({
       ref={ref}
       aria-labelledby="modal-title"
       className={cn(
-        "m-auto w-[calc(100vw-2rem)] rounded-sm border border-rule bg-card p-0 text-ink",
-        "backdrop:bg-ink/45 backdrop:backdrop-blur-[1px]",
+        "widget m-auto w-[calc(100vw-2rem)] !p-0",
+        "backdrop:bg-widget-black/70 backdrop:backdrop-blur-[1px]",
         widths[size],
       )}
       onClick={(event) => {
@@ -60,14 +60,18 @@ export function Modal({
         if (event.target === ref.current) onClose();
       }}
     >
-      <div className="border-b border-rule px-6 py-4">
+      <div className="border-b border-rule px-6 py-5">
         <h2 id="modal-title" className="font-display text-xl">
           {title}
         </h2>
         {description && <p className="mt-1 text-sm text-ink-soft">{description}</p>}
       </div>
       {children && <div className="px-6 py-5">{children}</div>}
-      {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-rule bg-paper px-6 py-4">{footer}</div>}
+      {footer && (
+        <div className="flex flex-wrap justify-end gap-2 border-t border-rule bg-widget-black-2 px-6 py-4">
+          {footer}
+        </div>
+      )}
     </dialog>
   );
 }
@@ -134,14 +138,14 @@ export function ConfirmDialog({
       {requirePhrase && (
         <div className="mt-4 space-y-1.5">
           <label htmlFor="confirm-phrase" className="text-sm font-medium text-ink">
-            Type <span className="font-mono text-terracotta">{requirePhrase}</span> to continue
+            Type <span className="font-mono text-orange">{requirePhrase}</span> to continue
           </label>
           <input
             id="confirm-phrase"
             value={typed}
             onChange={(event) => setTyped(event.target.value)}
             autoComplete="off"
-            className="h-10 w-full rounded-sm border border-rule-strong bg-card px-3 font-mono text-sm focus-visible:border-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
+            className="h-10 w-full rounded-sm border border-muted-on-black/25 bg-widget-black-2 px-3 font-mono text-sm focus-visible:border-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
           />
         </div>
       )}
@@ -189,14 +193,14 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative flex h-full w-full flex-col border-l border-rule bg-card sm:max-w-xl"
+        className="relative flex h-full w-full flex-col border-l border-rule bg-widget-black-2 sm:max-w-xl"
       >
         <div className="flex items-center justify-between gap-4 border-b border-rule px-5 py-4">
           <h2 className="font-display text-lg">{title}</h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-sm p-1 text-ink-faint hover:bg-paper-deep hover:text-ink"
+            className="rounded-sm p-1 text-ink-faint hover:bg-widget-black-2 hover:text-ink"
             aria-label="Close panel"
           >
             <svg viewBox="0 0 16 16" className="size-4" aria-hidden="true">

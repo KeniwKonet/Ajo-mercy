@@ -14,7 +14,7 @@ import { STAGES } from "@/components/site/journey";
  */
 export function OnboardingPanel() {
   return (
-    <aside className="relative hidden overflow-hidden rounded-xl bg-forest p-9 text-paper lg:flex lg:flex-col lg:justify-between">
+    <aside className="relative hidden overflow-hidden rounded-xl bg-widget-black p-9 text-ivory-text lg:flex lg:flex-col lg:justify-between">
       {/* Two soft shapes, kept behind everything and out of the reading path. */}
       <div
         aria-hidden="true"
@@ -30,10 +30,10 @@ export function OnboardingPanel() {
           <span aria-hidden="true" className="h-px w-7 bg-ochre" />
           Become an Alajo
         </p>
-        <h2 className="mt-6 font-display text-4xl leading-[1.06] text-paper">
+        <h2 className="mt-6 font-display text-4xl leading-[1.06] text-ivory-text">
           Tell us what you are building.
         </h2>
-        <p className="mt-5 max-w-sm text-base leading-relaxed text-paper/75">
+        <p className="mt-5 max-w-sm text-base leading-relaxed text-ivory-text/75">
           Your story, your business and what is standing in the way. It takes one sitting, it saves
           as you go, and it costs nothing.
         </p>
@@ -41,7 +41,7 @@ export function OnboardingPanel() {
 
       {/* What happens after they press send, so the wait is not a mystery. */}
       <div className="relative mt-12">
-        <p className="eyebrow text-paper/50">What happens next</p>
+        <p className="eyebrow text-ivory-text/50">What happens next</p>
         <ol className="mt-4 space-y-4">
           {STAGES.slice(1, 4).map((stage) => (
             <li key={stage.n} className="flex gap-4">
@@ -49,14 +49,14 @@ export function OnboardingPanel() {
                 {stage.n}
               </span>
               <div>
-                <p className="text-sm font-semibold text-paper">{stage.title}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-paper/60">{stage.actor}</p>
+                <p className="text-sm font-semibold text-ivory-text">{stage.title}</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-ivory-text/60">{stage.actor}</p>
               </div>
             </li>
           ))}
         </ol>
 
-        <p className="mt-9 border-t border-paper/15 pt-5 text-xs leading-relaxed text-paper/60">
+        <p className="mt-9 border-t border-paper/15 pt-5 text-xs leading-relaxed text-ivory-text/60">
           Nothing you write is published until a person has read it. Applying does not guarantee
           selection or support, and Ajo Mercy never holds or transfers money.
         </p>

@@ -101,8 +101,8 @@ export function StaffPermissions({
                   onClick={() => setNextRole(option)}
                   className={`border px-3.5 py-2 text-sm transition-colors ${
                     nextRole === option
-                      ? "border-forest bg-forest text-paper"
-                      : "border-rule-strong text-ink-soft hover:border-ink hover:text-ink"
+                      ? "border-forest bg-widget-black text-ivory-text"
+                      : "border-muted-on-black/25 text-ink-soft hover:border-ink hover:text-ink"
                   }`}
                 >
                   {option === "admin" ? "Admin" : "Reviewer"}
@@ -125,7 +125,7 @@ export function StaffPermissions({
                       type="button"
                       onClick={() => cycle(permission)}
                       className={`flex w-full items-center justify-between gap-2 border px-2.5 py-1.5 text-left transition-colors ${
-                        effective ? "border-rule-strong bg-card" : "border-rule bg-paper-deep"
+                        effective ? "border-muted-on-black/25 bg-widget-black-2" : "border-rule bg-widget-black-2"
                       }`}
                     >
                       <span

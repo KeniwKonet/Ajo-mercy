@@ -79,7 +79,7 @@ export function DiscoveryFilters({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Business, founder or town"
-            className="h-12 w-full rounded-full border border-rule-strong bg-panel-white pl-10 pr-4 text-sm transition-shadow placeholder:text-ink-faint focus-visible:border-forest focus-visible: focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/15"
+            className="h-12 w-full rounded-full border border-muted-on-black/25 bg-panel-white pl-10 pr-4 text-sm transition-shadow placeholder:text-ink-faint focus-visible:border-forest focus-visible: focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/15"
           />
         </div>
       </div>
@@ -117,7 +117,7 @@ export function DiscoveryFilters({
           id="discovery-sort"
           value={current.sort}
           onChange={(event) => apply({ sort: event.target.value })}
-          className="mt-2 h-11 w-full rounded-full border border-rule-strong bg-panel-white px-4 text-sm focus-visible:border-forest focus-visible:outline-none"
+          className="mt-2 h-11 w-full rounded-full border border-muted-on-black/25 bg-panel-white px-4 text-sm focus-visible:border-forest focus-visible:outline-none"
         >
           <option value="featured">Featured first</option>
           <option value="recent">Recently verified</option>

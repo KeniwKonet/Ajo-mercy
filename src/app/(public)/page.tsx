@@ -41,11 +41,11 @@ export default async function HomePage() {
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="reveal">
               <p className="eyebrow flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                <span aria-hidden="true" className="h-px w-7 bg-terracotta" />
+                <span aria-hidden="true" className="h-px w-7 bg-orange" />
                 Real people
-                <span aria-hidden="true" className="text-terracotta">•</span>
+                <span aria-hidden="true" className="text-orange">•</span>
                 Real businesses
-                <span aria-hidden="true" className="text-terracotta">•</span>
+                <span aria-hidden="true" className="text-orange">•</span>
                 Real stories
               </p>
 
@@ -127,7 +127,7 @@ export default async function HomePage() {
       </section>
 
       {/* ---------------------------------------------------------- journey */}
-      <section className="border-b border-rule bg-paper-warm">
+      <section className="border-b border-rule bg-widget-black-2">
         <Container className="py-16 sm:py-20">
           <Reveal>
             <SectionHeader
@@ -146,7 +146,7 @@ export default async function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------ trust */}
-      <section className="border-b border-rule bg-forest text-paper">
+      <section className="border-b border-rule bg-widget-black text-ivory-text">
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
             <div>
@@ -154,10 +154,10 @@ export default async function HomePage() {
                 <span aria-hidden="true" className="h-px w-7 bg-ochre" />
                 Why Ajo Mercy
               </p>
-              <h2 className="mt-5 font-display text-4xl leading-[1.04] text-paper sm:text-5xl">
+              <h2 className="mt-5 font-display text-4xl leading-[1.04] text-ivory-text sm:text-5xl">
                 Anyone can collect names. The hard part is knowing they are real.
               </h2>
-              <p className="mt-7 max-w-md text-base leading-relaxed text-paper/75">
+              <p className="mt-7 max-w-md text-base leading-relaxed text-ivory-text/75">
                 Verification is not a feature of this product. It is the product. Everything else
                 exists to make a checked business easier to find and easier to back.
               </p>
@@ -187,8 +187,8 @@ export default async function HomePage() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <h3 className="text-base font-bold text-paper">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-paper/70">{item.body}</p>
+                    <h3 className="text-base font-bold text-ivory-text">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ivory-text/70">{item.body}</p>
                   </div>
                 </li>
               ))}

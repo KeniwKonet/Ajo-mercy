@@ -68,7 +68,7 @@ export default async function HybridDirection() {
             <Link
               key={item.label}
               href={item.href}
-              className="bg-paper px-4 py-5 transition-colors hover:bg-paper-warm"
+              className="bg-paper px-4 py-5 transition-colors hover:bg-widget-black-2"
             >
               <p
                 className={`font-display text-3xl tabular ${
@@ -76,7 +76,7 @@ export default async function HybridDirection() {
                     ? "text-ink-faint"
                     : item.alarm
                       ? "text-danger"
-                      : "text-terracotta"
+                      : "text-orange"
                 }`}
               >
                 {item.value === 0 ? "—" : formatNumber(item.value)}
@@ -103,7 +103,7 @@ export default async function HybridDirection() {
             <ul className="grid-rules">
               {queue.items.map((item) => (
                 <li key={item.id}>
-                  <Link href={`/admin/alajos/${item.id}`} className="block py-2.5 hover:bg-paper-warm">
+                  <Link href={`/admin/alajos/${item.id}`} className="block py-2.5 hover:bg-widget-black-2">
                     <p className="truncate text-sm font-medium text-ink">
                       {item.business_name ?? "Untitled"}
                     </p>
@@ -129,7 +129,7 @@ export default async function HybridDirection() {
             <p className="pt-3 text-sm text-ink-soft">Nothing waiting on confirmation.</p>
           ) : (
             <>
-              <p className="pt-3 text-xs leading-relaxed text-terracotta">
+              <p className="pt-3 text-xs leading-relaxed text-orange">
                 None of these businesses has been told anything yet.
               </p>
               <ul className="grid-rules mt-1">
@@ -214,7 +214,7 @@ export default async function HybridDirection() {
                   <li key={item.id}>
                     <Link
                       href={`/alajos/${item.slug}`}
-                      className="block border border-rule-strong px-2.5 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
+                      className="block border border-muted-on-black/25 px-2.5 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
                     >
                       {item.business_name}
                     </Link>

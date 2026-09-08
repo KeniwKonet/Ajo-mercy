@@ -28,7 +28,7 @@ function MediaFrame({
     return (
       <div
         className={cn(
-          "flex items-center justify-center bg-forest-wash text-forest",
+          "flex items-center justify-center bg-forest-wash text-lime",
           className,
         )}
         aria-hidden="true"
@@ -40,7 +40,7 @@ function MediaFrame({
     );
   }
   return (
-    <div className={cn("relative overflow-hidden bg-paper-deep", className)}>
+    <div className={cn("relative overflow-hidden bg-widget-black-2", className)}>
       <Image
         src={src}
         alt={`${profile.business_name} in ${profile.city ?? profile.state}`}
@@ -100,7 +100,7 @@ export function AlajoFeature({
           {truncate(profile.current_challenge ?? profile.story, 240)}
         </p>
         <div className="mt-7 flex items-center gap-4">
-          <span className="border-b border-ink pb-0.5 text-sm font-medium text-ink transition-colors group-hover:border-terracotta group-hover:text-terracotta">
+          <span className="border-b border-ink pb-0.5 text-sm font-medium text-ink transition-colors group-hover:border-terracotta group-hover:text-orange">
             Read their story
           </span>
           {profile.requested_amount_ngn ? (
@@ -168,7 +168,7 @@ export function AlajoRow({ profile, index }: { profile: AlajoProfileWithMedia; i
         className="aspect-square w-16 shrink-0 sm:w-20"
       />
       <div className="min-w-0 flex-1">
-        <h3 className="font-display text-base leading-snug transition-colors group-hover:text-terracotta">
+        <h3 className="font-display text-base leading-snug transition-colors group-hover:text-orange">
           {profile.business_name}
         </h3>
         <Meta profile={profile} className="mt-1" />

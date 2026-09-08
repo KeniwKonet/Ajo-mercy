@@ -72,7 +72,7 @@ export function ReviewRail({
         {previous ? (
           <Link
             href={`/admin/alajos/${previous.id}`}
-            className="flex-1 rounded-sm border border-rule-strong px-2 py-1.5 text-center text-2xs font-semibold transition-colors hover:bg-paper-warm"
+            className="flex-1 rounded-sm border border-muted-on-black/25 px-2 py-1.5 text-center text-2xs font-semibold transition-colors hover:bg-widget-black-2"
           >
             Previous
           </Link>
@@ -84,7 +84,7 @@ export function ReviewRail({
         {next ? (
           <Link
             href={`/admin/alajos/${next.id}`}
-            className="flex-1 rounded-sm border border-ink bg-ink px-2 py-1.5 text-center text-2xs font-semibold text-paper transition-colors hover:bg-forest"
+            className="flex-1 rounded-sm border border-ink bg-ink px-2 py-1.5 text-center text-2xs font-semibold text-ivory-text transition-colors hover:bg-widget-black"
           >
             Next
           </Link>
@@ -107,13 +107,13 @@ export function ReviewRail({
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "block border-b border-rule px-3 py-2.5 transition-colors",
-                  active ? "bg-forest text-paper" : "hover:bg-paper-warm",
+                  active ? "bg-widget-black text-ivory-text" : "hover:bg-widget-black-2",
                 )}
               >
                 <p
                   className={cn(
                     "truncate text-sm font-semibold",
-                    active ? "text-paper" : "text-ink",
+                    active ? "text-ivory-text" : "text-ink",
                   )}
                 >
                   {item.business_name ?? "Untitled application"}
@@ -121,7 +121,7 @@ export function ReviewRail({
                 <p
                   className={cn(
                     "truncate text-2xs",
-                    active ? "text-paper/70" : "text-ink-faint",
+                    active ? "text-ivory-text/70" : "text-ink-faint",
                   )}
                 >
                   {item.founder_name ?? "No name yet"}

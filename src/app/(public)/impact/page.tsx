@@ -38,7 +38,7 @@ export default async function ImpactPage() {
         </div>
       </Container>
 
-      <section className="border-y border-rule bg-paper-warm">
+      <section className="border-y border-rule bg-widget-black-2">
         <Container>
           <dl className="grid grid-cols-2 gap-x-8 lg:grid-cols-4">
             {[
@@ -76,13 +76,13 @@ export default async function ImpactPage() {
                       href={`/alajos?category=${row.category}`}
                       className="group flex items-center gap-4"
                     >
-                      <span className="w-44 shrink-0 text-sm text-ink group-hover:text-terracotta">
+                      <span className="w-44 shrink-0 text-sm text-ink group-hover:text-orange">
                         {CATEGORY_LABELS[row.category as BusinessCategory] ?? row.category}
                       </span>
                       {/* A plain proportional bar; no chart library for one metric. */}
-                      <span className="h-2 flex-1 bg-paper-deep">
+                      <span className="h-2 flex-1 bg-widget-black-2">
                         <span
-                          className="block h-full bg-forest"
+                          className="block h-full bg-widget-black"
                           style={{ width: `${Math.max(4, (row.count / maxCategory) * 100)}%` }}
                         />
                       </span>
@@ -109,7 +109,7 @@ export default async function ImpactPage() {
                     <Link
                       key={row.state}
                       href={`/alajos?state=${encodeURIComponent(row.state)}`}
-                      className="border border-rule-strong px-2.5 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
+                      className="border border-muted-on-black/25 px-2.5 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
                     >
                       {row.state}
                       <span className="ml-1.5 text-ink-faint tabular">{row.count}</span>

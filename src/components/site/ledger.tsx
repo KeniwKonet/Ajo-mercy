@@ -30,7 +30,7 @@ function Thumb({ profile }: { profile: AlajoProfileWithMedia }) {
     return (
       <span
         aria-hidden
-        className="grid size-11 shrink-0 place-items-center border border-rule bg-paper-deep font-display text-sm text-ink-faint"
+        className="grid size-11 shrink-0 place-items-center border border-rule bg-widget-black-2 font-display text-sm text-ink-faint"
       >
         {initials(profile.business_name)}
       </span>
@@ -38,7 +38,7 @@ function Thumb({ profile }: { profile: AlajoProfileWithMedia }) {
   }
 
   return (
-    <span className="relative size-11 shrink-0 overflow-hidden border border-rule bg-paper-deep">
+    <span className="relative size-11 shrink-0 overflow-hidden border border-rule bg-widget-black-2">
       <Image
         src={src}
         alt=""
@@ -89,11 +89,11 @@ export function LedgerEntry({
         <Thumb profile={profile} />
         <span className="min-w-0">
           <span className="flex flex-wrap items-baseline gap-x-2.5">
-            <span className="font-display text-lg leading-tight text-ink group-hover:text-terracotta">
+            <span className="font-display text-lg leading-tight text-ink group-hover:text-orange">
               {profile.business_name}
             </span>
             {profile.status === "featured" && (
-              <span className="border border-forest px-1.5 py-px font-mono text-2xs uppercase tracking-[0.08em] text-forest">
+              <span className="border border-forest px-1.5 py-px font-mono text-2xs uppercase tracking-[0.08em] text-lime">
                 Featured
               </span>
             )}

@@ -28,8 +28,8 @@ export default async function ImpactPlatformDirection() {
       <aside className="border-b border-rule px-6 py-6 lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:justify-between lg:border-b-0 lg:border-r">
         <div>
           <span className="font-display text-lg tracking-tight">
-            <span className="font-semibold text-forest">Ajo</span>
-            <span className="italic text-terracotta"> Mercy</span>
+            <span className="font-semibold text-lime">Ajo</span>
+            <span className="italic text-orange"> Mercy</span>
           </span>
 
           <nav aria-label="Sections" className="mt-10 hidden lg:block">
@@ -59,7 +59,7 @@ export default async function ImpactPlatformDirection() {
           </p>
           <Link
             href="/become-an-alajo"
-            className="mt-6 block bg-forest px-4 py-2.5 text-center text-sm font-medium text-paper transition-colors hover:bg-forest-deep"
+            className="mt-6 block bg-widget-black px-4 py-2.5 text-center text-sm font-medium text-ivory-text transition-colors hover:brightness-95"
           >
             Apply
           </Link>
@@ -81,13 +81,13 @@ export default async function ImpactPlatformDirection() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/alajos"
-                  className="bg-forest px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-forest-deep"
+                  className="bg-widget-black px-5 py-2.5 text-sm font-medium text-ivory-text transition-colors hover:brightness-95"
                 >
                   Browse businesses
                 </Link>
                 <Link
                   href="/how-it-works"
-                  className="border border-rule-strong px-5 py-2.5 text-sm transition-colors hover:border-ink"
+                  className="border border-muted-on-black/25 px-5 py-2.5 text-sm transition-colors hover:border-ink"
                 >
                   Read the process
                 </Link>
@@ -126,7 +126,7 @@ export default async function ImpactPlatformDirection() {
               <div key={String(label)} className="border-t border-ink pt-3">
                 <dd
                   className={`font-display text-3xl tabular lg:text-4xl ${
-                    Number(raw) === 0 ? "text-ink-faint" : "text-forest"
+                    Number(raw) === 0 ? "text-ink-faint" : "text-lime"
                   }`}
                 >
                   {Number(raw) === 0 ? "—" : value}
@@ -161,7 +161,7 @@ export default async function ImpactPlatformDirection() {
                       href={`/alajos/${profile.slug}`}
                       className="group grid items-center gap-5 py-5 lg:grid-cols-12"
                     >
-                      <div className="relative aspect-[3/2] w-24 shrink-0 bg-paper-deep lg:col-span-2 lg:aspect-square lg:w-full">
+                      <div className="relative aspect-[3/2] w-24 shrink-0 bg-widget-black-2 lg:col-span-2 lg:aspect-square lg:w-full">
                         {url && (
                           <Image
                             src={url}
@@ -173,7 +173,7 @@ export default async function ImpactPlatformDirection() {
                         )}
                       </div>
                       <div className="lg:col-span-4">
-                        <h3 className="font-display text-lg group-hover:text-terracotta">
+                        <h3 className="font-display text-lg group-hover:text-orange">
                           {profile.business_name}
                         </h3>
                         <p className="mt-0.5 text-xs text-ink-faint">{profile.founder_name}</p>
@@ -210,7 +210,7 @@ export default async function ImpactPlatformDirection() {
                 <Link
                   key={row.category}
                   href={`/alajos?category=${row.category}`}
-                  className="border border-rule-strong px-3 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
+                  className="border border-muted-on-black/25 px-3 py-1.5 text-xs text-ink-soft transition-colors hover:border-ink hover:text-ink"
                 >
                   {CATEGORY_LABELS[row.category as BusinessCategory] ?? row.category}
                   <span className="ml-2 text-ink-faint tabular">{row.count}</span>
@@ -232,7 +232,7 @@ export default async function ImpactPlatformDirection() {
               </p>
               <Link
                 href="/brands"
-                className="mt-6 inline-block border border-rule-strong px-5 py-2.5 text-sm transition-colors hover:border-ink"
+                className="mt-6 inline-block border border-muted-on-black/25 px-5 py-2.5 text-sm transition-colors hover:border-ink"
               >
                 Brand partnerships
               </Link>

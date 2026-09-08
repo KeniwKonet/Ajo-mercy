@@ -98,7 +98,7 @@ export default async function AdminConfirmationsPage({
                   </p>
 
                   {item.internal_note && (
-                    <p className="mt-2 max-w-prose border-l-2 border-rule-strong pl-3 text-sm leading-relaxed text-ink-soft">
+                    <p className="mt-2 max-w-prose border-l-2 border-muted-on-black/25 pl-3 text-sm leading-relaxed text-ink-soft">
                       {item.internal_note}
                     </p>
                   )}

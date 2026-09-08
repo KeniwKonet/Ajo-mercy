@@ -58,11 +58,12 @@ const buttonVariants: Record<ButtonVariant, string> = {
   primary: "bg-lime text-widget-black-2 hover:brightness-95 focus-visible:outline-widget-black",
   // On the warm page an outlined black pill; inside a widget it reads as ivory.
   secondary:
-    "border-[1.5px] border-ink text-ink hover:bg-ink hover:text-ivory-text focus-visible:outline-widget-black",
+    "border-[1.5px] border-ink text-ink hover:bg-ink hover:text-ivory-text focus-visible:outline-widget-black " +
+    "[.widget_&]:border-muted-on-black/40 [.widget_&]:text-ivory-text [.widget_&]:hover:bg-widget-black-2 [.widget_&]:hover:text-ivory-text",
   // Orange is reserved for backing a business: the one action that commits a
   // person to something.
   accent: "bg-orange text-widget-black-2 hover:brightness-95 focus-visible:outline-orange",
-  ghost: "text-ink hover:bg-paper-deep focus-visible:outline-widget-black",
+  ghost: "text-ink hover:bg-widget-black-2 focus-visible:outline-widget-black",
   danger: "bg-danger text-white hover:brightness-95 focus-visible:outline-danger",
   quiet: "text-ink-soft hover:text-ink underline underline-offset-4 decoration-rule-strong hover:decoration-ink",
 };
@@ -200,20 +201,20 @@ export function Alert({
   className?: string;
 }) {
   const accents: Record<Tone, string> = {
-    neutral: "border-l-rule-strong bg-paper-deep",
-    progress: "border-l-info bg-info-wash",
-    positive: "border-l-success bg-success-wash",
-    attention: "border-l-terracotta bg-terracotta-wash",
-    negative: "border-l-danger bg-danger-wash",
-    feature: "border-l-ochre bg-ochre-wash",
+    neutral: "border-l-muted-on-black bg-widget-black-2",
+    progress: "border-l-ochre bg-widget-black-2",
+    positive: "border-l-lime bg-widget-black-2",
+    attention: "border-l-orange bg-widget-black-2",
+    negative: "border-l-orange bg-widget-black-2",
+    feature: "border-l-lime bg-widget-black-2",
   };
   return (
     <div
       role={tone === "negative" ? "alert" : "status"}
-      className={cn("rounded-lg border border-rule border-l-[3px] px-5 py-4", accents[tone], className)}
+      className={cn("rounded-md border-l-4 px-5 py-4", accents[tone], className)}
     >
-      {title && <p className="text-sm font-semibold text-ink">{title}</p>}
-      {children && <div className={cn("text-sm text-ink-soft", title && "mt-1")}>{children}</div>}
+      {title && <p className="text-sm font-bold text-ivory-text">{title}</p>}
+      {children && <div className={cn("text-sm text-muted-on-black", title && "mt-1")}>{children}</div>}
     </div>
   );
 }
@@ -259,7 +260,7 @@ export function EmptyState({
 export function Skeleton({ className, style }: { className?: string; style?: CSSProperties }) {
   // `style` carries per-item widths and animation delays, so a column of
   // placeholders varies instead of pulsing in lockstep.
-  return <div className={cn("animate-pulse bg-paper-deep", className)} style={style} aria-hidden="true" />;
+  return <div className={cn("animate-pulse rounded-md bg-widget-black-2", className)} style={style} aria-hidden="true" />;
 }
 
 // ------------------------------------------------------------------- table --
@@ -277,7 +278,7 @@ export function Th({ children, className, ...props }: ComponentPropsWithoutRef<"
     <th
       scope="col"
       className={cn(
-        "border-b border-rule px-3 py-2.5 text-left text-2xs font-semibold uppercase tracking-[0.09em] text-ink-faint",
+        "border-b border-rule px-4 py-3 text-left text-2xs font-bold uppercase tracking-[0.08em] text-ink-faint",
         className,
       )}
       {...props}
@@ -289,7 +290,7 @@ export function Th({ children, className, ...props }: ComponentPropsWithoutRef<"
 
 export function Td({ children, className, ...props }: ComponentPropsWithoutRef<"td">) {
   return (
-    <td className={cn("border-b border-rule px-3 py-3 align-middle text-ink", className)} {...props}>
+    <td className={cn("border-b border-rule px-4 py-3.5 align-middle text-ink", className)} {...props}>
       {children}
     </td>
   );
@@ -335,7 +336,7 @@ export function Stat({
       <p
         className={cn(
           "font-display text-3xl tabular sm:text-4xl",
-          empty ? "text-ink-faint" : "text-forest",
+          empty ? "text-ink-faint" : "text-lime",
         )}
       >
         {empty ? "—" : value}

@@ -38,8 +38,8 @@ export default async function DiscoveryDirection() {
       <header className="sticky top-0 z-30 border-b border-rule bg-paper/95 backdrop-blur-sm">
         <div className="mx-auto flex h-14 max-w-[90rem] items-center gap-5 px-5 sm:px-8">
           <span className="shrink-0 font-display text-base tracking-tight">
-            <span className="font-semibold text-forest">Ajo</span>
-            <span className="italic text-terracotta"> Mercy</span>
+            <span className="font-semibold text-lime">Ajo</span>
+            <span className="italic text-orange"> Mercy</span>
           </span>
 
           <div className="relative hidden min-w-0 flex-1 md:block">
@@ -55,7 +55,7 @@ export default async function DiscoveryDirection() {
               type="search"
               placeholder="Search businesses, founders, towns"
               aria-label="Search businesses"
-              className="h-9 w-full border border-rule-strong bg-card pl-9 pr-3 text-sm placeholder:text-ink-faint focus-visible:border-forest focus-visible:outline-none"
+              className="h-9 w-full border border-muted-on-black/25 bg-widget-black-2 pl-9 pr-3 text-sm placeholder:text-ink-faint focus-visible:border-forest focus-visible:outline-none"
             />
           </div>
 
@@ -65,7 +65,7 @@ export default async function DiscoveryDirection() {
             </Link>
             <Link
               href="/become-an-alajo"
-              className="bg-forest px-3.5 py-1.5 text-xs font-medium text-paper transition-colors hover:bg-forest-deep"
+              className="bg-widget-black px-3.5 py-1.5 text-xs font-medium text-ivory-text transition-colors hover:brightness-95"
             >
               List your business
             </Link>
@@ -116,7 +116,7 @@ export default async function DiscoveryDirection() {
 
         {/* -------------------------------------------------------- results */}
         {!spotlight ? (
-          <div className="border border-dashed border-rule-strong px-6 py-20 text-center">
+          <div className="border border-dashed border-muted-on-black/25 px-6 py-20 text-center">
             <p className="font-display text-2xl">No businesses are live yet</p>
             <p className="mx-auto mt-2 max-w-sm text-sm text-ink-soft">
               Applications are open and being reviewed. Verified businesses appear here as the team
@@ -124,7 +124,7 @@ export default async function DiscoveryDirection() {
             </p>
             <Link
               href="/become-an-alajo"
-              className="mt-6 inline-block border border-rule-strong px-4 py-2 text-sm hover:border-ink"
+              className="mt-6 inline-block border border-muted-on-black/25 px-4 py-2 text-sm hover:border-ink"
             >
               List your business
             </Link>
@@ -134,7 +134,7 @@ export default async function DiscoveryDirection() {
             {/* A single wide tile gives the grid rhythm without a hero. */}
             <Link
               href={`/alajos/${spotlight.slug}`}
-              className="group relative flex min-h-[20rem] flex-col justify-end overflow-hidden bg-forest p-6 text-paper lg:col-span-8 lg:min-h-[26rem]"
+              className="group relative flex min-h-[20rem] flex-col justify-end overflow-hidden bg-widget-black p-6 text-ivory-text lg:col-span-8 lg:min-h-[26rem]"
             >
               {(() => {
                 const url = publicMediaUrl(spotlight.cover?.storage_path);
@@ -156,10 +156,10 @@ export default async function DiscoveryDirection() {
                 <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
                   {spotlight.business_name}
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-paper/80">
+                <p className="mt-2 text-sm leading-relaxed text-ivory-text/80">
                   {truncate(spotlight.current_challenge ?? spotlight.story, 160)}
                 </p>
-                <p className="mt-3 font-mono text-2xs uppercase tracking-[0.12em] text-paper/60">
+                <p className="mt-3 font-mono text-2xs uppercase tracking-[0.12em] text-ivory-text/60">
                   {CATEGORY_LABELS[spotlight.business_category]}
                   <span className="mx-1.5">/</span>
                   {[spotlight.city, spotlight.state].filter(Boolean).join(", ")}
@@ -182,7 +182,7 @@ export default async function DiscoveryDirection() {
                 {grid.slice(0, 5).map((profile) => (
                   <li key={profile.id} className="border-b border-rule">
                     <Link href={`/alajos/${profile.slug}`} className="group flex gap-3 py-3">
-                      <div className="relative size-14 shrink-0 bg-paper-deep">
+                      <div className="relative size-14 shrink-0 bg-widget-black-2">
                         {(() => {
                           const url = publicMediaUrl(profile.cover?.storage_path);
                           return url ? (
@@ -197,7 +197,7 @@ export default async function DiscoveryDirection() {
                         })()}
                       </div>
                       <div className="min-w-0">
-                        <p className="truncate font-medium text-ink group-hover:text-terracotta">
+                        <p className="truncate font-medium text-ink group-hover:text-orange">
                           {profile.business_name}
                         </p>
                         <p className="mt-0.5 text-2xs text-ink-faint">
@@ -227,7 +227,7 @@ export default async function DiscoveryDirection() {
                   href={`/alajos/${profile.slug}`}
                   className="group flex flex-col lg:col-span-3"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-paper-deep">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-widget-black-2">
                     {url ? (
                       <Image
                         src={url}
@@ -237,7 +237,7 @@ export default async function DiscoveryDirection() {
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                       />
                     ) : (
-                      <div className="flex h-full items-center justify-center bg-forest-wash font-display text-3xl text-forest/30">
+                      <div className="flex h-full items-center justify-center bg-forest-wash font-display text-3xl text-lime/30">
                         {profile.business_name.slice(0, 1)}
                       </div>
                     )}
@@ -248,7 +248,7 @@ export default async function DiscoveryDirection() {
                       <span className="mx-1.5 text-rule-strong">/</span>
                       {profile.state}
                     </p>
-                    <h3 className="mt-1.5 font-display text-lg leading-snug group-hover:text-terracotta">
+                    <h3 className="mt-1.5 font-display text-lg leading-snug group-hover:text-orange">
                       {profile.business_name}
                     </h3>
                     <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-soft">
@@ -292,8 +292,8 @@ function FilterPill({
 }) {
   const className = `shrink-0 whitespace-nowrap border px-3 py-1.5 text-xs transition-colors ${
     active
-      ? "border-forest bg-forest text-paper"
-      : "border-rule-strong text-ink-soft hover:border-ink hover:text-ink"
+      ? "border-forest bg-widget-black text-ivory-text"
+      : "border-muted-on-black/25 text-ink-soft hover:border-ink hover:text-ink"
   }`;
 
   if (!href) return <span className={className}>{label}</span>;

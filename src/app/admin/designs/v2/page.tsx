@@ -46,7 +46,7 @@ export default async function ImpactDeskDirection() {
               "Nothing is waiting on you."
             ) : (
               <>
-                <span className="font-medium text-terracotta tabular">{waiting}</span> waiting on a
+                <span className="font-medium text-orange tabular">{waiting}</span> waiting on a
                 decision.
               </>
             )}
@@ -58,7 +58,7 @@ export default async function ImpactDeskDirection() {
       {hero && (
         <section className="border-b border-rule">
           <div className="grid lg:grid-cols-[1.2fr_1fr]">
-            <div className="relative aspect-[16/10] bg-paper-deep lg:aspect-auto lg:min-h-[24rem]">
+            <div className="relative aspect-[16/10] bg-widget-black-2 lg:aspect-auto lg:min-h-[24rem]">
               {heroUrl ? (
                 <Image
                   src={heroUrl}
@@ -69,13 +69,13 @@ export default async function ImpactDeskDirection() {
                   className="object-cover"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center bg-forest-wash font-display text-6xl text-forest/25">
+                <div className="flex h-full items-center justify-center bg-forest-wash font-display text-6xl text-lime/25">
                   {hero.business_name.slice(0, 1)}
                 </div>
               )}
             </div>
             <div className="flex flex-col justify-center px-6 py-8 sm:px-10">
-              <p className="font-mono text-2xs uppercase tracking-[0.16em] text-terracotta">
+              <p className="font-mono text-2xs uppercase tracking-[0.16em] text-orange">
                 {hero.status === "featured" ? "Currently featured" : "Most recently verified"}
               </p>
               <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
@@ -111,7 +111,7 @@ export default async function ImpactDeskDirection() {
             <p className="mt-3 max-w-2xl font-display text-2xl leading-[1.4]">
               {counts.pending_alajo_reviews > 0 ? (
                 <>
-                  <Link href="/admin/alajos" className="text-terracotta hover:underline">
+                  <Link href="/admin/alajos" className="text-orange hover:underline">
                     {counts.pending_alajo_reviews} business{counts.pending_alajo_reviews === 1 ? "" : "es"}
                   </Link>{" "}
                   waiting to be read.
@@ -121,7 +121,7 @@ export default async function ImpactDeskDirection() {
               )}{" "}
               {counts.pending_confirmations > 0 ? (
                 <>
-                  <Link href="/admin/confirmations" className="text-terracotta hover:underline">
+                  <Link href="/admin/confirmations" className="text-orange hover:underline">
                     {counts.pending_confirmations} support record
                     {counts.pending_confirmations === 1 ? "" : "s"}
                   </Link>{" "}
@@ -157,7 +157,7 @@ export default async function ImpactDeskDirection() {
                   <li key={item.id}>
                     <Link
                       href={`/admin/alajos/${item.id}`}
-                      className="flex flex-wrap items-baseline justify-between gap-3 py-3.5 hover:bg-paper-warm"
+                      className="flex flex-wrap items-baseline justify-between gap-3 py-3.5 hover:bg-widget-black-2"
                     >
                       <span>
                         <span className="font-display text-lg">{item.business_name ?? "Untitled"}</span>
@@ -194,7 +194,7 @@ export default async function ImpactDeskDirection() {
                         {item.support_kind ? ` · ${item.support_kind}` : ""}
                       </p>
                     </div>
-                    <p className="font-display text-lg text-forest tabular">
+                    <p className="font-display text-lg text-lime tabular">
                       {item.amount_ngn ? formatNaira(item.amount_ngn) : "—"}
                     </p>
                   </li>
@@ -236,13 +236,13 @@ export default async function ImpactDeskDirection() {
                 return (
                   <li key={item.id} className="border-b border-rule">
                     <Link href={`/alajos/${item.slug}`} className="group flex items-center gap-3 py-3">
-                      <div className="relative size-11 shrink-0 bg-paper-deep">
+                      <div className="relative size-11 shrink-0 bg-widget-black-2">
                         {url && (
                           <Image src={url} alt={item.business_name} fill sizes="44px" className="object-cover" />
                         )}
                       </div>
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-medium group-hover:text-terracotta">
+                        <p className="truncate text-sm font-medium group-hover:text-orange">
                           {item.business_name}
                         </p>
                         <p className="text-2xs text-ink-faint">{item.state}</p>

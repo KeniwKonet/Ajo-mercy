@@ -26,6 +26,10 @@
 
   --color-lime: #c6e24c;
   --color-orange: #ff6b3d;
+  /* Text-safe twins for the neons, used on the warm page where the bright
+     values fall to ~1.3:1 and become unreadable. */
+  --color-orange-ink: #a33f14;
+  --color-lime-ink: #4e6e14;
 
   --color-ivory-text: #f5f1e8;
   --color-muted-on-black: #8a9186;
@@ -336,6 +340,8 @@
     background-size: 12px 1px;
     background-repeat: repeat-x;
   }
+
+
 
   /* ======================================================================
      WIDGETS
@@ -714,3 +720,103 @@
   body { background: #fff; }
   nav, footer, .no-print { display: none !important; }
 }
+
+/* Unlayered on purpose: see the note inside. Tailwind utilities live in
+   @layer utilities, which outranks every layer, so these have to sit outside
+   the layer system to win. */
+
+/* ======================================================================
+   SURFACE-AWARE TEXT
+   A component should not have to know whether it was dropped onto a black
+   widget or a warm page. It writes ink / ink-soft / ink-faint, and any
+   dark surface remaps those to the on-black set here.
+   ====================================================================== */
+.widget,
+.widget-tile,
+.bg-widget-black,
+.bg-widget-black-2 {
+  color: var(--color-ivory-text);
+}
+
+.widget .text-ink,
+.widget-tile .text-ink,
+.bg-widget-black .text-ink,
+.bg-widget-black-2 .text-ink,
+.widget.text-ink,
+.widget-tile.text-ink { color: var(--color-ivory-text); }
+
+.widget .text-ink-soft,
+.widget .text-ink-faint,
+.widget-tile .text-ink-soft,
+.widget-tile .text-ink-faint,
+.bg-widget-black .text-ink-soft,
+.bg-widget-black .text-ink-faint,
+.bg-widget-black-2 .text-ink-soft,
+.bg-widget-black-2 .text-ink-faint { color: var(--color-muted-on-black); }
+
+/* Hairlines inside a dark surface need the light rule, not the warm one. */
+.widget .border-rule,
+.widget-tile .border-rule,
+.bg-widget-black .border-rule,
+.bg-widget-black-2 .border-rule { border-color: rgb(245 241 232 / 0.12); }
+
+/* A white panel nested inside a widget flips everything back. */
+.panel,
+.bg-panel-white { color: var(--color-ink); }
+.panel .text-ink,
+.bg-panel-white .text-ink { color: var(--color-ink); }
+.panel .text-ink-soft,
+.bg-panel-white .text-ink-soft { color: var(--color-ink-soft); }
+.panel .text-ink-faint,
+.bg-panel-white .text-ink-faint { color: var(--color-ink-faint); }
+.panel .border-rule,
+.bg-panel-white .border-rule { border-color: var(--color-rule); }
+
+
+/* Neon accents as TEXT are unreadable on the warm page: lime falls to 1.3:1
+   and orange to 2.4:1. So the text utilities resolve to the darker ink-side
+   twins by default, and any dark surface restores the neon. Backgrounds and
+   borders are untouched, because the neon is correct there. */
+.text-lime { color: var(--color-lime-ink); }
+.text-orange { color: var(--color-orange-ink); }
+
+.widget .text-lime,
+.widget-tile .text-lime,
+.bg-widget-black .text-lime,
+.bg-widget-black-2 .text-lime,
+.widget.text-lime { color: var(--color-lime); }
+
+.widget .text-orange,
+.widget-tile .text-orange,
+.bg-widget-black .text-orange,
+.bg-widget-black-2 .text-orange,
+.widget.text-orange { color: var(--color-orange); }
+
+/* Ivory text only ever belongs on a dark ground. On the page it is invisible,
+   so it falls back to ink and the dark surfaces restore it. */
+.text-ivory-text { color: var(--color-ink); }
+.widget .text-ivory-text,
+.widget-tile .text-ivory-text,
+.bg-widget-black .text-ivory-text,
+.bg-widget-black-2 .text-ivory-text,
+.widget.text-ivory-text,
+.bg-widget-black.text-ivory-text { color: var(--color-ivory-text); }
+
+/* Headings take their colour from the base layer, not a utility, so the
+   surface-aware rules above never reached them. On a dark surface they were
+   rendering ink-on-black at 1:1. */
+.widget h1, .widget h2, .widget h3, .widget h4,
+.widget-tile h1, .widget-tile h2, .widget-tile h3, .widget-tile h4,
+.bg-widget-black h1, .bg-widget-black h2, .bg-widget-black h3, .bg-widget-black h4,
+.bg-widget-black-2 h1, .bg-widget-black-2 h2, .bg-widget-black-2 h3, .bg-widget-black-2 h4 {
+  color: var(--color-ivory-text);
+}
+.panel h1, .panel h2, .panel h3, .panel h4,
+.bg-panel-white h1, .bg-panel-white h2, .bg-panel-white h3, .bg-panel-white h4 {
+  color: var(--color-ink);
+}
+
+/* Ochre and lime are light fills: text on them must be near-black, never
+   ivory. Ivory on ochre measures 1.7:1. */
+.bg-ochre, .bg-lime { color: var(--color-widget-black-2); }
+.bg-ochre .text-ivory-text, .bg-lime .text-ivory-text { color: var(--color-widget-black-2); }

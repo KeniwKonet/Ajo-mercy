@@ -143,9 +143,9 @@ export function MediaUploader({
           {items.map((item) => {
             const url = kind === "document" ? null : publicMediaUrl(item.storage_path);
             return (
-              <li key={item.id} className="relative border border-rule bg-card">
+              <li key={item.id} className="relative widget !p-0">
                 {url ? (
-                  <div className="relative aspect-[4/3] bg-paper-deep">
+                  <div className="relative aspect-[4/3] bg-widget-black-2">
                     <Image
                       src={url}
                       alt={item.caption ?? label}

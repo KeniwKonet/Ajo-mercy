@@ -35,7 +35,7 @@ export function BusinessPhoto({
   const showImage = Boolean(src) && !failed;
 
   return (
-    <div className={cn("relative overflow-hidden rounded-md bg-paper-deep", className)}>
+    <div className={cn("relative overflow-hidden rounded-md bg-widget-black-2", className)}>
       {showImage ? (
         <Image
           src={src as string}

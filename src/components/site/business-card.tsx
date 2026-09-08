@@ -46,7 +46,7 @@ function Photo({
         className="size-full"
       />
       {profile.status === "featured" && (
-        <span className="absolute left-3 top-3 rounded-sm bg-ochre px-2 py-1 text-2xs font-bold uppercase tracking-[0.08em] text-ink">
+        <span className="absolute left-3 top-3 rounded-full bg-ochre px-2.5 py-1 text-2xs font-extrabold uppercase tracking-[0.06em] text-widget-black-2">
           Featured
         </span>
       )}

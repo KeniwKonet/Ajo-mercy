@@ -86,7 +86,7 @@ export default async function AdminSelectionsPage() {
                   </p>
 
                   {selection.note && (
-                    <p className="mt-2.5 max-w-prose border-l-2 border-rule-strong pl-3 text-sm leading-relaxed text-ink-soft">
+                    <p className="mt-2.5 max-w-prose border-l-2 border-muted-on-black/25 pl-3 text-sm leading-relaxed text-ink-soft">
                       {selection.note}
                     </p>
                   )}

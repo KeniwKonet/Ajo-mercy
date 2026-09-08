@@ -78,7 +78,7 @@ export default function AboutPage() {
           </div>
 
           <aside className="lg:pt-2">
-            <div className="border border-rule bg-card p-5">
+            <div className="widget !p-0 p-5">
               <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
                 Who runs it
               </p>

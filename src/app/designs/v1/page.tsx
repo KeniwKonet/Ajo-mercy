@@ -72,7 +72,7 @@ export default async function EditorialDirection() {
             <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
               <div>
                 {coverUrl ? (
-                  <div className="relative aspect-[5/4] bg-paper-deep">
+                  <div className="relative aspect-[5/4] bg-widget-black-2">
                     <Image
                       src={coverUrl}
                       alt={lead.business_name}
@@ -84,7 +84,7 @@ export default async function EditorialDirection() {
                   </div>
                 ) : (
                   <div className="flex aspect-[5/4] items-center justify-center bg-forest-wash">
-                    <span className="font-display text-6xl text-forest/30">
+                    <span className="font-display text-6xl text-lime/30">
                       {lead.business_name.slice(0, 1)}
                     </span>
                   </div>
@@ -95,7 +95,7 @@ export default async function EditorialDirection() {
               </div>
 
               <div className="flex flex-col justify-center">
-                <p className="font-mono text-2xs uppercase tracking-[0.16em] text-terracotta">
+                <p className="font-mono text-2xs uppercase tracking-[0.16em] text-orange">
                   {CATEGORY_LABELS[lead.business_category]}
                 </p>
                 <h2 className="mt-4 font-display text-4xl leading-[1.04] tracking-[-0.02em] sm:text-5xl">
@@ -106,7 +106,7 @@ export default async function EditorialDirection() {
                 </p>
                 <Link
                   href={`/alajos/${lead.slug}`}
-                  className="mt-7 self-start border-b-2 border-ink pb-1 font-display text-lg transition-colors hover:border-terracotta hover:text-terracotta"
+                  className="mt-7 self-start border-b-2 border-ink pb-1 font-display text-lg transition-colors hover:border-terracotta hover:text-orange"
                 >
                   Read the full story
                 </Link>
@@ -132,7 +132,7 @@ export default async function EditorialDirection() {
                   return (
                     <article key={profile.id}>
                       {url && (
-                        <div className="relative mb-3 aspect-[3/2] bg-paper-deep">
+                        <div className="relative mb-3 aspect-[3/2] bg-widget-black-2">
                           <Image
                             src={url}
                             alt={profile.business_name}
@@ -146,7 +146,7 @@ export default async function EditorialDirection() {
                         {CATEGORY_LABELS[profile.business_category]}
                       </p>
                       <h3 className="mt-1.5 font-display text-xl leading-snug">
-                        <Link href={`/alajos/${profile.slug}`} className="hover:text-terracotta">
+                        <Link href={`/alajos/${profile.slug}`} className="hover:text-orange">
                           {profile.business_name}
                         </Link>
                       </h3>
@@ -208,11 +208,11 @@ export default async function EditorialDirection() {
                 {index.map((profile, position) => (
                   <li key={profile.id} className="border-b border-rule py-3">
                     <Link href={`/alajos/${profile.slug}`} className="group flex gap-3">
-                      <span className="font-mono text-2xs text-terracotta tabular">
+                      <span className="font-mono text-2xs text-orange tabular">
                         {String(position + 1).padStart(2, "0")}
                       </span>
                       <span className="min-w-0">
-                        <span className="block font-display text-sm leading-snug group-hover:text-terracotta">
+                        <span className="block font-display text-sm leading-snug group-hover:text-orange">
                           {profile.business_name}
                         </span>
                         <span className="mt-0.5 block text-2xs text-ink-faint">
@@ -238,7 +238,7 @@ export default async function EditorialDirection() {
               </p>
               <Link
                 href="/become-an-alajo"
-                className="mt-3 inline-block border-b border-ink pb-0.5 text-sm font-medium hover:border-terracotta hover:text-terracotta"
+                className="mt-3 inline-block border-b border-ink pb-0.5 text-sm font-medium hover:border-terracotta hover:text-orange"
               >
                 Submit your business
               </Link>

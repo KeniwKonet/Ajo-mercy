@@ -190,22 +190,22 @@ export function SelectMenu({
         aria-controls={open ? listId : undefined}
         aria-invalid={invalid || undefined}
         className={cn(
-          "flex h-10 w-full items-center justify-between gap-2 rounded-sm border bg-card px-3 text-left text-sm",
+          "flex h-12 w-full items-center justify-between gap-2 rounded-md border border-transparent bg-widget-black-2 px-4 text-left text-sm",
           "transition-[border-color,box-shadow] duration-150 ease-[cubic-bezier(0.22,0.61,0.36,1)]",
-          "focus:outline-none focus-visible:border-forest focus-visible:ring-2 focus-visible:ring-forest/20",
-          "disabled:cursor-not-allowed disabled:bg-paper-deep disabled:text-ink-faint",
-          invalid ? "border-danger" : "border-rule-strong hover:border-ink-faint",
-          open && "border-forest ring-2 ring-forest/20",
+          "focus:outline-none focus-visible:border-lime",
+          "disabled:cursor-not-allowed disabled:opacity-50",
+          invalid ? "!border-orange" : "hover:border-muted-on-black/40",
+          open && "!border-lime",
         )}
       >
-        <span className={cn("truncate", selected ? "text-ink" : "text-ink-faint")}>
+        <span className={cn("truncate", selected ? "text-ivory-text" : "text-muted-on-black")}>
           {selected?.label ?? placeholder}
         </span>
         <svg
           aria-hidden="true"
           viewBox="0 0 12 12"
           className={cn(
-            "size-3 shrink-0 text-ink-faint transition-transform duration-200 ease-[cubic-bezier(0.22,0.61,0.36,1)]",
+            "size-3 shrink-0 text-muted-on-black transition-transform duration-200 ease-[cubic-bezier(0.22,0.61,0.36,1)]",
             open && "rotate-180",
           )}
         >
@@ -222,7 +222,7 @@ export function SelectMenu({
           aria-activedescendant={`${listId}-${active}`}
           onKeyDown={onListKey}
           className={cn(
-            "menu-pop absolute z-40 max-h-64 w-full overflow-y-auto border border-rule-strong bg-card py-1",
+            "menu-pop absolute z-40 max-h-64 w-full overflow-y-auto rounded-md bg-widget-black-2 py-1",
             dropUp ? "bottom-full mb-1 origin-bottom" : "top-full mt-1 origin-top",
           )}
         >
@@ -245,7 +245,7 @@ export function SelectMenu({
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "mt-px w-3 shrink-0 text-terracotta transition-opacity",
+                    "mt-px w-3 shrink-0 transition-opacity",
                     isSelected ? "opacity-100" : "opacity-0",
                   )}
                 >
@@ -253,7 +253,7 @@ export function SelectMenu({
                 </span>
                 <span className="flex-1 truncate">{option.label}</span>
                 {option.hint && (
-                  <span className="shrink-0 font-mono text-2xs text-ink-faint tabular">{option.hint}</span>
+                  <span className="tabular shrink-0 font-mono text-2xs opacity-60">{option.hint}</span>
                 )}
               </li>
             );

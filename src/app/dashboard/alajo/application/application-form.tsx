@@ -143,17 +143,17 @@ export function ApplicationForm({
                   aria-current={active ? "step" : undefined}
                   className={cn(
                     "flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors sm:flex-col sm:items-start sm:gap-2",
-                    active ? "bg-forest text-paper" : "hover:bg-paper-warm",
+                    active ? "bg-widget-black text-ivory-text" : "hover:bg-widget-black-2",
                   )}
                 >
                   <span
                     className={cn(
                       "grid size-6 shrink-0 place-items-center rounded-full border text-2xs font-bold tabular",
                       active
-                        ? "border-paper/40 bg-paper/15 text-paper"
+                        ? "border-paper/40 bg-paper/15 text-ivory-text"
                         : done
-                          ? "border-success bg-success text-paper"
-                          : "border-rule-strong text-ink-faint",
+                          ? "border-success bg-success text-ivory-text"
+                          : "border-muted-on-black/25 text-ink-faint",
                     )}
                   >
                     {done && !active ? (
@@ -174,7 +174,7 @@ export function ApplicationForm({
                   <span
                     className={cn(
                       "text-sm font-semibold leading-snug",
-                      active ? "text-paper" : done ? "text-ink" : "text-ink-soft",
+                      active ? "text-ivory-text" : done ? "text-ink" : "text-ink-soft",
                     )}
                   >
                     {item.label}
@@ -197,9 +197,9 @@ export function ApplicationForm({
         </span>
       </div>
 
-      <div className="h-1 overflow-hidden rounded-full bg-paper-deep">
+      <div className="h-1 overflow-hidden rounded-full bg-widget-black-2">
         <div
-          className="h-full rounded-full bg-forest transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+          className="h-full rounded-full bg-widget-black transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
           style={{ width: `${completeness}%` }}
         />
       </div>
@@ -715,7 +715,7 @@ function ReviewStep({
         </Alert>
       )}
 
-      <section className="border border-rule bg-card">
+      <section className="widget !p-0">
         <h2 className="border-b border-rule px-5 py-3 font-display text-lg">What you are submitting</h2>
         <dl className="divide-y divide-rule">
           {[

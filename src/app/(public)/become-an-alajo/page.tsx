@@ -101,12 +101,12 @@ export default function BecomeAnAlajoPage() {
         </div>
       </Container>
 
-      <section className="border-y border-rule bg-paper-warm">
+      <section className="border-y border-rule bg-widget-black-2">
         <Container className="py-14">
           <h2 className="font-display text-2xl sm:text-3xl">Writing the story part</h2>
           <div className="mt-8 grid gap-8 md:grid-cols-2 lg:gap-14">
             <div>
-              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-terracotta">
+              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-orange">
                 What gets read
               </p>
               <ul className="mt-3 space-y-3 text-sm leading-relaxed text-ink-soft">
