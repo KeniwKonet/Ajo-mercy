@@ -154,7 +154,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         </div>
 
         <Container>
-          <div className="widget -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 sm:-mt-20 sm:p-8">
+          <div className="widget relative -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 sm:-mt-20 sm:p-8">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2.5">
                 <VerifiedMark />

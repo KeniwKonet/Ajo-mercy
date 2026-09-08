@@ -1,5 +1,6 @@
 /**
- * Layout fault check: horizontal overflow, and controls you cannot see.
+ * Layout fault check: horizontal overflow, invisible controls, and content
+ * hidden underneath something else.
  *
  * A page that is wider than the phone it is on does not look broken in the
  * obvious way. Chrome zooms the whole page out to fit, so every heading and
@@ -19,6 +20,13 @@
  * has vanished. That is how "Register to support" — the primary action for
  * every signed-out visitor on a business profile — spent a release rendering
  * as bare text, because it kept a dark fill from when the card was white.
+ *
+ * The third check catches content covered by an element that is not its own
+ * ancestor. CSS paints positioned elements above non-positioned ones whatever
+ * the DOM order, so a card pulled up over a hero with a negative margin sits
+ * *under* that hero unless it is positioned too. On the business profile that
+ * hid the Verified chip, sliced the support heading in half, and left the
+ * overlapped strip unclickable.
  *
  *   node scripts/check-overflow.mjs [baseUrl]
  *
@@ -43,9 +51,9 @@ try {
 
 const BASE = process.argv[2] ?? "http://localhost:3111";
 
-/* 320px is the narrowest screen still in real use. A layout that survives it
-   survives everything above it. */
-const WIDTHS = [320, 390];
+/* 320px is the narrowest screen still in real use. 1440 is included because
+   overlap faults often only appear in the wide layout. */
+const WIDTHS = [320, 390, 1440];
 
 const PAGES = [
   "/",
@@ -126,6 +134,48 @@ for (const width of WIDTHS) {
         }
         return [...new Set(found)];
       });
+
+      const obscured = await page.evaluate(() => {
+        /* Test the cause rather than the symptom.
+         *
+         * Probing pixels for covered content sounds right and is not: sampling
+         * a corner catches whatever sibling abuts the element, sampling the
+         * centre misses a strip covered along one edge, and neither knows
+         * which overlaps were intended. Both attempts at it produced false
+         * positives and still missed the real fault.
+         *
+         * The mechanism is exact, so test that instead. An element pulled up
+         * by a negative margin overlaps whatever is above it. If that element
+         * is static and the thing it overlaps is positioned, CSS paints the
+         * positioned one on top whatever the DOM order, and the overlap is
+         * hidden. Deterministic, and no pixel sampling. */
+        const found = [];
+        for (const el of document.querySelectorAll("body *")) {
+          const cs = getComputedStyle(el);
+          const marginTop = parseFloat(cs.marginTop);
+          if (!(marginTop < -1)) continue;
+          if (cs.position !== "static") continue;
+
+          const above = el.previousElementSibling ?? el.parentElement?.previousElementSibling;
+          if (!above) continue;
+          const abovePos = getComputedStyle(above).position;
+          if (abovePos === "static") continue;
+
+          const cls = typeof el.className === "string" ? el.className : "";
+          const aboveCls = typeof above.className === "string" ? above.className : "";
+          found.push(
+            `${el.tagName.toLowerCase()}.${cls.trim().slice(0, 40)} is pulled up ${Math.abs(Math.round(marginTop))}px ` +
+              `while static, under positioned ${above.tagName.toLowerCase()}.${aboveCls.trim().slice(0, 30)}`,
+          );
+        }
+        return [...new Set(found)].slice(0, 5);
+      });
+
+      if (obscured.length) {
+        failures += 1;
+        console.log(`FAIL  ${String(width).padStart(3)}px  ${path}  overlap hidden behind what it overlaps`);
+        for (const c of obscured) console.log(`        ${c}`);
+      }
 
       if (invisible.length) {
         failures += 1;
