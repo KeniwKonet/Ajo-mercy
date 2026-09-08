@@ -44,28 +44,32 @@ export function SectionLabel({ children, className }: { children: ReactNode; cla
 
 // ------------------------------------------------------------------ button --
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "quiet";
+type ButtonVariant = "primary" | "secondary" | "accent" | "ghost" | "danger" | "quiet";
 type ButtonSize = "sm" | "md" | "lg";
 
 // `press` gives the one-pixel acknowledgement on click; `relative` and
 // `overflow-hidden` exist so a loading button can host the indeterminate bar.
 const buttonBase =
-  "press relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-sm font-medium " +
+  "press relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full font-semibold " +
   "disabled:cursor-not-allowed disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const buttonVariants: Record<ButtonVariant, string> = {
-  primary: "bg-forest text-paper hover:bg-forest-deep focus-visible:outline-forest",
+  // Forest is the platform's own voice, so it carries the main action.
+  primary: "bg-forest text-paper shadow-sm hover:bg-forest-deep hover:shadow-md focus-visible:outline-forest",
   secondary:
-    "border border-rule-strong bg-card text-ink hover:border-ink hover:bg-paper-warm focus-visible:outline-forest",
-  ghost: "text-ink hover:bg-paper-deep focus-visible:outline-forest",
-  danger: "bg-danger text-white hover:brightness-90 focus-visible:outline-danger",
-  quiet: "text-ink-soft hover:text-ink underline underline-offset-4 decoration-rule-strong hover:decoration-ink",
+    "border border-line-strong bg-surface text-ink shadow-xs hover:border-forest hover:shadow-sm focus-visible:outline-forest",
+  // Terracotta is reserved for backing a business: the one action that
+  // commits a person to something. Spending it anywhere else weakens it.
+  accent: "bg-terracotta text-white shadow-sm hover:bg-terracotta-deep hover:shadow-md focus-visible:outline-terracotta",
+  ghost: "text-ink hover:bg-surface-soft focus-visible:outline-forest",
+  danger: "bg-danger text-white shadow-sm hover:brightness-95 focus-visible:outline-danger",
+  quiet: "text-ink-soft hover:text-ink underline underline-offset-4 decoration-line-strong hover:decoration-ink",
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-xs",
-  md: "h-10 px-4 text-sm",
-  lg: "h-12 px-6 text-base",
+  sm: "h-9 px-4 text-xs",
+  md: "h-11 px-5 text-sm",
+  lg: "h-13 px-7 text-base",
 };
 
 interface ButtonOwnProps {
@@ -162,7 +166,7 @@ export function StatusChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-sm px-2 py-0.5 text-2xs font-semibold uppercase tracking-[0.07em]",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-2xs font-bold tracking-[0.02em]",
         toneStyles[tone],
         className,
       )}
@@ -205,7 +209,7 @@ export function Alert({
   return (
     <div
       role={tone === "negative" ? "alert" : "status"}
-      className={cn("border-l-2 px-4 py-3", accents[tone], className)}
+      className={cn("rounded-lg border border-line border-l-[3px] px-5 py-4", accents[tone], className)}
     >
       {title && <p className="text-sm font-semibold text-ink">{title}</p>}
       {children && <div className={cn("text-sm text-ink-soft", title && "mt-1")}>{children}</div>}
@@ -227,10 +231,26 @@ export function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={cn("border border-dashed border-rule-strong px-6 py-14 text-center", className)}>
-      <p className="font-display text-xl text-ink">{title}</p>
-      <p className="mx-auto mt-2 max-w-sm text-sm text-ink-soft">{description}</p>
-      {action && <div className="mt-6 flex justify-center">{action}</div>}
+    <div
+      className={cn(
+        "surface-soft flex flex-col items-center px-6 py-16 text-center",
+        className,
+      )}
+    >
+      {/* A quiet mark rather than an icon, so an empty state reads as a
+          resting point in the product and not an error. */}
+      <span
+        aria-hidden="true"
+        className="mb-5 grid size-12 place-items-center rounded-full bg-surface text-ink-faint shadow-xs"
+      >
+        <svg viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <circle cx="9" cy="9" r="6" />
+          <path d="M13.5 13.5 17 17" strokeLinecap="round" />
+        </svg>
+      </span>
+      <p className="font-display text-2xl text-ink">{title}</p>
+      <p className="mx-auto mt-2.5 max-w-sm text-sm leading-relaxed text-ink-soft">{description}</p>
+      {action && <div className="mt-7 flex justify-center">{action}</div>}
     </div>
   );
 }

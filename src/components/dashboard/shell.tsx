@@ -45,13 +45,13 @@ export function DashboardShell({
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[16rem_1fr]">
-      <aside className="border-b border-rule bg-paper-warm lg:sticky lg:top-0 lg:h-dvh lg:overflow-y-auto lg:border-b-0 lg:border-r">
+      <aside className="bg-forest text-paper lg:sticky lg:top-0 lg:h-dvh lg:overflow-y-auto">
         <div className="flex items-center justify-between gap-3 px-5 py-4 lg:block">
-          <Link href={homeHref} className="font-display text-lg tracking-tight">
-            <span className="font-semibold text-forest">Ajo</span>
-            <span className="italic text-terracotta"> Mercy</span>
+          <Link href={homeHref} className="font-display text-xl tracking-tight text-paper">
+            <span>Ajo</span>
+            <span className="italic text-ochre"> Mercy</span>
           </Link>
-          <p className="mt-0 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint lg:mt-1">
+          <p className="mt-0 text-2xs font-bold uppercase tracking-[0.09em] text-paper/50 lg:mt-1">
             {roleLabel}
           </p>
         </div>
@@ -63,7 +63,7 @@ export function DashboardShell({
           {groups.map((group, groupIndex) => (
             <div key={group.heading ?? groupIndex} className="flex gap-1 lg:mt-5 lg:flex-col lg:first:mt-0">
               {group.heading && (
-                <p className="hidden px-2 pb-1.5 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint lg:block">
+                <p className="hidden px-3 pb-2 pt-1 text-2xs font-bold uppercase tracking-[0.09em] text-paper/40 lg:block">
                   {group.heading}
                 </p>
               )}
@@ -77,8 +77,8 @@ export function DashboardShell({
                     className={cn(
                       "flex shrink-0 items-center justify-between gap-2 whitespace-nowrap rounded-sm px-3 py-2 text-sm transition-colors",
                       active
-                        ? "bg-forest text-paper"
-                        : "text-ink-soft hover:bg-paper-deep hover:text-ink",
+                        ? "bg-paper/12 font-semibold text-paper shadow-[inset_3px_0_0_0_var(--color-ochre)]"
+                        : "text-paper/65 hover:bg-paper/8 hover:text-paper",
                     )}
                   >
                     <span>{item.label}</span>
@@ -86,7 +86,7 @@ export function DashboardShell({
                       <span
                         className={cn(
                           "rounded-full px-1.5 py-0.5 text-2xs font-semibold tabular",
-                          active ? "bg-paper/20 text-paper" : "bg-terracotta text-white",
+                          active ? "bg-ochre text-ink" : "bg-terracotta text-white",
                         )}
                       >
                         {item.badge > 99 ? "99+" : item.badge}
@@ -99,8 +99,8 @@ export function DashboardShell({
           ))}
         </nav>
 
-        <div className="hidden border-t border-rule px-5 py-4 lg:block">
-          <p className="truncate text-sm font-medium text-ink">{userName}</p>
+        <div className="hidden border-t border-paper/12 px-5 py-4 lg:block">
+          <p className="truncate text-sm font-semibold text-paper">{userName}</p>
           <form
             action={signOutAction}
             onSubmit={() => setSigningOut(true)}
@@ -109,7 +109,7 @@ export function DashboardShell({
             <button
               type="submit"
               disabled={signingOut}
-              className="link-rule text-xs text-ink-faint hover:text-ink disabled:opacity-50"
+              className="link-rule text-xs text-paper/55 hover:text-paper disabled:opacity-50"
             >
               {signingOut ? "Signing out…" : "Sign out"}
             </button>

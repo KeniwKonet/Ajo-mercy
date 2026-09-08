@@ -90,20 +90,44 @@
   --tracking-tight: -0.014em;
   --tracking-label: 0.08em;
 
+  /* ------------------------------------------------------------ surface --
+     A light-mode hierarchy, so the page is never "white plus random boxes".
+     Warm clay is the ground; white is what lifts off it; the tinted surfaces
+     carry meaning rather than decoration. */
+  --color-surface: #ffffff;
+  --color-surface-soft: #f5f1e8;
+  --color-surface-green: #eaf2ec;
+  --color-surface-warm: #fff3e5;
+  --color-surface-clay: #faf4ea;
+
+  /* Borders sit low-contrast and warm, defining structure without drawing
+     a hard outline around everything. */
+  --color-line: rgb(24 20 16 / 0.07);
+  --color-line-strong: rgb(24 20 16 / 0.13);
+  --color-line-green: rgb(15 61 46 / 0.16);
+
   /* ------------------------------------------------------------ shape ----
-     Softened from near-square, but only just. A 4px card and a 10px panel
-     read as considered; the 16px+ pill everything else uses reads as a
-     template. Nothing on this product is fully rounded except a status dot. */
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
-  --radius-xl: 14px;
+     Generous and modular. Radius encodes hierarchy: the bigger the surface,
+     the softer the corner. Only pills and avatars go fully round. */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 40px;
   --radius-full: 999px;
 
-  /* Shadows are for things that genuinely float. Cards do not float. */
-  --shadow-lift: 0 1px 2px rgb(24 20 16 / 0.04), 0 8px 24px -14px rgb(24 20 16 / 0.16);
-  --shadow-panel: 0 24px 64px -32px rgb(24 20 16 / 0.3);
+  /* Elevation in four steps. Warm-tinted rather than neutral black, so a
+     lifted card still reads as sitting on clay rather than on grey. */
+  --shadow-xs: 0 1px 2px rgb(64 46 26 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(64 46 26 / 0.04), 0 2px 8px -2px rgb(64 46 26 / 0.06);
+  --shadow-md: 0 2px 4px rgb(64 46 26 / 0.04), 0 12px 28px -8px rgb(64 46 26 / 0.10);
+  --shadow-lg: 0 4px 8px rgb(64 46 26 / 0.04), 0 24px 48px -12px rgb(64 46 26 / 0.14);
+  --shadow-xl: 0 8px 16px rgb(64 46 26 / 0.05), 0 40px 80px -20px rgb(64 46 26 / 0.20);
+
+  /* Kept for existing call sites. */
+  --shadow-lift: var(--shadow-md);
+  --shadow-panel: var(--shadow-xl);
   --shadow-ring: 0 0 0 1px rgb(24 20 16 / 0.06);
 
   /* ------------------------------------------------------------ motion --- */
@@ -281,6 +305,115 @@
     );
     background-size: 12px 1px;
     background-repeat: repeat-x;
+  }
+
+  /* ======================================================================
+     SURFACES
+     One card system, used everywhere. The variants differ by what they
+     mean, not by which page they happen to sit on: `card` is the default
+     lifted surface, `card-soft` recedes, `card-green` marks something
+     verified or confirmed, `card-warm` marks something in progress.
+     ====================================================================== */
+  .surface {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .surface-soft {
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+  .surface-green {
+    background: var(--color-surface-green);
+    border: 1px solid var(--color-line-green);
+    border-radius: var(--radius-lg);
+  }
+  .surface-warm {
+    background: var(--color-surface-warm);
+    border: 1px solid color-mix(in oklab, var(--color-ochre) 30%, transparent);
+    border-radius: var(--radius-lg);
+  }
+
+  /* An interactive card. The lift is small on purpose: a card that jumps
+     reads as a toy, and these carry someone's livelihood. */
+  .card-interactive {
+    transition:
+      transform var(--dur-base) var(--ease-out-soft),
+      box-shadow var(--dur-base) var(--ease-out-soft),
+      border-color var(--dur-base) var(--ease-out-soft);
+  }
+  .card-interactive:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-line-strong);
+  }
+  .card-interactive:active {
+    transform: translateY(-1px);
+  }
+
+  /* Photography sits inside a clipped frame so the image can scale on hover
+     without the card's corners or its text moving. */
+  .media-frame {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-soft);
+  }
+  .media-frame img {
+    transition: transform 700ms var(--ease-out-soft);
+  }
+  .group:hover .media-frame img {
+    transform: scale(1.045);
+  }
+
+  /* ======================================================================
+     PILLS
+     Filters, categories and toggles. One shape, three states.
+     ====================================================================== */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    padding: 0.44rem 0.85rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    transition:
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft),
+      border-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .pill:hover {
+    border-color: var(--color-forest);
+    color: var(--color-ink);
+  }
+  .pill[aria-pressed="true"],
+  .pill[data-active="true"] {
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-paper);
+  }
+
+  /* A floating label pinned to hero imagery. Reads as a piece of the product
+     rather than a sticker. */
+  .float-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-md);
+    font-size: var(--text-2xs);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-ink);
   }
 
   /* Underline that grows from the left on hover. Used on editorial links

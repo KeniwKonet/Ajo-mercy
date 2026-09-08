@@ -49,16 +49,12 @@ export const STAGES: Stage[] = [
 
 export function JourneyStrip({ className }: { className?: string }) {
   return (
-    <ol className={cn("grid gap-px bg-rule md:grid-cols-4", className)}>
+    <ol className={cn("grid gap-4 md:grid-cols-4", className)}>
       {STAGES.map((stage, i) => (
-        <li key={stage.n} className="group relative bg-paper p-6 sm:p-7">
-          <div className="flex items-center gap-3">
-            <span className="text-2xs font-bold tracking-[0.08em] text-terracotta">{stage.n}</span>
-            {/* The connector runs between stages, not after the last one. */}
-            {i < STAGES.length - 1 && (
-              <span aria-hidden="true" className="connector hidden h-px flex-1 md:block" />
-            )}
-          </div>
+        <li key={stage.n} className="surface card-interactive relative p-6 sm:p-7">
+          <span className="grid size-9 place-items-center rounded-full bg-surface-green text-sm font-bold text-forest">
+            {stage.n}
+          </span>
 
           <h3 className="mt-4 text-base font-bold leading-snug tracking-tight">{stage.title}</h3>
           <p className="eyebrow mt-1.5">{stage.actor}</p>

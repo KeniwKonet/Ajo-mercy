@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Container, EmptyState, ButtonLink } from "@/components/ui/primitives";
 import { SectionHeader } from "@/components/ui/trust";
 import { BusinessCard, BusinessFeature } from "@/components/site/business-card";
-import { JourneyDiagram, JourneyStrip } from "@/components/site/journey";
+import { JourneyStrip } from "@/components/site/journey";
+import { HeroComposition } from "@/components/site/hero-composition";
 import { Reveal } from "@/components/ui/reveal";
 import { getImpactStats, listFeaturedAlajos, listRecentAlajos } from "@/lib/data/alajos";
 import { formatNairaCompact, formatNumber } from "@/lib/format";
@@ -35,13 +36,17 @@ export default async function HomePage() {
       {/* ------------------------------------------------------------ hero
           Answers what this is, who it is for, and what you can do, above the
           fold. The diagram carries the same argument without the words. */}
-      <section className="border-b border-rule">
+      <section className="overflow-x-clip border-b border-rule">
         <Container className="py-14 sm:py-20 lg:py-24">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="reveal">
-              <p className="eyebrow flex items-center gap-2.5">
+              <p className="eyebrow flex flex-wrap items-center gap-x-2.5 gap-y-1">
                 <span aria-hidden="true" className="h-px w-7 bg-terracotta" />
-                Discover verified Nigerian businesses
+                Real people
+                <span aria-hidden="true" className="text-terracotta">•</span>
+                Real businesses
+                <span aria-hidden="true" className="text-terracotta">•</span>
+                Real stories
               </p>
 
               <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98]">
@@ -70,9 +75,9 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <Reveal delay={90} className="lg:pl-6">
-              <JourneyDiagram />
-            </Reveal>
+            <div className="reveal reveal-2 lg:pl-4">
+              <HeroComposition profile={lead} />
+            </div>
           </div>
         </Container>
       </section>
@@ -135,7 +140,7 @@ export default async function HomePage() {
               }
               className="border-b-0 pb-0"
             />
-            <JourneyStrip className="mt-9 border border-rule" />
+            <JourneyStrip className="mt-9" />
           </Reveal>
         </Container>
       </section>
@@ -196,22 +201,29 @@ export default async function HomePage() {
           Counted from the database. A dash where nothing has happened yet. */}
       <section aria-label="Platform numbers" className="border-b border-rule">
         <Container className="py-14">
-          <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { label: "Businesses verified", value: stats.alajos_approved },
-              { label: "Businesses supported", value: stats.businesses_supported },
-              { label: "Support facilitated", value: stats.support_facilitated_ngn, money: true },
-              { label: "States reached", value: stats.states_reached },
+              { label: "Businesses verified", value: stats.alajos_approved, hint: "Reviewed and live" },
+              { label: "Businesses supported", value: stats.businesses_supported, hint: "Support confirmed" },
+              { label: "Support facilitated", value: stats.support_facilitated_ngn, money: true, hint: "Confirmed and announced" },
+              { label: "States reached", value: stats.states_reached, hint: "Across Nigeria" },
             ].map((item) => (
-              <div key={item.label} className="border-t-2 border-ink pt-4">
-                <dd className="tabular font-display text-4xl leading-none">
+              <div key={item.label} className="surface p-6">
+                <dd
+                  className={
+                    item.value === 0
+                      ? "tabular font-display text-5xl leading-none text-ink-faint"
+                      : "tabular font-display text-5xl leading-none text-forest"
+                  }
+                >
                   {item.value === 0
                     ? "—"
                     : item.money
                       ? formatNairaCompact(item.value)
                       : formatNumber(item.value)}
                 </dd>
-                <dt className="mt-3 text-sm font-medium text-ink-soft">{item.label}</dt>
+                <dt className="mt-4 text-sm font-semibold text-ink">{item.label}</dt>
+                <p className="mt-1 text-xs text-ink-faint">{item.hint}</p>
               </div>
             ))}
           </dl>

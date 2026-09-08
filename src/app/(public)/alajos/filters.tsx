@@ -68,7 +68,7 @@ export function DiscoveryFilters({
           <svg
             viewBox="0 0 16 16"
             aria-hidden="true"
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-faint"
+            className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-ink-faint"
           >
             <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
             <path d="M10.5 10.5 14 14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
@@ -79,7 +79,7 @@ export function DiscoveryFilters({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Business, founder or town"
-            className="h-11 w-full border border-rule-strong bg-card pl-9 pr-3 text-sm placeholder:text-ink-faint focus-visible:border-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
+            className="h-12 w-full rounded-full border border-line-strong bg-surface pl-10 pr-4 text-sm shadow-xs transition-shadow placeholder:text-ink-faint focus-visible:border-forest focus-visible:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/15"
           />
         </div>
       </div>
@@ -117,7 +117,7 @@ export function DiscoveryFilters({
           id="discovery-sort"
           value={current.sort}
           onChange={(event) => apply({ sort: event.target.value })}
-          className="mt-2 h-10 w-full border border-rule-strong bg-card px-3 text-sm focus-visible:border-forest focus-visible:outline-none"
+          className="mt-2 h-11 w-full rounded-full border border-line-strong bg-surface px-4 text-sm shadow-xs focus-visible:border-forest focus-visible:outline-none"
         >
           <option value="featured">Featured first</option>
           <option value="recent">Recently verified</option>
@@ -156,8 +156,8 @@ function FilterGroup({
   if (options.length === 0) return null;
   return (
     <fieldset>
-      <legend className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">{legend}</legend>
-      <div className="mt-2.5 flex flex-wrap gap-1.5 lg:flex-col lg:gap-0">
+      <legend className="eyebrow">{legend}</legend>
+      <div className="mt-3 flex flex-wrap gap-2">
         {options.map((option) => {
           const active = selected === option.value;
           return (
@@ -166,16 +166,11 @@ function FilterGroup({
               type="button"
               aria-pressed={active}
               onClick={() => onSelect(active ? null : option.value)}
-              className={cn(
-                "flex items-baseline justify-between gap-3 border px-2.5 py-1.5 text-left text-sm transition-colors lg:border-0 lg:border-b lg:border-rule lg:px-0 lg:py-2",
-                active
-                  ? "border-forest bg-forest text-paper lg:bg-transparent lg:font-medium lg:text-terracotta"
-                  : "border-rule-strong text-ink-soft hover:text-ink lg:border-rule",
-              )}
+              className="pill"
             >
               <span>{option.label}</span>
               {option.count !== undefined && (
-                <span className={cn("text-2xs tabular", active ? "opacity-70" : "text-ink-faint")}>
+                <span className={cn("tabular text-2xs", active ? "opacity-75" : "text-ink-faint")}>
                   {option.count}
                 </span>
               )}
