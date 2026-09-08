@@ -132,7 +132,7 @@ export default async function ReviewApplicationPage({
               {documents.map((doc, index) => {
                 const url = signedDocuments[index];
                 return (
-                  <li key={doc.id} className="widget !p-0 px-3 py-2.5">
+                  <li key={doc.id} className="widget px-3 py-2.5">
                     <p className="text-sm font-medium text-ink">
                       {(doc.document_type ?? "document").replace(/_/g, " ")}
                     </p>
@@ -300,7 +300,7 @@ export default async function ReviewApplicationPage({
               </h3>
               <ul className="mt-3 space-y-2">
                 {allRequests.map((request) => (
-                  <li key={request.id} className="widget !p-0 px-3 py-2">
+                  <li key={request.id} className="widget px-3 py-2">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm text-ink">{request.message}</p>
                       <StatusChip tone={request.resolved_at ? "positive" : "attention"}>

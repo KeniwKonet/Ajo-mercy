@@ -78,7 +78,7 @@ export default function AboutPage() {
           </div>
 
           <aside className="lg:pt-2">
-            <div className="widget !p-0 p-5">
+            <div className="widget p-5">
               <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 Who runs it
               </p>

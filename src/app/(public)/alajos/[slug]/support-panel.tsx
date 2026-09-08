@@ -7,7 +7,7 @@ import {
   recordSelectionAction,
   type Eligibility,
 } from "@/app/actions/selection";
-import { Alert, Button, Skeleton } from "@/components/ui/primitives";
+import { Alert, Button, ButtonLink, Skeleton } from "@/components/ui/primitives";
 import { Checkbox, Field, Textarea } from "@/components/ui/form";
 import { Turnstile } from "@/components/ui/turnstile";
 import { ConfirmDialog } from "@/components/ui/dialog";
@@ -50,7 +50,7 @@ export function SupportPanel({
   const succeeded = state.ok && Boolean(state.message);
 
   return (
-    <div className="widget !p-0 p-5">
+    <div className="widget w-full sm:w-[22rem]">
       <p className="font-display text-lg">Support this Alajo</p>
       {requestedAmount ? (
         <p className="mt-1 text-sm text-ink-soft">
@@ -150,12 +150,9 @@ function IneligibleNotice({ eligibility }: { eligibility: Eligibility }) {
     case "anonymous":
       return (
         <div className="space-y-3">
-          <Link
-            href="/register?role=supporter"
-            className="block rounded-sm bg-widget-black px-4 py-3 text-center text-sm font-medium text-ivory-text transition-colors hover:brightness-95"
-          >
+          <ButtonLink href="/register?role=supporter" className="w-full">
             Register to support
-          </Link>
+          </ButtonLink>
           <p className="text-center text-xs text-ink-faint">
             Already registered?{" "}
             <Link href="/login" className="link-rule text-ink">

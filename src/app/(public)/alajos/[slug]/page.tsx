@@ -178,7 +178,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               </p>
             </div>
 
-            <div className="shrink-0">
+            <div className="w-full sm:w-auto sm:shrink-0">
               <SupportPanel
                 alajoProfileId={profile.id}
                 businessName={profile.business_name}
