@@ -122,30 +122,46 @@ export default async function AdminDashboardPage() {
 
       {/* ------------------------------------------------------ action queue */}
       <section aria-labelledby="action-required" className="mt-8">
-        <h2
-          id="action-required"
-          className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint"
-        >
+        <h2 id="action-required" className="eyebrow">
           Action required
         </h2>
-        <div className="mt-3 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
+        {/* Metric cards. Each is a link, because a number nobody can act on is
+            just decoration on an operations screen. */}
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {actions.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="group flex flex-col justify-between bg-paper p-5 transition-colors hover:bg-paper-warm"
+              className="surface card-interactive group flex flex-col justify-between p-6"
             >
-              <p
-                className={cn(
-                  "font-display text-4xl tabular",
-                  item.count === 0 ? "text-ink-faint" : item.muted ? "text-ink" : "text-terracotta",
-                )}
-              >
-                {item.count === 0 ? "—" : formatNumber(item.count)}
-              </p>
-              <div className="mt-4">
-                <p className="text-sm font-medium text-ink">{item.label}</p>
-                <p className="mt-0.5 text-xs text-ink-faint">{item.hint}</p>
+              <div className="flex items-start justify-between gap-4">
+                <p
+                  className={cn(
+                    "tabular font-display text-5xl leading-none",
+                    item.count === 0
+                      ? "text-ink-faint"
+                      : item.muted
+                        ? "text-forest"
+                        : "text-terracotta",
+                  )}
+                >
+                  {item.count === 0 ? "—" : formatNumber(item.count)}
+                </p>
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "grid size-9 shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-0.5",
+                    item.count === 0 ? "bg-surface-soft text-ink-faint" : "bg-surface-green text-forest",
+                  )}
+                >
+                  <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M3 8h9M8.5 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </div>
+              <div className="mt-6">
+                <p className="text-sm font-bold text-ink">{item.label}</p>
+                <p className="mt-1 text-xs text-ink-faint">{item.hint}</p>
               </div>
             </Link>
           ))}

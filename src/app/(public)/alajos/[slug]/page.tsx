@@ -91,153 +91,145 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* ---------------------------------------------------------- masthead */}
-      <Container className="pt-8">
-        <nav aria-label="Breadcrumb" className="text-xs text-ink-faint">
-          <Link href="/alajos" className="link-rule hover:text-ink">
-            Businesses
-          </Link>
-          <span className="mx-2" aria-hidden="true">/</span>
-          <Link
-            href={`/alajos?category=${profile.business_category}`}
-            className="link-rule hover:text-ink"
-          >
-            {CATEGORY_LABELS[profile.business_category]}
-          </Link>
-        </nav>
-      </Container>
-
-      <Container className="py-8 sm:py-10">
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:gap-16">
-          <div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <VerifiedMark />
-              {profile.status === "featured" && <StatusChip tone="feature">Featured</StatusChip>}
-            </div>
-
-            <h1 className="mt-4 font-display text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
-              {profile.business_name}
-            </h1>
-
-            <p className="mt-4 text-lg font-medium text-ink-soft">{profile.founder_name}</p>
-
-            <p className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-faint">
-              <span>{CATEGORY_LABELS[profile.business_category]}</span>
-              <span aria-hidden="true" className="text-rule-strong">·</span>
-              <span>{location}</span>
-              {years && (
-                <>
-                  <span aria-hidden="true" className="text-rule-strong">·</span>
-                  <span>{years} in business</span>
-                </>
-              )}
-            </p>
-          </div>
-
-          <div className="flex items-end">
-            <div className="flex items-center gap-4">
-              {avatarUrl ? (
-                <Image
-                  src={avatarUrl}
-                  alt={profile.founder_name}
-                  width={64}
-                  height={64}
-                  className="size-16 shrink-0 object-cover"
-                />
-              ) : (
-                <div
-                  aria-hidden="true"
-                  className="flex size-16 shrink-0 items-center justify-center bg-forest-wash font-display text-xl text-forest"
-                >
-                  {profile.founder_name.slice(0, 1)}
-                </div>
-              )}
-              <div>
-                <p className="text-xs text-ink-faint">Founder</p>
-                <p className="font-display text-lg">{profile.founder_name}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-
-      {/* ------------------------------------------------------------- cover */}
-      {coverUrl && (
-        <Container>
-          <div className="relative aspect-[16/9] w-full overflow-hidden bg-paper-deep sm:aspect-[21/9]">
+      {/* ============================================================== hero
+          A full-bleed photograph with the identity card sitting over its lower
+          edge. Both actions live here because this is where somebody decides,
+          and they should never have to scroll back to find them. */}
+      <section className="relative">
+        <div className="relative h-[46vh] min-h-[20rem] w-full overflow-hidden bg-surface-soft sm:h-[54vh]">
+          {coverUrl ? (
             <Image
               src={coverUrl}
               alt={`${profile.business_name} in ${location}`}
               fill
+              sizes="100vw"
+              unoptimized
               priority
-              sizes="(min-width: 1400px) 1344px, 100vw"
               className="object-cover"
             />
-          </div>
-          {profile.cover?.caption && (
-            <p className="mt-2 text-xs text-ink-faint">{profile.cover.caption}</p>
+          ) : (
+            <div className="grid h-full place-items-center">
+              <span className="font-display text-6xl text-rule-strong">
+                {profile.business_name.slice(0, 1)}
+              </span>
+            </div>
           )}
-        </Container>
-      )}
+          {/* Enough scrim for the control to read on any photograph. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent"
+          />
+          <div className="absolute left-0 right-0 top-0">
+            <Container className="pt-6">
+              <Link
+                href="/alajos"
+                className="inline-flex items-center gap-2 rounded-full bg-surface/90 px-3.5 py-2 text-xs font-semibold text-ink shadow-sm backdrop-blur transition-colors hover:bg-surface"
+              >
+                <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
+                  <path
+                    d="M13 8H4M7.5 4l-4 4 4 4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Back to discover
+              </Link>
+            </Container>
+          </div>
+        </div>
 
-      {/* -------------------------------------------------------- the story */}
-      <Container className="py-14 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1fr_20rem] lg:gap-20">
-          <article className="min-w-0">
-            <div className="prose-editorial">
-              {profile.story.split(/\n{2,}/).map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+        <Container>
+          <div className="surface -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 shadow-lg sm:-mt-20 sm:p-8">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <VerifiedMark />
+                {profile.status === "featured" && <StatusChip tone="feature">Featured</StatusChip>}
+              </div>
+              <h1 className="mt-4 font-display text-4xl leading-[1.04] sm:text-5xl">
+                {profile.business_name}
+              </h1>
+              <p className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-soft">
+                <span className="font-semibold text-ink">{profile.founder_name}</span>
+                <span aria-hidden="true" className="text-rule-strong">·</span>
+                <span>{CATEGORY_LABELS[profile.business_category]}</span>
+                <span aria-hidden="true" className="text-rule-strong">·</span>
+                <span>{location}</span>
+                {years && (
+                  <>
+                    <span aria-hidden="true" className="text-rule-strong">·</span>
+                    <span>{years}</span>
+                  </>
+                )}
+              </p>
             </div>
 
-            {profile.current_challenge && (
-              <section className="mt-12 border-l-2 border-terracotta pl-6">
-                <h2 className="font-mono text-2xs uppercase tracking-[0.14em] text-terracotta">
-                  What is in the way
-                </h2>
-                <p className="mt-3 font-display text-xl leading-[1.45] text-ink sm:text-2xl">
-                  {profile.current_challenge}
-                </p>
-              </section>
-            )}
+            <div className="shrink-0">
+              <SupportPanel
+                alajoProfileId={profile.id}
+                businessName={profile.business_name}
+                requestedAmount={profile.requested_amount_ngn}
+              />
+            </div>
+          </div>
+        </Container>
+      </section>
 
-            {profile.support_would_enable && (
-              <section className="mt-12">
-                <h2 className="font-display text-xl">What support would let them do</h2>
-                <p className="mt-3 max-w-prose leading-relaxed text-ink-soft">
-                  {profile.support_would_enable}
-                </p>
-              </section>
-            )}
+      {/* ============================================================== body */}
+      <Container className="py-14 sm:py-16">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-14">
 
-            {/* ------------------------------------------------------ gallery */}
-            {profile.gallery.length > 1 && (
-              <section className="mt-14">
-                <h2 className="border-b border-rule pb-3 font-display text-xl">The business</h2>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {/* --------------------------------------------------- the story */}
+          <div className="min-w-0">
+            <article className="surface p-7 sm:p-9">
+              <h2 className="font-display text-3xl">The story</h2>
+
+              <h3 className="mt-7 text-base font-bold">Why I started</h3>
+              <p className="mt-2.5 whitespace-pre-line text-base leading-relaxed text-ink-soft">
+                {profile.story}
+              </p>
+
+              {profile.current_challenge && (
+                <>
+                  <h3 className="mt-8 text-base font-bold">What is in the way</h3>
+                  <p className="mt-2.5 whitespace-pre-line text-base leading-relaxed text-ink-soft">
+                    {profile.current_challenge}
+                  </p>
+                </>
+              )}
+
+              {profile.support_would_enable && (
+                <>
+                  <h3 className="mt-8 text-base font-bold">What support would let me do</h3>
+                  <p className="mt-2.5 whitespace-pre-line text-base leading-relaxed text-ink-soft">
+                    {profile.support_would_enable}
+                  </p>
+                </>
+              )}
+
+              <p className="mt-8 border-t border-line pt-5 text-sm text-ink-faint">
+                Written by {profile.founder_name}. Read by the Ajo Mercy review team before this
+                page went live.
+              </p>
+            </article>
+
+            {profile.gallery.length > 0 && (
+              <section className="mt-8">
+                <h2 className="text-xl font-bold tracking-tight">The business</h2>
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
                   {profile.gallery.slice(0, 6).map((item) => {
                     const url = publicMediaUrl(item.storage_path);
                     if (!url) return null;
-                    if (item.kind === "video") {
-                      return (
-                        <video
-                          key={item.id}
-                          src={url}
-                          controls
-                          preload="metadata"
-                          className="aspect-[4/3] w-full bg-ink object-cover sm:col-span-2"
-                        >
-                          Your browser cannot play this video.
-                        </video>
-                      );
-                    }
                     return (
-                      <figure key={item.id} className="relative aspect-[4/3] bg-paper-deep">
+                      <figure key={item.id} className="media-frame relative aspect-square">
                         <Image
                           src={url}
-                          alt={item.caption ?? `${profile.business_name}`}
+                          alt={item.caption ?? profile.business_name}
                           fill
-                          sizes="(min-width: 640px) 40vw, 100vw"
+                          sizes="(min-width: 640px) 14rem, 45vw"
+                          unoptimized
                           className="object-cover"
                         />
                       </figure>
@@ -246,96 +238,98 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
                 </div>
               </section>
             )}
-          </article>
+          </div>
 
-          {/* --------------------------------------------------------- rail */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
-            <SupportPanel
-              alajoProfileId={profile.id}
-              businessName={profile.business_name}
-              requestedAmount={profile.requested_amount_ngn}
-            />
-
+          {/* ------------------------------------------------------- the rail */}
+          <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
             <VerificationPanel
               approvedOn={profile.approved_at ? formatDate(profile.approved_at) : null}
-              className="mt-8"
             />
 
-            <dl className="mt-8 border-t border-rule">
-              {[
-                ["Category", CATEGORY_LABELS[profile.business_category]],
-                ["Location", location],
-                years ? ["Operating", years] : null,
-                profile.requested_amount_ngn
-                  ? ["Support sought", formatNaira(profile.requested_amount_ngn)]
-                  : null,
-              ]
-                .filter((row): row is [string, string] => row !== null)
-                .map(([label, value]) => (
-                  <div key={label} className="flex justify-between gap-4 border-b border-rule py-3">
-                    <dt className="text-sm text-ink-faint">{label}</dt>
-                    <dd className="text-right text-sm font-medium text-ink">{value}</dd>
-                  </div>
-                ))}
-            </dl>
+            <div className="surface p-6">
+              <h2 className="text-sm font-bold">Business details</h2>
+              <dl className="mt-4 space-y-3.5">
+                {[
+                  ["Category", CATEGORY_LABELS[profile.business_category]],
+                  ["Location", location],
+                  years ? ["Operating", years] : null,
+                  profile.requested_amount_ngn
+                    ? ["Support sought", formatNaira(profile.requested_amount_ngn)]
+                    : null,
+                ]
+                  .filter((row): row is [string, string] => row !== null)
+                  .map(([label, value]) => (
+                    <div key={label} className="flex items-baseline justify-between gap-4">
+                      <dt className="text-sm text-ink-faint">{label}</dt>
+                      <dd className="text-right text-sm font-semibold text-ink">{value}</dd>
+                    </div>
+                  ))}
+              </dl>
 
-            {(profile.website_url || profile.instagram_handle || profile.tiktok_handle) && (
-              <div className="mt-6">
-                <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">Find them</p>
-                <ul className="mt-2.5 space-y-1.5">
-                  {profile.website_url && (
-                    <li>
-                      <a
-                        href={profile.website_url}
-                        rel="nofollow noopener noreferrer"
-                        target="_blank"
-                        className="link-rule text-sm text-ink"
-                      >
-                        Website
-                      </a>
-                    </li>
-                  )}
-                  {profile.instagram_handle && (
-                    <li>
-                      <a
-                        href={`https://instagram.com/${profile.instagram_handle}`}
-                        rel="nofollow noopener noreferrer"
-                        target="_blank"
-                        className="link-rule text-sm text-ink"
-                      >
-                        @{profile.instagram_handle}
-                      </a>
-                    </li>
-                  )}
-                  {profile.tiktok_handle && (
-                    <li>
-                      <a
-                        href={`https://tiktok.com/@${profile.tiktok_handle}`}
-                        rel="nofollow noopener noreferrer"
-                        target="_blank"
-                        className="link-rule text-sm text-ink"
-                      >
-                        TikTok
-                      </a>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            )}
+              {(profile.website_url || profile.instagram_handle || profile.tiktok_handle) && (
+                <div className="mt-5 border-t border-line pt-4">
+                  <p className="eyebrow">Find them</p>
+                  <ul className="mt-2.5 space-y-2">
+                    {profile.website_url && (
+                      <li>
+                        <a
+                          href={profile.website_url}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                          className="link-rule text-sm font-medium text-ink"
+                        >
+                          Website
+                        </a>
+                      </li>
+                    )}
+                    {profile.instagram_handle && (
+                      <li>
+                        <a
+                          href={`https://instagram.com/${profile.instagram_handle}`}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                          className="link-rule text-sm font-medium text-ink"
+                        >
+                          Instagram
+                        </a>
+                      </li>
+                    )}
+                    {profile.tiktok_handle && (
+                      <li>
+                        <a
+                          href={`https://tiktok.com/@${profile.tiktok_handle}`}
+                          rel="nofollow noopener noreferrer"
+                          target="_blank"
+                          className="link-rule text-sm font-medium text-ink"
+                        >
+                          TikTok
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </div>
 
-            <p className="mt-8 border-t border-rule pt-4 text-xs leading-relaxed text-ink-faint">
-              Ajo Mercy verified this business but does not handle any money. Support is arranged
-              directly, and selection does not guarantee support.
-            </p>
+            {/* The rule that must never be blurred, stated where somebody is
+                about to act on it. */}
+            <div className="surface-warm p-5">
+              <p className="text-sm font-bold text-ink">Choosing is not confirming</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                Backing this business tells us you are interested. The team confirms with both sides
+                before anything is described as real, and Ajo Mercy never holds or transfers the
+                money.
+              </p>
+            </div>
           </aside>
         </div>
-      </Container>
 
-      {others.length > 0 && (
-        <Container className="pb-8">
-          <AlajoRail profiles={others} title="Other businesses" href="/alajos" />
-        </Container>
-      )}
+        {others.length > 0 && (
+          <section className="mt-16 border-t border-line pt-12">
+            <AlajoRail profiles={others} title="More businesses" href="/alajos" />
+          </section>
+        )}
+      </Container>
     </>
   );
 }
