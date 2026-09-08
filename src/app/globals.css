@@ -485,6 +485,17 @@
      at the bottom of this file.
      ====================================================================== */
 
+  /* The verification seal turning. Slow on purpose: at 26 seconds it reads
+     as a stamp settling rather than as something loading. Killed outright by
+     the reduced-motion block at the foot of this file. */
+  .seal-spin {
+    transform-origin: 50% 50%;
+    animation: seal-spin 26s linear infinite;
+  }
+  @keyframes seal-spin {
+    to { transform: rotate(360deg); }
+  }
+
   /* A validation message arriving. Short and downward, so it reads as the
      message dropping into place under the field rather than a popup. */
   .field-error {

@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/trust";
 import { BusinessCard, BusinessFeature } from "@/components/site/business-card";
 import { JourneyStrip } from "@/components/site/journey";
 import { HeroComposition } from "@/components/site/hero-composition";
+import { Sparkle, VerifiedSeal } from "@/components/site/verified-seal";
 import { Reveal } from "@/components/ui/reveal";
 import { getImpactStats, listFeaturedAlajos, listRecentAlajos } from "@/lib/data/alajos";
 import { formatNairaCompact, formatNumber } from "@/lib/format";
@@ -39,39 +40,34 @@ export default async function HomePage() {
       <section className="overflow-x-clip border-b border-rule">
         <Container className="py-14 sm:py-20 lg:py-24">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-            <div className="reveal">
-              {/* Manrope 800 at 64px, per the handoff. The word "verified" is
-                  set in an outlined pill carrying a lime check, so the claim
-                  the platform actually makes is the thing the eye lands on. */}
-              <h1 className="text-[clamp(2.5rem,6.4vw,4rem)] font-extrabold leading-[0.98] tracking-[-0.02em] text-ink">
+            <div className="reveal text-center lg:text-left">
+              {/* Manrope 800 at 64px on the desktop the handoff draws. On a
+                  phone the column is centred and the forced line breaks are
+                  dropped, so the sentence wraps to the screen it is on instead
+                  of being broken for a width the phone does not have. */}
+              <h1 className="text-[clamp(2.25rem,7vw,4rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-ink sm:leading-[0.98]">
                 Discover the
-                <br />
+                <br className="hidden sm:inline" />{" "}
                 people behind
-                <br />
-                <span className="inline-flex items-center gap-2.5 rounded-full border-[2.5px] border-widget-black-2 py-1.5 pl-2.5 pr-5 align-middle">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-lime">
-                    <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
-                      <path
-                        d="M3 7.4 5.8 10 11 4"
-                        fill="none"
-                        stroke="var(--color-widget-black-2)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
+                <br className="hidden sm:inline" />{" "}
+                <span className="relative inline-flex items-center gap-2 rounded-full border-[2.5px] border-widget-black-2 py-1 pl-1.5 pr-4 align-middle sm:gap-2.5 sm:py-1.5 sm:pl-2.5 sm:pr-5">
+                  <VerifiedSeal className="size-8 shrink-0 sm:size-9" />
                   verified
+                  {/* One small mark riding the edge of the pill, so the claim
+                      reads as stamped rather than merely outlined. */}
+                  <Sparkle className="absolute -right-1.5 -top-2 size-3.5 text-orange sm:-right-2 sm:-top-2.5 sm:size-4" />
                 </span>{" "}
                 businesses.
               </h1>
 
-              <p className="mt-6 max-w-[26rem] text-base leading-[1.65] text-ink-soft">
+              <p className="mx-auto mt-6 max-w-[26rem] text-base leading-[1.65] text-ink-soft lg:mx-0">
                 Nigerian business owners tell us what they are building. A person checks every one.
                 Then people and brands who want to help choose who to back.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              {/* Full width at phone size: two pills side by side at 375px
+                  leaves each one too narrow to read comfortably. */}
+              <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
                 <ButtonLink
                   href="/alajos"
                   className="!bg-widget-black-2 !px-7 !py-4 !text-ivory-text hover:!brightness-125"
@@ -83,7 +79,7 @@ export default async function HomePage() {
                 </ButtonLink>
               </div>
 
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-faint">
+              <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-ink-faint lg:mx-0">
                 Free to apply. Ajo Mercy never holds or transfers money, and registering does not
                 guarantee selection or support.
               </p>
