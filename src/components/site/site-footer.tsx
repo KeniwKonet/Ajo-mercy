@@ -34,9 +34,11 @@ export function SiteFooter() {
       <div className="mx-auto w-full max-w-[84rem] px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="max-w-sm">
-            <p className="font-display text-2xl">
-              <span className="font-semibold text-lime">Ajo</span>
-              <span className="italic text-orange"> Mercy</span>
+            <p className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
+              <span aria-hidden="true" className="size-5 rounded-md bg-lime" />
+              <span>
+                Ajo<span className="text-orange">Mercy</span>
+              </span>
             </p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
               A conversation about Ajo turned into a queue of people wanting to help and no way to
@@ -47,7 +49,7 @@ export function SiteFooter() {
 
           {COLUMNS.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <p className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 {column.heading}
               </p>
               <ul className="mt-4 space-y-2.5">

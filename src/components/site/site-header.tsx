@@ -32,9 +32,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
       <div className="mx-auto flex w-full max-w-[84rem] items-center gap-4 rounded-full bg-widget-black p-2 pl-5">
-        <Link href="/" className="shrink-0 font-display text-xl tracking-tight text-ivory-text">
-          <span>Ajo</span>
-          <span className="italic text-lime"> Mercy</span>
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2 text-sm font-extrabold tracking-tight text-ivory-text"
+        >
+          <span aria-hidden="true" className="size-5 rounded-md bg-lime" />
+          <span>
+            Ajo<span className="text-orange">Mercy</span>
+          </span>
         </Link>
 
         <nav aria-label="Main" className="hidden flex-1 items-center justify-center gap-1 lg:flex">

@@ -80,7 +80,7 @@ export default async function AdminBrandsPage({
                   </p>
                 )}
 
-                <p className="mt-2.5 font-mono text-2xs uppercase tracking-[0.1em] text-ink-faint">
+                <p className="mt-2.5 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                   {brand.businesses_target ?? "?"} businesses
                   {brand.budget_max_ngn ? ` · up to ${formatNairaCompact(brand.budget_max_ngn)}` : ""}
                   {brand.preferred_categories.length > 0

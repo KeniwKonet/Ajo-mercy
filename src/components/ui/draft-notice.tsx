@@ -38,7 +38,7 @@ export function DraftNotice({
       <button
         type="button"
         onClick={onDiscard}
-        className="link-rule font-medium text-ink-soft hover:text-terracotta"
+        className="link-rule font-medium text-ink-soft hover:text-orange"
       >
         Discard draft
       </button>

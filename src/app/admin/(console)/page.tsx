@@ -102,7 +102,7 @@ export default async function AdminDashboardPage() {
               : "Here is what is waiting on a decision."}
           </p>
         </div>
-        <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+        <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
           {new Date().toLocaleDateString("en-NG", { weekday: "long", day: "numeric", month: "long" })}
         </p>
       </header>
@@ -132,7 +132,7 @@ export default async function AdminDashboardPage() {
             <Link
               key={item.label}
               href={item.href}
-              className="surface card-interactive group flex flex-col justify-between p-6"
+              className="widget card-interactive group flex flex-col justify-between"
             >
               <div className="flex items-start justify-between gap-4">
                 <p
@@ -151,7 +151,7 @@ export default async function AdminDashboardPage() {
                   aria-hidden="true"
                   className={cn(
                     "grid size-9 shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-0.5",
-                    item.count === 0 ? "bg-widget-tile text-ink-faint" : "bg-widget-tile text-lime",
+                    item.count === 0 ? "bg-widget-black-2 text-ink-faint" : "bg-widget-black-2 text-lime",
                   )}
                 >
                   <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">

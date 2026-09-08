@@ -119,7 +119,7 @@ export function ApplicationForm({
         <Alert tone="attention" title="What we need from you">
           <ul className="mt-2 space-y-2">
             {openRequests.map((request) => (
-              <li key={request.id} className="border-l border-terracotta/40 pl-3 text-sm text-ink">
+              <li key={request.id} className="border-l border-orange/40 pl-3 text-sm text-ink">
                 {request.message}
               </li>
             ))}
@@ -131,19 +131,21 @@ export function ApplicationForm({
           already done, and why this step is asking. A row of tabs told you
           none of that, which is what made the form feel like paperwork. */}
       <nav aria-label="Application steps">
-        <ol className="grid gap-px overflow-hidden rounded-md border border-rule bg-rule sm:grid-cols-5">
+        <ol className="grid gap-3.5 sm:grid-cols-5">
           {STEPS.map((item, index) => {
             const active = step === item.key;
             const done = stepIsDone(item, application, media);
             return (
-              <li key={item.key} className="bg-paper">
+              <li key={item.key} className="overflow-hidden rounded-2xl">
                 <button
                   type="button"
                   onClick={() => setStep(item.key)}
                   aria-current={active ? "step" : undefined}
                   className={cn(
                     "flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors sm:flex-col sm:items-start sm:gap-2",
-                    active ? "bg-widget-black text-ivory-text" : "hover:bg-widget-black-2",
+                    active
+                      ? "bg-widget-black text-ivory-text"
+                      : "bg-panel-white text-ink hover:bg-paper-deep",
                   )}
                 >
                   <span

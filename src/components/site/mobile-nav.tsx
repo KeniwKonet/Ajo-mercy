@@ -85,7 +85,7 @@ export function MobileNav() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "flex min-h-14 flex-col items-center justify-center gap-1 px-1 py-2 text-2xs font-semibold transition-colors",
-                  active ? "text-forest" : "text-ink-faint",
+                  active ? "text-ink" : "text-ink-faint",
                 )}
               >
                 <svg

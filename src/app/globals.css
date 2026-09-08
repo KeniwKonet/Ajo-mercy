@@ -2,8 +2,9 @@
 
 /* ==========================================================================
    Ajo Mercy design system
-   Warm clay paper, forest green, terracotta, ochre. Manrope runs the product;
-   Instrument Serif is the editorial voice and is spent sparingly.
+   Implements design_handoff_dark_widget_redesign: near-black widgets on a warm
+   cream page, lime and orange doing the pointing, no shadows anywhere. Manrope
+   is the only text face; JetBrains Mono appears only on machine identifiers.
 
    The product has one idea: a business has a story, we verify it, people
    discover it, people can choose to back it. Every token below exists to make
@@ -80,16 +81,16 @@
   --color-info-wash: #eaf1f6;
 
   /* --------------------------------------------------------- typography --
-     Two voices. Manrope runs the product: navigation, forms, tables, cards,
-     anywhere someone is trying to finish a task. Instrument Serif is the
-     editorial voice and is spent sparingly, because the contrast between the
-     two is the identity. A serif on every heading would waste it.
+     One text face. Manrope runs everything, display sizes included: it is
+     variable, so 400 through 800 costs a single file, and the design has no
+     serif in it at all.
 
-     Mono is demoted to what it is actually good at: reference numbers,
-     timestamps and ids. It should never carry a sentence.
+     Mono is kept for what it is actually good at: event names, table names,
+     digests and slugs. It should never carry a sentence.
      ----------------------------------------------------------------------- */
   --font-sans: var(--font-sans-face), "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-display-face), "Instrument Serif", Georgia, "Times New Roman", serif;
+  /* No serif in this design. The display role is Manrope at its heaviest. */
+  --font-display: var(--font-sans);
   --font-mono: var(--font-mono-face), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Larger and more breathable than before. The old scale started body copy
@@ -121,8 +122,7 @@
   --text-7xl: 6.5rem;
   --text-7xl--line-height: 0.93;
 
-  /* Tracking. Manrope needs a touch of negative tracking at display sizes;
-     Instrument Serif is already tight and needs almost none. */
+  /* Tracking. Manrope needs a touch of negative tracking at display sizes. */
   --tracking-display: -0.022em;
   --tracking-tight: -0.014em;
   --tracking-label: 0.08em;
@@ -206,9 +206,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings are Manrope by default. The serif is opt-in through .font-display
-     or the <Display> component, which is what keeps it meaningful: if every
-     heading were Instrument Serif, none of them would read as editorial. */
+  /* Headings are Manrope. Weight and size carry the hierarchy, since there is
+     no second family to switch to. */
   h1, h2, h3, h4 {
     font-family: var(--font-sans);
     font-weight: 700;
@@ -221,11 +220,12 @@
     text-wrap: pretty;
   }
 
-  /* The editorial voice. Instrument Serif ships a single weight, so emphasis
-     comes from size and the italic, never from a bolder cut. */
+  /* .font-display is not a family switch any more, it is the display weight of
+     the system face. Kept as a class so the many call sites that ask for the
+     display voice keep working and stay changeable from one place. */
   .font-display {
-    font-family: var(--font-display);
-    font-weight: 400;
+    font-family: var(--font-sans);
+    font-weight: 800;
     letter-spacing: var(--tracking-display);
   }
 
@@ -235,7 +235,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-forest);
+    outline: 2px solid var(--color-widget-black-2);
     outline-offset: 2px;
     border-radius: 1px;
   }
@@ -289,9 +289,9 @@
   }
   .prose-editorial > p:first-of-type::first-letter {
     initial-letter: 2;
-    font-family: var(--font-display);
-    font-weight: 400;
-    color: var(--color-forest);
+    font-family: var(--font-sans);
+    font-weight: 800;
+    color: var(--color-ink);
     margin-right: 0.08em;
   }
 
@@ -474,102 +474,6 @@
     background-size: 100% 1px;
   }
 
-  /* ======================================================================
-     LEDGER
-     An ajo is a contribution book before it is anything else: ruled paper,
-     a red margin, entries in sequence, figures that line up column to
-     column. These primitives put that object on the screen. The rules are
-     drawn with gradients rather than borders so they sit *behind* the type
-     the way printed stock does, instead of boxing it in.
-     ====================================================================== */
-
-  /* Ruled paper. The baseline is a custom property so a dense table can
-     tighten it without redefining the gradient. */
-  .ledger-paper {
-    --ledger-baseline: 2rem;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0 calc(var(--ledger-baseline) - 1px),
-      color-mix(in oklab, var(--color-rule) 62%, transparent) calc(var(--ledger-baseline) - 1px) var(--ledger-baseline)
-    );
-    background-position: 0 var(--ledger-offset, 0);
-  }
-
-  /* The red margin rule of a contribution book. Two hairlines, not one:
-     a single line reads as a border, a pair reads as stationery. */
-  .ledger-margin {
-    position: relative;
-  }
-  .ledger-margin::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--ledger-gutter, 2.5rem);
-    width: 3px;
-    border-left: 1px solid color-mix(in oklab, var(--color-terracotta) 42%, transparent);
-    border-right: 1px solid color-mix(in oklab, var(--color-terracotta) 22%, transparent);
-    pointer-events: none;
-  }
-
-  /* A register entry. The number hangs in the margin, as it does on paper. */
-  .entry-no {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.04em;
-    color: var(--color-terracotta);
-  }
-
-  /* Column headings sit above the first rule, small and unemphatic: they
-     label the ledger, they are not headlines. */
-  .ledger-head {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-ink-faint);
-  }
-
-  /* Rows darken rather than lift. Paper does not float. */
-  .ledger-row {
-    transition: background-color 140ms var(--ease-out-soft);
-  }
-  .ledger-row:hover {
-    background-color: color-mix(in oklab, var(--color-paper-deep) 70%, transparent);
-  }
-
-  /* A struck total, the way a book closes a column. */
-  .ledger-total {
-    border-top: 1px solid var(--color-ink);
-    border-bottom: 3px double var(--color-ink);
-  }
-
-  /* Hand tally, five to a gate. Used where a count is small enough to
-     actually count, which is the honest way to show early numbers. */
-  .tally {
-    display: inline-flex;
-    gap: 0.45em;
-    align-items: flex-end;
-    line-height: 1;
-  }
-  .tally i {
-    display: block;
-    width: 0.9em;
-    height: 1.15em;
-    font-style: normal;
-    border-left: 1.5px solid var(--color-forest);
-    border-image: none;
-  }
-  .tally i[data-gate="true"] {
-    background-image: linear-gradient(
-      to bottom right,
-      transparent calc(50% - 1px),
-      var(--color-forest) calc(50% - 1px) calc(50% + 1px),
-      transparent calc(50% + 1px)
-    );
-  }
 }
 
 @layer utilities {
@@ -820,3 +724,12 @@
    ivory. Ivory on ochre measures 1.7:1. */
 .bg-ochre, .bg-lime { color: var(--color-widget-black-2); }
 .bg-ochre .text-ivory-text, .bg-lime .text-ivory-text { color: var(--color-widget-black-2); }
+
+/* Focus on a dark widget: near-black outline vanishes against near-black, so
+   the neon takes over. Unlayered for the same reason as the block above. */
+.widget :focus-visible,
+.widget-tile :focus-visible,
+.bg-widget-black :focus-visible,
+.bg-widget-black-2 :focus-visible {
+  outline-color: var(--color-lime);
+}

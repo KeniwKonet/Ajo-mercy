@@ -29,8 +29,8 @@ export default async function ContactPage({
         </div>
 
         <aside className="lg:pt-3">
-          <div className="border-l-2 border-terracotta bg-terracotta-wash px-4 py-4">
-            <p className="text-sm font-semibold text-terracotta-deep">Seen a scam?</p>
+          <div className="border-l-2 border-orange bg-panel-white px-4 py-4">
+            <p className="text-sm font-semibold text-orange">Seen a scam?</p>
             <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
               Nobody from Ajo Mercy will ever ask a business to pay a fee, a processing charge or a
               token payment to be considered or to receive support. If someone claiming to be us
@@ -39,7 +39,7 @@ export default async function ContactPage({
           </div>
 
           <div className="mt-8 border-t border-rule pt-5">
-            <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+            <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
               Before you write
             </p>
             <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-ink-soft">

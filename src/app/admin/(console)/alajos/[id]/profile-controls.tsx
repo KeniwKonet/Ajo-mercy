@@ -93,7 +93,7 @@ export function ProfileControls({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">Public profile</p>
+        <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">Public profile</p>
         <StatusChip tone={status === "featured" ? "feature" : status === "suspended" ? "negative" : "positive"}>
           {ALAJO_PROFILE_STATUS_LABELS[status]}
         </StatusChip>

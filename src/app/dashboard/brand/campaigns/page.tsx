@@ -78,7 +78,7 @@ export default async function BrandCampaignsPage() {
                   </StatusChip>
                 </div>
                 <p className="mt-1.5 max-w-prose text-sm text-ink-soft">{campaign.summary}</p>
-                <p className="mt-2 font-mono text-2xs uppercase tracking-[0.12em] text-ink-faint">
+                <p className="mt-2 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                   {campaign.businesses_target} {campaign.businesses_target === 1 ? "business" : "businesses"}
                   {campaign.budget_ngn ? (
                     <>

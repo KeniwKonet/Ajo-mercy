@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { businessArt } from "@/lib/business-art";
 import { publicMediaUrl } from "@/lib/data/media-url";
 import { CATEGORY_LABELS } from "@/lib/types";
 import type { AlajoProfileWithMedia } from "@/lib/types";
@@ -88,8 +89,13 @@ export function HeroComposition({ profile }: { profile: AlajoProfileWithMedia | 
                 className="object-cover"
               />
             ) : (
-              <div className="absolute inset-0 grid place-items-center">
-                <span className="font-display text-4xl text-ivory-text/35">
+              <div
+                className="absolute inset-0 grid place-items-center bg-cover bg-center"
+                style={{
+                  backgroundImage: `url("${businessArt(profile?.slug ?? profile?.business_name ?? "ajo-mercy")}")`,
+                }}
+              >
+                <span className="text-4xl font-extrabold tracking-tight text-ivory-text/70">
                   {profile ? initials(profile.business_name) : "Ajo"}
                 </span>
               </div>

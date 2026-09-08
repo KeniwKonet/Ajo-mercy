@@ -51,7 +51,7 @@ export default function SupportPage() {
               },
             ].map((step) => (
               <div key={step.n}>
-                <span className="font-mono text-sm text-terracotta tabular">{step.n}</span>
+                <span className="font-mono text-sm text-orange tabular">{step.n}</span>
                 <h2 className="mt-2 font-display text-xl">{step.title}</h2>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{step.body}</p>
               </div>

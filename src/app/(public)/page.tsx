@@ -40,31 +40,45 @@ export default async function HomePage() {
         <Container className="py-14 sm:py-20 lg:py-24">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="reveal">
-              <p className="eyebrow flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                <span aria-hidden="true" className="h-px w-7 bg-orange" />
-                Real people
-                <span aria-hidden="true" className="text-orange">•</span>
-                Real businesses
-                <span aria-hidden="true" className="text-orange">•</span>
-                Real stories
-              </p>
-
-              <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98]">
-                Good businesses
+              {/* Manrope 800 at 64px, per the handoff. The word "verified" is
+                  set in an outlined pill carrying a lime check, so the claim
+                  the platform actually makes is the thing the eye lands on. */}
+              <h1 className="text-[clamp(2.5rem,6.4vw,4rem)] font-extrabold leading-[0.98] tracking-[-0.02em] text-ink">
+                Discover the
                 <br />
-                deserve to be <em className="italic">seen</em>.
+                people behind
+                <br />
+                <span className="inline-flex items-center gap-2.5 rounded-full border-[2.5px] border-widget-black-2 py-1.5 pl-2.5 pr-5 align-middle">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-lime">
+                    <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
+                      <path
+                        d="M3 7.4 5.8 10 11 4"
+                        fill="none"
+                        stroke="var(--color-widget-black-2)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  verified
+                </span>{" "}
+                businesses.
               </h1>
 
-              <p className="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft">
-                Nigerian business owners tell us what they are building and what is in the way. A
-                person checks every one. Then people and brands who want to help choose who to back.
+              <p className="mt-6 max-w-[26rem] text-base leading-[1.65] text-ink-soft">
+                Nigerian business owners tell us what they are building. A person checks every one.
+                Then people and brands who want to help choose who to back.
               </p>
 
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <ButtonLink href="/alajos" size="lg">
-                  Discover businesses
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <ButtonLink
+                  href="/alajos"
+                  className="!bg-widget-black-2 !px-7 !py-4 !text-ivory-text hover:!brightness-125"
+                >
+                  Discover Businesses →
                 </ButtonLink>
-                <ButtonLink href="/become-an-alajo" variant="secondary" size="lg">
+                <ButtonLink href="/become-an-alajo" variant="secondary" className="!px-6 !py-4">
                   Become an Alajo
                 </ButtonLink>
               </div>
@@ -82,20 +96,32 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* ---------------------------------------------------------- journey
+          Four pills straight after the hero, per the handoff. No band and no
+          heading: the numbered stages are their own label. */}
+      <section>
+        <Container className="pt-14 sm:pt-16">
+          <Reveal>
+            <JourneyStrip />
+          </Reveal>
+        </Container>
+      </section>
+
       {/* ------------------------------------------------------- businesses
           Discovery comes before explanation. Someone who arrives cold should
           meet a real person's business before they meet an argument. */}
       <section className="border-b border-rule">
         <Container className="py-16 sm:py-20">
-          <SectionHeader
-            title="The businesses"
-            lead="Every one of them applied, sent documents, and was read by a person before it appeared here."
-            aside={
-              <Link href="/alajos" className="link-rule font-semibold text-ink">
-                See all businesses
-              </Link>
-            }
-          />
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h2 className="text-[0.9375rem] font-extrabold tracking-tight text-ink">Discover</h2>
+            <Link href="/alajos" className="link-rule text-sm font-bold text-ink">
+              See all businesses
+            </Link>
+          </div>
+          <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-soft">
+            Every one of them applied, sent documents, and was read by a person before it
+            appeared here.
+          </p>
 
           {hasBusinesses && lead ? (
             <div className="space-y-16 pt-10">
@@ -126,35 +152,12 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ---------------------------------------------------------- journey */}
-      <section className="border-b border-rule bg-widget-black-2">
-        <Container className="py-16 sm:py-20">
-          <Reveal>
-            <SectionHeader
-              title={<span className="font-display text-3xl sm:text-4xl">How this works</span>}
-              lead="Four stages, and a person at two of them."
-              aside={
-                <Link href="/how-it-works" className="link-rule font-semibold text-ink">
-                  The full process
-                </Link>
-              }
-              className="border-b-0 pb-0"
-            />
-            <JourneyStrip className="mt-9" />
-          </Reveal>
-        </Container>
-      </section>
-
       {/* ------------------------------------------------------------ trust */}
       <section className="border-b border-rule bg-widget-black text-ivory-text">
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
             <div>
-              <p className="eyebrow flex items-center gap-2.5 text-ochre">
-                <span aria-hidden="true" className="h-px w-7 bg-ochre" />
-                Why Ajo Mercy
-              </p>
-              <h2 className="mt-5 font-display text-4xl leading-[1.04] text-ivory-text sm:text-5xl">
+              <h2 className="text-3xl font-extrabold leading-[1.04] tracking-[-0.02em] text-ivory-text sm:text-4xl">
                 Anyone can collect names. The hard part is knowing they are real.
               </h2>
               <p className="mt-7 max-w-md text-base leading-relaxed text-ivory-text/75">
@@ -208,7 +211,7 @@ export default async function HomePage() {
               { label: "Support facilitated", value: stats.support_facilitated_ngn, money: true, hint: "Confirmed and announced" },
               { label: "States reached", value: stats.states_reached, hint: "Across Nigeria" },
             ].map((item) => (
-              <div key={item.label} className="surface p-6">
+              <div key={item.label} className="widget">
                 <dd
                   className={
                     item.value === 0

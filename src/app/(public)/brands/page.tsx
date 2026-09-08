@@ -38,17 +38,17 @@ export default async function BrandsPage() {
             </div>
           </div>
 
-          <dl className="grid grid-cols-2 gap-px self-start border border-rule bg-rule">
-            <div className="bg-paper px-5">
+          <dl className="grid grid-cols-2 gap-3.5 self-start">
+            <div className="widget">
               <Stat value={stats.alajos_approved || null} label="Verified businesses" />
             </div>
-            <div className="bg-paper px-5">
+            <div className="widget">
               <Stat value={stats.states_reached || null} label="States" />
             </div>
-            <div className="bg-paper px-5">
+            <div className="widget">
               <Stat value={stats.categories_supported || null} label="Sectors" />
             </div>
-            <div className="bg-paper px-5">
+            <div className="widget">
               <Stat value={stats.brands_participating || null} label="Brands taking part" />
             </div>
           </dl>

@@ -82,7 +82,7 @@ export default function BecomeAnAlajoPage() {
           </div>
 
           <div className="lg:pt-3">
-            <h2 className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint">
+            <h2 className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
               What you will need
             </h2>
             <ul className="mt-4 border-t border-rule">
@@ -106,7 +106,7 @@ export default function BecomeAnAlajoPage() {
           <h2 className="font-display text-2xl sm:text-3xl">Writing the story part</h2>
           <div className="mt-8 grid gap-8 md:grid-cols-2 lg:gap-14">
             <div>
-              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-orange">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-orange">
                 What gets read
               </p>
               <ul className="mt-3 space-y-3 text-sm leading-relaxed text-ink-soft">
@@ -119,7 +119,7 @@ export default function BecomeAnAlajoPage() {
               </ul>
             </div>
             <div>
-              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 What gets skipped
               </p>
               <ul className="mt-3 space-y-3 text-sm leading-relaxed text-ink-soft">

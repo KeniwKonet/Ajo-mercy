@@ -13,36 +13,35 @@ import { Skeleton } from "@/components/ui/primitives";
  * screen reader should hear the finished page, not a description of grey boxes.
  */
 
-/** A ruled register, matching the ledger rows on the listing and home page. */
-export function LedgerSkeleton({ rows = 5 }: { rows?: number }) {
+/**
+ * The discovery grid: a lead card over a run of smaller ones.
+ *
+ * It mirrors the listing's real shape, which is widget cards rather than the
+ * ruled rows this used to draw, so the layout does not jump when the data
+ * lands.
+ */
+export function CardGridSkeleton({ rows = 6 }: { rows?: number }) {
   return (
-    <div aria-hidden="true">
-      <div className="hidden border-b border-ink pb-2 md:grid md:grid-cols-[5.5rem_minmax(0,1fr)_10rem_8rem]">
-        {["3rem", "5rem", "3.5rem", "4rem"].map((w, i) => (
-          <Skeleton key={i} className="h-2.5" style={{ width: w }} />
+    <div aria-hidden="true" className="space-y-14">
+      <div className="widget grid gap-6 sm:grid-cols-2">
+        <Skeleton className="aspect-[4/3] rounded-lg" />
+        <div className="space-y-3 py-2">
+          <Skeleton className="h-5 w-24 rounded-full" />
+          <Skeleton className="h-7 w-3/5" />
+          <Skeleton className="h-2.5 w-2/5" />
+          <Skeleton className="h-2.5 w-full" />
+          <Skeleton className="h-2.5 w-4/5" />
+        </div>
+      </div>
+      <div className="grid gap-x-7 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: rows }, (_, i) => (
+          <div key={i} className="widget space-y-3" style={{ animationDelay: `${i * 70}ms` }}>
+            <Skeleton className="aspect-square rounded-lg" />
+            <Skeleton className="h-4 w-3/5" />
+            <Skeleton className="h-2.5 w-2/5" />
+          </div>
         ))}
       </div>
-      {Array.from({ length: rows }, (_, i) => (
-        <div
-          key={i}
-          className="grid gap-x-4 gap-y-3 border-b border-rule py-4 md:grid-cols-[5.5rem_minmax(0,1fr)_10rem_8rem]"
-          // A stagger stops five identical bars pulsing in lockstep, which
-          // reads as a frozen pattern rather than activity.
-          style={{ animationDelay: `${i * 70}ms` }}
-        >
-          <Skeleton className="h-2.5 w-14" />
-          <div className="flex gap-3.5">
-            <Skeleton className="size-11 shrink-0" />
-            <div className="min-w-0 flex-1 space-y-2">
-              <Skeleton className="h-4 w-2/5" />
-              <Skeleton className="h-2.5 w-1/3" />
-              <Skeleton className="h-2.5 w-3/4" />
-            </div>
-          </div>
-          <Skeleton className="hidden h-2.5 w-24 md:block" />
-          <Skeleton className="hidden h-2.5 w-16 justify-self-end md:block" />
-        </div>
-      ))}
     </div>
   );
 }
@@ -50,7 +49,7 @@ export function LedgerSkeleton({ rows = 5 }: { rows?: number }) {
 /** A dense admin table. */
 export function TableSkeleton({ rows = 6, cols = 5 }: { rows?: number; cols?: number }) {
   return (
-    <div aria-hidden="true" className="border border-rule">
+    <div aria-hidden="true" className="widget !p-0 overflow-hidden">
       <div className="flex gap-4 border-b border-rule bg-widget-black-2 px-4 py-3">
         {Array.from({ length: cols }, (_, i) => (
           <Skeleton key={i} className="h-2.5 flex-1" />
@@ -99,9 +98,9 @@ export function PageSkeleton({ withRail = false }: { withRail?: boolean }) {
 /** The counts band on the admin dashboard. */
 export function StatsSkeleton({ items = 4 }: { items?: number }) {
   return (
-    <div aria-hidden="true" className="grid gap-px border border-rule bg-rule sm:grid-cols-4">
+    <div aria-hidden="true" className="grid gap-3.5 sm:grid-cols-4">
       {Array.from({ length: items }, (_, i) => (
-        <div key={i} className="space-y-2 bg-paper p-5">
+        <div key={i} className="widget space-y-2">
           <Skeleton className="h-7 w-12" style={{ animationDelay: `${i * 80}ms` }} />
           <Skeleton className="h-2.5 w-20" />
         </div>

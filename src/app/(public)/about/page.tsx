@@ -79,7 +79,7 @@ export default function AboutPage() {
 
           <aside className="lg:pt-2">
             <div className="widget !p-0 p-5">
-              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 Who runs it
               </p>
               <p className="mt-3 font-display text-lg">Woli Arole</p>
@@ -90,7 +90,7 @@ export default function AboutPage() {
             </div>
 
             <div className="mt-6 border-t border-rule pt-5">
-              <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 Our commitments
               </p>
               <ul className="mt-3 space-y-3 text-sm leading-relaxed text-ink-soft">

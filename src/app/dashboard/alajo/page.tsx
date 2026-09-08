@@ -63,7 +63,7 @@ export default async function AlajoOverviewPage() {
             </p>
             <ul className="mt-3 space-y-2">
               {openRequests.map((request) => (
-                <li key={request.id} className="border-l border-terracotta/40 pl-3">
+                <li key={request.id} className="border-l border-orange/40 pl-3">
                   <p className="text-sm text-ink">{request.message}</p>
                   <p className="mt-0.5 text-xs text-ink-faint">
                     Asked {formatRelative(request.created_at)}
@@ -114,22 +114,22 @@ export default async function AlajoOverviewPage() {
         )}
 
         {/* --------------------------------------------------------- status */}
-        <section className="grid gap-px border border-rule bg-rule sm:grid-cols-3">
-          <div className="bg-paper px-5">
+        <section className="grid gap-3.5 sm:grid-cols-3">
+          <div className="widget">
             <Stat
               value={`${completeness}%`}
               label="Application complete"
               hint={completeness === 100 ? "Everything we asked for" : "Some fields still empty"}
             />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={publicProfile ? ALAJO_PROFILE_STATUS_LABELS[publicProfile.status] : "Not published"}
               label="Public profile"
               hint={publicProfile?.approved_at ? `Live since ${formatDate(publicProfile.approved_at)}` : "Published after approval"}
             />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={publicProfile?.view_count ?? null}
               label="Profile views"

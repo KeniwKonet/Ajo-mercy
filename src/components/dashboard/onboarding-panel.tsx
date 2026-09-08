@@ -15,21 +15,9 @@ import { STAGES } from "@/components/site/journey";
 export function OnboardingPanel() {
   return (
     <aside className="relative hidden overflow-hidden rounded-xl bg-widget-black p-9 text-ivory-text lg:flex lg:flex-col lg:justify-between">
-      {/* Two soft shapes, kept behind everything and out of the reading path. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-forest-soft/40 blur-2xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 -left-12 size-56 rounded-full bg-ochre/10 blur-2xl"
-      />
 
       <div className="relative">
-        <p className="eyebrow flex items-center gap-2.5 text-ochre">
-          <span aria-hidden="true" className="h-px w-7 bg-ochre" />
-          Become an Alajo
-        </p>
+        <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ochre">Become an Alajo</p>
         <h2 className="mt-6 font-display text-4xl leading-[1.06] text-ivory-text">
           Tell us what you are building.
         </h2>

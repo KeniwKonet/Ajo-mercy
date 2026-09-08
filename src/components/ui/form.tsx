@@ -336,7 +336,7 @@ export function ChipGroup<T extends string>({
               className={cn(
                 "rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
                 isSelected
-                  ? "border-forest bg-widget-black text-ivory-text"
+                  ? "border-lime bg-widget-black text-ivory-text"
                   : "border-muted-on-black/25 bg-widget-black-2 text-ink-soft hover:border-ink hover:text-ink",
                 !isSelected && atMax && "cursor-not-allowed opacity-40",
               )}

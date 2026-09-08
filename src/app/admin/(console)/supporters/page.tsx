@@ -71,7 +71,7 @@ export default async function AdminSupportersPage({
                 )}
 
                 {supporter.interests.length > 0 && (
-                  <p className="mt-2 font-mono text-2xs uppercase tracking-[0.1em] text-ink-faint">
+                  <p className="mt-2 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                     {supporter.interests.map((i) => CATEGORY_LABELS[i]).join(" · ")}
                   </p>
                 )}

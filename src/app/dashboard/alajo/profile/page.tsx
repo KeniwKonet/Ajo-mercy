@@ -67,17 +67,17 @@ export default async function AlajoPublicProfilePage() {
           </div>
         )}
 
-        <section className="grid gap-px border border-rule bg-rule sm:grid-cols-3">
-          <div className="bg-paper px-5">
+        <section className="grid gap-3.5 sm:grid-cols-3">
+          <div className="widget">
             <Stat value={publicProfile.view_count || null} label="Profile views" />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={publicProfile.approved_at ? formatDate(publicProfile.approved_at) : null}
               label="Live since"
             />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={
                 publicProfile.requested_amount_ngn

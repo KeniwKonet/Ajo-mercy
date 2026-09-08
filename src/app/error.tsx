@@ -30,7 +30,7 @@ export default function AppError({
   return (
     <Container className="py-20 sm:py-28">
       <div className="max-w-xl">
-        <p className="font-mono text-2xs uppercase tracking-[0.14em] text-terracotta">
+        <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-orange">
           Something broke
         </p>
         <h1 className="mt-4 font-display text-3xl leading-tight sm:text-4xl">

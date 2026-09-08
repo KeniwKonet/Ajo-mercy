@@ -89,7 +89,7 @@ export function ApproveRejectControls({
         <div className="space-y-3">
           <div>
             <label htmlFor={`reason-${userId}`} className="text-sm font-medium text-ink">
-              Internal reason <span className="text-terracotta">*</span>
+              Internal reason <span className="text-orange">*</span>
             </label>
             <p className="mt-0.5 mb-1.5 text-xs text-ink-faint">
               Kept on the audit log. Never shown to them.

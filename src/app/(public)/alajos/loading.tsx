@@ -1,5 +1,5 @@
 import { Container, Skeleton } from "@/components/ui/primitives";
-import { LedgerSkeleton } from "@/components/ui/loading-skeletons";
+import { CardGridSkeleton } from "@/components/ui/loading-skeletons";
 
 export default function Loading() {
   return (
@@ -15,7 +15,7 @@ export default function Loading() {
             <Skeleton key={i} className="h-24" style={{ animationDelay: `${i * 90}ms` }} />
           ))}
         </div>
-        <LedgerSkeleton rows={6} />
+        <CardGridSkeleton rows={6} />
       </div>
     </Container>
   );

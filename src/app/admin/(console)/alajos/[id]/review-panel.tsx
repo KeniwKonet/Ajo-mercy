@@ -97,7 +97,7 @@ export function ReviewPanel({
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3">
-        <p className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">Decision</p>
+        <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">Decision</p>
         <StatusChip tone={applicationTone(status)}>{APPLICATION_STATUS_LABELS[status]}</StatusChip>
       </div>
 
@@ -268,7 +268,7 @@ function DecisionButton({
 }) {
   const accents = {
     positive: "border-success bg-success-wash",
-    attention: "border-terracotta bg-terracotta-wash",
+    attention: "border-orange bg-panel-white",
     negative: "border-danger bg-danger-wash",
   };
   return (

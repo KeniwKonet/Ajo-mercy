@@ -145,7 +145,7 @@ export function ConfirmDialog({
             value={typed}
             onChange={(event) => setTyped(event.target.value)}
             autoComplete="off"
-            className="h-10 w-full rounded-sm border border-muted-on-black/25 bg-widget-black-2 px-3 font-mono text-sm focus-visible:border-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
+            className="h-10 w-full rounded-sm border border-muted-on-black/25 bg-widget-black-2 px-3 font-mono text-sm focus-visible:border-widget-black-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-widget-black-2/20"
           />
         </div>
       )}

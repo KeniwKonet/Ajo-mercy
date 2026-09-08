@@ -59,7 +59,7 @@ export default async function AdminCampaignsPage() {
                   </p>
                 )}
 
-                <p className="mt-2.5 font-mono text-2xs uppercase tracking-[0.1em] text-ink-faint">
+                <p className="mt-2.5 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                   {campaign.selection_count}/{campaign.businesses_target} selected
                   {campaign.budget_ngn ? ` · ${formatNairaCompact(campaign.budget_ngn)}` : ""}
                   {campaign.preferred_categories.length > 0

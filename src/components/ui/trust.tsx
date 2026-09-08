@@ -72,7 +72,7 @@ export function VerificationPanel({
   return (
     <section
       aria-labelledby="verification-heading"
-      className={cn("rounded-lg border border-forest/20 bg-forest-wash p-6 sm:p-7", className)}
+      className={cn("widget p-6 sm:p-7", className)}
     >
       <div className="flex flex-wrap items-center gap-3">
         <span className="grid size-8 place-items-center rounded-full bg-lime text-widget-black-2">
@@ -256,13 +256,11 @@ export function statusMeaning(kind: StatusKind): string {
 
 /** The standard page opening: what this is, and why it matters. */
 export function PageHeader({
-  eyebrow,
   title,
   lead,
   actions,
   className,
 }: {
-  eyebrow?: string;
   title: ReactNode;
   lead?: ReactNode;
   actions?: ReactNode;
@@ -271,14 +269,7 @@ export function PageHeader({
   return (
     <header className={cn("flex flex-wrap items-end justify-between gap-x-10 gap-y-6", className)}>
       <div className="max-w-2xl">
-        <h1 className="text-3xl leading-tight sm:text-4xl">{title}</h1>
-        {/* The marker sits under the title, not floating above it in tiny caps. */}
-        {eyebrow && (
-          <p className="eyebrow mt-3 flex items-center gap-2.5">
-            <span aria-hidden="true" className="h-px w-6 bg-rule-strong" />
-            {eyebrow}
-          </p>
-        )}
+        <h1 className="text-3xl font-extrabold leading-tight tracking-[-0.02em] sm:text-4xl">{title}</h1>
         {lead && <p className="mt-5 text-lg leading-relaxed text-ink-soft">{lead}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}

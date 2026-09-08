@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="flex min-h-dvh flex-col">
       <main id="main" className="flex flex-1 items-center">
         <Container width="editorial" className="py-20">
-          <p className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint">404</p>
+          <p className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">404</p>
           <Display size="md" className="mt-3">
             That page is not here.
           </Display>

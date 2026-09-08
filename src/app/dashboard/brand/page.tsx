@@ -76,14 +76,14 @@ export default async function BrandOverviewPage() {
           </Alert>
         )}
 
-        <section className="grid gap-px border border-rule bg-rule sm:grid-cols-3">
-          <div className="bg-paper px-5">
+        <section className="grid gap-3.5 sm:grid-cols-3">
+          <div className="widget">
             <Stat value={campaignCount ?? 0} label="Campaigns" />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat value={selectionCount ?? 0} label="Businesses selected" />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={brand.budget_max_ngn ? formatNairaCompact(brand.budget_max_ngn) : null}
               label="Stated budget"

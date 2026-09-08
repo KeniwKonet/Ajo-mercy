@@ -79,7 +79,7 @@ export default async function StaffPage() {
                   {overrides
                     .filter(([permission, granted]) => granted && !defaults.includes(permission))
                     .map(([permission]) => (
-                      <span key={permission} className="font-mono text-2xs font-medium text-terracotta">
+                      <span key={permission} className="font-mono text-2xs font-medium text-orange">
                         +{permission}
                       </span>
                     ))}

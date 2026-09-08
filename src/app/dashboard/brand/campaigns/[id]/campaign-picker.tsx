@@ -97,13 +97,13 @@ export function CampaignPicker({
 
   return (
     <>
-      <ul className="grid gap-px border border-rule bg-rule sm:grid-cols-2">
+      <ul className="grid gap-3.5 sm:grid-cols-2">
         {candidates.map((candidate) => (
-          <li key={candidate.id} className="flex flex-col bg-paper p-5">
+          <li key={candidate.id} className="widget flex flex-col">
             <Link href={`/alajos/${candidate.slug}`} className="link-rule font-display text-lg text-ink">
               {candidate.business_name}
             </Link>
-            <p className="mt-1 font-mono text-2xs uppercase tracking-[0.12em] text-ink-faint">
+            <p className="mt-1 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
               {CATEGORY_LABELS[candidate.business_category]}
               <span className="mx-1.5 text-rule-strong">/</span>
               {[candidate.city, candidate.state].filter(Boolean).join(", ")}

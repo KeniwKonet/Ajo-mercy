@@ -76,21 +76,21 @@ export default async function SupporterOverviewPage() {
             dropped rather than shown as a meaningless number. */}
         <section
           className={cn(
-            "grid gap-px border border-rule bg-rule",
+            "grid gap-3.5",
             supporter.selection_credits === null ? "sm:grid-cols-2" : "sm:grid-cols-3",
           )}
         >
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat
               value={supporter.selection_credits === null ? "Unlimited" : supporter.selection_credits}
               label="Selections allowed"
             />
           </div>
-          <div className="bg-paper px-5">
+          <div className="widget">
             <Stat value={used} label="Selections used" />
           </div>
           {supporter.selection_credits !== null && (
-            <div className="bg-paper px-5">
+            <div className="widget">
               <Stat
                 value={Math.max(0, supporter.selection_credits - used)}
                 label="Selections left"

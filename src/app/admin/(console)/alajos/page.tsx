@@ -58,7 +58,7 @@ export default async function AdminAlajosPage({
                     className={cn(
                       "block border-b-2 px-3.5 py-2.5 text-sm transition-colors",
                       active
-                        ? "border-forest font-medium text-ink"
+                        ? "border-widget-black-2 font-medium text-ink"
                         : "border-transparent text-ink-soft hover:text-ink",
                     )}
                   >
@@ -78,7 +78,7 @@ export default async function AdminAlajosPage({
             defaultValue={q ?? ""}
             placeholder="Business or founder name"
             aria-label="Search applications"
-            className="h-9 w-full max-w-xs border border-muted-on-black/25 bg-widget-black-2 px-3 text-sm focus-visible:border-forest focus-visible:outline-none"
+            className="h-9 w-full max-w-xs border border-muted-on-black/25 bg-widget-black-2 px-3 text-sm focus-visible:border-widget-black-2 focus-visible:outline-none"
           />
           <button
             type="submit"

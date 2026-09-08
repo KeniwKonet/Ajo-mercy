@@ -239,7 +239,7 @@ export function SelectMenu({
                 onClick={() => { commit(option.value); close(); }}
                 className={cn(
                   "flex cursor-pointer items-baseline gap-2 px-3 py-2 text-sm transition-colors duration-100",
-                  i === active ? "bg-forest-wash text-ink" : "text-ink-soft",
+                  i === active ? "bg-paper-deep text-ink" : "text-ink-soft",
                 )}
               >
                 <span

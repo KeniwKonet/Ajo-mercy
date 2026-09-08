@@ -72,7 +72,7 @@ export default async function ReviewApplicationPage({
         <div className="min-w-0 space-y-10">
         {/* ------------------------------------------------ applicant ----- */}
         <section aria-labelledby="applicant" className="min-w-0">
-          <h2 id="applicant" className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <h2 id="applicant" className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
             The applicant
           </h2>
 
@@ -120,7 +120,7 @@ export default async function ReviewApplicationPage({
           </dl>
 
           {/* -------------------------------------------------- documents -- */}
-          <h2 className="mt-8 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <h2 className="mt-8 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
             Documents
           </h2>
           {documents.length === 0 ? (
@@ -160,7 +160,7 @@ export default async function ReviewApplicationPage({
           {/* ------------------------------------------------------- notes -- */}
           {notes.length > 0 && (
             <>
-              <h2 className="mt-8 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+              <h2 className="mt-8 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 Team notes
               </h2>
               <ul className="mt-3 space-y-2.5">
@@ -179,7 +179,7 @@ export default async function ReviewApplicationPage({
 
         {/* ---------------------------------------------- business + media - */}
         <section aria-labelledby="business" className="min-w-0">
-          <h2 id="business" className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <h2 id="business" className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
             The business
           </h2>
 
@@ -228,7 +228,7 @@ export default async function ReviewApplicationPage({
           )}
 
           {application.current_challenge && (
-            <div className="mt-6 border-l-2 border-terracotta pl-4">
+            <div className="mt-6 border-l-2 border-orange pl-4">
               <h3 className="text-sm font-medium text-ink">The challenge</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
                 {application.current_challenge}
@@ -245,7 +245,7 @@ export default async function ReviewApplicationPage({
             </div>
           )}
 
-          <h3 className="mt-8 font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+          <h3 className="mt-8 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
             Photographs
           </h3>
           {photos.length === 0 ? (
@@ -295,7 +295,7 @@ export default async function ReviewApplicationPage({
 
           {allRequests.length > 0 && (
             <div className="mt-8">
-              <h3 className="font-mono text-2xs uppercase tracking-[0.14em] text-ink-faint">
+              <h3 className="text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                 Information requests
               </h3>
               <ul className="mt-3 space-y-2">

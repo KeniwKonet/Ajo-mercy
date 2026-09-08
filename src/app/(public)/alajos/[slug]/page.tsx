@@ -7,6 +7,7 @@ import { VerificationPanel, VerifiedMark } from "@/components/ui/trust";
 import { AlajoRail } from "@/components/site/alajo-cards";
 import { SupportPanel } from "./support-panel";
 import { getAlajoBySlug, listAlajoSlugs, listRecentAlajos, publicMediaUrl } from "@/lib/data/alajos";
+import { businessArt } from "@/lib/business-art";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { formatDate, formatNaira, yearsOperating } from "@/lib/format";
 import { siteUrl } from "@/lib/env";
@@ -102,8 +103,8 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         <div
           className={
             coverUrl
-              ? "relative h-[46vh] min-h-[20rem] w-full overflow-hidden bg-widget-tile sm:h-[54vh]"
-              : "relative h-40 w-full overflow-hidden bg-widget-tile sm:h-48"
+              ? "relative h-[46vh] min-h-[20rem] w-full overflow-hidden bg-widget-black-2 sm:h-[54vh]"
+              : "relative h-[34vh] min-h-[15rem] w-full overflow-hidden bg-widget-black-2 sm:h-[38vh]"
           }
         >
           {coverUrl ? (
@@ -117,7 +118,11 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               className="object-cover"
             />
           ) : (
-            <div aria-hidden="true" className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_1px_1px,var(--color-forest)_1px,transparent_0)] [background-size:22px_22px]" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url("${businessArt(profile.slug ?? profile.business_name)}")` }}
+            />
           )}
           {/* Enough scrim for the control to read on any photograph. */}
           {coverUrl && (
@@ -149,7 +154,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         </div>
 
         <Container>
-          <div className="surface -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 sm:-mt-20 sm:p-8">
+          <div className="widget -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 sm:-mt-20 sm:p-8">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2.5">
                 <VerifiedMark />
@@ -190,7 +195,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
 
           {/* --------------------------------------------------- the story */}
           <div className="min-w-0">
-            <article className="surface p-7 sm:p-9">
+            <article className="widget p-7 sm:p-9">
               <h2 className="font-display text-3xl">The story</h2>
 
               <h3 className="mt-7 text-base font-bold">Why I started</h3>
@@ -253,7 +258,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               approvedOn={profile.approved_at ? formatDate(profile.approved_at) : null}
             />
 
-            <div className="surface p-6">
+            <div className="widget">
               <h2 className="text-sm font-bold">Business details</h2>
               <dl className="mt-4 space-y-3.5">
                 {[

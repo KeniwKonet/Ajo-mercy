@@ -64,7 +64,6 @@ export default async function AlajosPage({ searchParams }: { searchParams: Searc
   return (
     <Container className="py-12 sm:py-16">
       <PageHeader
-        eyebrow="Verified businesses"
         title={<span className="font-display text-4xl sm:text-5xl">Discover</span>}
         lead="Every business here applied, sent documents, and was read by a person before it appeared. Take your time. The stories are the point."
       />

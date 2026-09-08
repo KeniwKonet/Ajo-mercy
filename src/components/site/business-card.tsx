@@ -41,6 +41,7 @@ function Photo({
         src={publicMediaUrl(profile.cover?.storage_path ?? profile.avatar?.storage_path) ?? null}
         alt={`${profile.business_name}, ${profile.city ?? profile.state}`}
         monogram={initials(profile.business_name)}
+        seed={profile.slug ?? profile.business_name}
         sizes={sizes}
         priority={priority}
         className="size-full"

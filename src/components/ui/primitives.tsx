@@ -33,7 +33,7 @@ export function SectionLabel({ children, className }: { children: ReactNode; cla
   return (
     <span
       className={cn(
-        "font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint",
+        "text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint",
         className,
       )}
     >

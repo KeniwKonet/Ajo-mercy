@@ -59,11 +59,7 @@ export default function HowItWorksPage() {
     <>
       <Container className="py-14 sm:py-20">
         <div className="max-w-3xl">
-          <p className="eyebrow flex items-center gap-2.5">
-            <span aria-hidden="true" className="h-px w-7 bg-orange" />
-            From application to announcement
-          </p>
-          <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02]">
+                    <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02]">
             A person reads every single one.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">

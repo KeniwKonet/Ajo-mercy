@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { businessArt } from "@/lib/business-art";
 import Link from "next/link";
 import { publicMediaUrl } from "@/lib/data/alajos";
 import { CATEGORY_LABELS, type AlajoProfileWithMedia } from "@/lib/types";
@@ -23,17 +24,15 @@ function MediaFrame({
 }) {
   const src = publicMediaUrl(profile.cover?.storage_path);
   if (!src) {
-    // No photograph yet. A tinted plate with the initials reads as intentional
-    // rather than as a broken image.
+    // No photograph yet. Generated cover art fills the slot without inventing
+    // a picture of a business that nobody has photographed.
     return (
       <div
-        className={cn(
-          "flex items-center justify-center bg-forest-wash text-lime",
-          className,
-        )}
+        className={cn("flex items-center justify-center bg-cover bg-center", className)}
+        style={{ backgroundImage: `url("${businessArt(profile.slug ?? profile.business_name)}")` }}
         aria-hidden="true"
       >
-        <span className="font-display text-3xl opacity-40">
+        <span className="text-3xl font-extrabold tracking-tight text-ivory-text/70">
           {profile.business_name.slice(0, 1).toUpperCase()}
         </span>
       </div>
@@ -56,7 +55,7 @@ function MediaFrame({
 function Meta({ profile, className }: { profile: AlajoProfileWithMedia; className?: string }) {
   const years = yearsOperating(profile.year_started);
   return (
-    <p className={cn("font-mono text-2xs uppercase tracking-[0.12em] text-ink-faint", className)}>
+    <p className={cn("text-xs text-ink-faint", className)}>
       {CATEGORY_LABELS[profile.business_category]}
       <span className="mx-1.5 text-rule-strong">/</span>
       {profile.city ? `${profile.city}, ` : ""}
@@ -100,7 +99,7 @@ export function AlajoFeature({
           {truncate(profile.current_challenge ?? profile.story, 240)}
         </p>
         <div className="mt-7 flex items-center gap-4">
-          <span className="border-b border-ink pb-0.5 text-sm font-medium text-ink transition-colors group-hover:border-terracotta group-hover:text-orange">
+          <span className="border-b border-ink pb-0.5 text-sm font-medium text-ink transition-colors group-hover:border-orange group-hover:text-orange">
             Read their story
           </span>
           {profile.requested_amount_ngn ? (
@@ -132,7 +131,7 @@ export function AlajoCard({
           className="aspect-[4/3]"
         />
         {profile.status === "featured" && (
-          <span className="absolute left-0 top-0 bg-ochre px-2 py-1 font-mono text-2xs uppercase tracking-[0.12em] text-ink">
+          <span className="absolute left-0 top-0 bg-ochre px-2 py-1 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink">
             Featured
           </span>
         )}

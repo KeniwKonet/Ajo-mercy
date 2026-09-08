@@ -101,7 +101,7 @@ export default async function CampaignDetailPage({
           </Alert>
         )}
 
-        <dl className="grid gap-px border border-rule bg-rule sm:grid-cols-4">
+        <dl className="grid gap-3.5 sm:grid-cols-4">
           {[
             ["Target", `${campaign.businesses_target}`],
             ["Selected", `${selections.length}`],
@@ -111,7 +111,7 @@ export default async function CampaignDetailPage({
               campaign.selection_closes_at ? formatDate(campaign.selection_closes_at) : "—",
             ],
           ].map(([label, value]) => (
-            <div key={label} className="bg-paper px-5 py-4">
+            <div key={label} className="widget">
               <dt className="text-xs text-ink-faint">{label}</dt>
               <dd className="mt-1 font-display text-xl tabular">{value}</dd>
             </div>
@@ -148,7 +148,7 @@ export default async function CampaignDetailPage({
                         <span className="text-ink-faint">Business no longer listed</span>
                       )}
                       {business && (
-                        <p className="mt-0.5 font-mono text-2xs uppercase tracking-[0.12em] text-ink-faint">
+                        <p className="mt-0.5 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                           {CATEGORY_LABELS[business.business_category]}
                           <span className="mx-1.5 text-rule-strong">/</span>
                           {[business.city, business.state].filter(Boolean).join(", ")}

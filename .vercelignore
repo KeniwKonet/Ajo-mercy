@@ -5,3 +5,4 @@ design-lab
 # Local-only tooling.
 tests
 scripts/seed.mjs
+design_handoff_dark_widget_redesign

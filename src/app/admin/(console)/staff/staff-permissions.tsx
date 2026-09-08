@@ -101,7 +101,7 @@ export function StaffPermissions({
                   onClick={() => setNextRole(option)}
                   className={`border px-3.5 py-2 text-sm transition-colors ${
                     nextRole === option
-                      ? "border-forest bg-widget-black text-ivory-text"
+                      ? "border-lime bg-widget-black text-ivory-text"
                       : "border-muted-on-black/25 text-ink-soft hover:border-ink hover:text-ink"
                   }`}
                 >

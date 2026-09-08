@@ -109,7 +109,7 @@ export default async function SelectionsPage() {
                     </div>
 
                     {business && (
-                      <p className="mt-1 font-mono text-2xs uppercase tracking-[0.12em] text-ink-faint">
+                      <p className="mt-1 text-2xs font-extrabold uppercase tracking-[0.08em] text-ink-faint">
                         {CATEGORY_LABELS[business.business_category]}
                         <span className="mx-1.5 text-rule-strong">/</span>
                         {[business.city, business.state].filter(Boolean).join(", ")}

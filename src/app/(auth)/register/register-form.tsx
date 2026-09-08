@@ -60,10 +60,10 @@ export function RegisterForm({ defaultRole }: { defaultRole: "alajo" | "supporte
         {ROLES.map((option) => (
           <label
             key={option.value}
-            className={`flex cursor-pointer gap-3 border p-3.5 transition-colors ${
+            className={`flex cursor-pointer gap-3 rounded-xl border p-3.5 transition-colors ${
               role === option.value
-                ? "border-forest bg-forest-wash"
-                : "border-muted-on-black/25 bg-widget-black-2 hover:border-ink"
+                ? "border-lime bg-lime"
+                : "border-muted-on-black/25 bg-widget-black-2 hover:border-muted-on-black/50"
             }`}
           >
             <input
@@ -72,11 +72,23 @@ export function RegisterForm({ defaultRole }: { defaultRole: "alajo" | "supporte
               value={option.value}
               checked={role === option.value}
               onChange={() => setRole(option.value)}
-              className="mt-1 size-4 shrink-0 accent-[var(--color-forest)]"
+              className="mt-1 size-4 shrink-0 accent-[var(--color-widget-black-2)]"
             />
-            <span>
-              <span className="block text-sm font-medium text-ink">{option.title}</span>
-              <span className="mt-0.5 block text-xs leading-relaxed text-ink-soft">{option.body}</span>
+            <span className={role === option.value ? "text-widget-black-2" : ""}>
+              <span
+                className={`block text-sm font-bold ${
+                  role === option.value ? "text-widget-black-2" : "text-ivory-text"
+                }`}
+              >
+                {option.title}
+              </span>
+              <span
+                className={`mt-0.5 block text-xs leading-relaxed ${
+                  role === option.value ? "text-widget-black-2/75" : "text-muted-on-black"
+                }`}
+              >
+                {option.body}
+              </span>
             </span>
           </label>
         ))}
