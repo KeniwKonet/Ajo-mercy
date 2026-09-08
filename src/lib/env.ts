@@ -23,6 +23,10 @@ const serverSchema = z.object({
   TURNSTILE_SECRET_KEY: z.string().optional(),
   HASH_SALT: z.string().min(16),
   RESEND_WEBHOOK_SECRET: z.string().optional(),
+  /* Shared secret for the scheduled-notice endpoint. Optional so local and
+     preview builds run without it, but the route refuses to do anything when
+     it is unset, rather than running unauthenticated. */
+  CRON_SECRET: z.string().min(16).optional(),
 });
 
 function readPublic() {

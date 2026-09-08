@@ -1,6 +1,8 @@
 import {
   button,
+  darkPanel,
   detailList,
+  link,
   escapeHtml,
   noticePanel,
   paragraph,
@@ -36,6 +38,13 @@ export interface EmailTemplateData {
     message?: string;
   };
   "alajo.application_rejected": { name: string; businessName: string; message?: string };
+  "alajo.information_reminder": {
+    name: string;
+    businessName: string;
+    items: string[];
+    daysWaiting: number;
+    dashboardUrl: string;
+  };
   "alajo.selected_for_consideration": {
     name: string;
     businessName: string;
@@ -89,6 +98,13 @@ export interface EmailTemplateData {
     reviewUrl: string;
   };
   "admin.email_failures": { adminName: string; failureCount: number; adminUrl: string };
+  "admin.queue_ageing": {
+    adminName: string;
+    oldestDays: number;
+    waiting: number;
+    breakdown: Array<[string, string]>;
+    reviewUrl: string;
+  };
 }
 
 export type EmailEventType = keyof EmailTemplateData;
@@ -175,7 +191,7 @@ const renderers: { [K in EmailEventType]: Renderer<K> } = {
         "Keep your profile current. Businesses with a clear story and recent photographs get read all the way through far more often.",
       ) +
       paragraphRaw(
-        `Manage everything from <a href="${escapeHtml(d.dashboardUrl)}" style="color:#0F3D2E;">your dashboard</a>.`,
+        `Manage everything from ${link("your dashboard", d.dashboardUrl)}.`,
       ),
     footnote:
       "Being verified means we have reviewed your business. It does not by itself mean support has been arranged.",
@@ -393,6 +409,46 @@ const renderers: { [K in EmailEventType]: Renderer<K> } = {
       button("Open the review", d.reviewUrl),
   }),
 
+  /**
+   * Sent by the scheduled job, not by an admin action. It repeats what was
+   * asked for rather than only saying "you have not replied", so the applicant
+   * can act on the reminder itself without digging out the first email.
+   */
+  "alajo.information_reminder": (d) => ({
+    subject: `Still waiting on a few things for ${d.businessName}`,
+    previewText: "Your application is paused until we hear back.",
+    kicker: "Waiting on you",
+    headline: "We still need a little more",
+    body:
+      paragraph(
+        `${d.name}, the review of ${d.businessName} has been paused for ${d.daysWaiting} days because we are still waiting on a few things. Nothing has gone wrong, and your place is not lost.`,
+      ) +
+      noticePanel("What we asked for", d.items) +
+      paragraph(
+        "Once you send these through, your application goes back into the queue in the order it arrives.",
+      ) +
+      button("Finish your application", d.dashboardUrl),
+    footnote: REGISTRATION_DISCLAIMER,
+  }),
+
+  /**
+   * The queue ageing alert. It reports counts the job actually measured; no
+   * figure here is estimated or rounded up to look urgent.
+   */
+  "admin.queue_ageing": (d) => ({
+    subject: `${d.waiting} application${d.waiting === 1 ? "" : "s"} waiting, oldest ${d.oldestDays} days`,
+    previewText: "Applications are ageing in the review queue.",
+    kicker: "Review queue",
+    headline: "Applications are waiting",
+    body:
+      paragraph(
+        `${d.adminName}, ${d.waiting} application${d.waiting === 1 ? " has" : "s have"} been waiting for review, and the oldest has been in the queue for ${d.oldestDays} days.`,
+      ) +
+      darkPanel(d.breakdown) +
+      paragraph("Applications are reviewed oldest first, so the top of the queue is the place to start.") +
+      button("Open the review queue", d.reviewUrl),
+  }),
+
   "admin.email_failures": (d) => ({
     subject: `${d.failureCount} email${d.failureCount === 1 ? "" : "s"} failed to send`,
     previewText: "Some notifications did not reach their recipients.",
@@ -400,8 +456,11 @@ const renderers: { [K in EmailEventType]: Renderer<K> } = {
     headline: "Emails are failing to send",
     body:
       paragraph(
-        `${d.adminName}, ${d.failureCount} outbound email${d.failureCount === 1 ? " has" : "s have"} failed. Recipients have not been notified, so this needs attention.`,
-      ) + button("Open email delivery", d.adminUrl),
+        `${d.adminName}, ${d.failureCount} outbound email${d.failureCount === 1 ? " has" : "s have"} failed in the last day. Those recipients were not notified, so anything that depended on them being told has not happened.`,
+      ) +
+      darkPanel([["Failed in the last 24 hours", String(d.failureCount)]]) +
+      paragraph("Each one can be retried individually from the delivery view once the cause is fixed.") +
+      button("Open email delivery", d.adminUrl),
   }),
 };
 

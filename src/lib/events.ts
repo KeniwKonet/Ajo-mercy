@@ -46,18 +46,18 @@ export async function emit(event: DomainEvent): Promise<void> {
 
 // ------------------------------------------------------------- helpers -----
 
-async function notify(userId: string, kind: string, title: string, body: string, href: string) {
+export async function notify(userId: string, kind: string, title: string, body: string, href: string) {
   const admin = createAdminSupabase();
   await admin.from("notifications").insert({ user_id: userId, kind, title, body, href });
 }
 
-interface Recipient {
+export interface Recipient {
   userId: string;
   email: string;
   name: string;
 }
 
-async function recipientFor(userId: string): Promise<Recipient | null> {
+export async function recipientFor(userId: string): Promise<Recipient | null> {
   const admin = createAdminSupabase();
   const { data } = await admin.from("profiles").select("id, email, full_name").eq("id", userId).maybeSingle();
   if (!data) return null;
@@ -65,12 +65,12 @@ async function recipientFor(userId: string): Promise<Recipient | null> {
   return { userId: row.id, email: row.email, name: firstName(row.full_name) };
 }
 
-function firstName(fullName: string): string {
+export function firstName(fullName: string): string {
   return (fullName.trim().split(/\s+/)[0] ?? fullName).trim();
 }
 
 /** Staff who should be told that something is waiting for review. */
-async function staffRecipients(): Promise<Recipient[]> {
+export async function staffRecipients(): Promise<Recipient[]> {
   const admin = createAdminSupabase();
   const { data } = await admin
     .from("profiles")

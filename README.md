@@ -105,6 +105,40 @@ All dynamic values in emails are HTML-escaped by default — applicants control
 their business name, so `paragraph()` escapes and `paragraphRaw()` is the
 explicit opt-out.
 
+### Scheduled notices
+
+Three notices run on a timer rather than in response to an action, from
+`src/lib/automation.ts` via `GET /api/cron/notices` once a day:
+
+| Job | Condition | Who hears |
+| --- | --- | --- |
+| `info_reminder` | An application has sat in `more_information_required` for 7+ days | The applicant, at most weekly |
+| `queue_ageing` | Applications waiting 5+ days for review | Staff, at most daily |
+| `email_failures` | Any `email_events` row failed in the last 24h | Staff, at most daily |
+
+Two things make this safe to run on a schedule. First, a timed job re-runs
+against the same rows tomorrow, so every send carries a dated
+`idempotencyKey` (`auto:<job>:<id>:<bucket>`) and `sendEmail` drops a repeat
+with a key it has seen — that is the only thing standing between a reminder
+and a daily nuisance. Second, the endpoint can mail real people, so it is
+authenticated with `CRON_SECRET` compared in constant time, and returns 503
+rather than running when that secret is unset. A deployment without the secret
+is quiet, not open.
+
+The reminder reads what was asked for out of the
+`alajo.more_information_required` email actually sent, rather than a second
+copy: the applicant gets their reviewer's own wording back, and the "how long
+have they been waiting" figure is measured from when we asked.
+
+Preview every template as HTML without sending anything:
+
+```bash
+npx tsx scripts/preview-emails.mts email-preview
+```
+
+It renders from the same fixtures the test suite uses, so a preview cannot
+drift from what is tested.
+
 ### Caching
 
 Public pages (`/`, `/alajos`, `/alajos/[slug]`) read through a **cookie-free
