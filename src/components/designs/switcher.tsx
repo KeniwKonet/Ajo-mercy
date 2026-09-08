@@ -20,7 +20,7 @@ export function DesignSwitcher({
 
   return (
     <div className="fixed bottom-4 left-1/2 z-[60] w-[calc(100vw-2rem)] max-w-3xl -translate-x-1/2">
-      <div className="flex items-stretch gap-px overflow-hidden rounded-sm border border-ink/15 bg-ink/90 text-paper shadow-panel backdrop-blur">
+      <div className="flex items-stretch gap-px overflow-hidden rounded-sm border border-ink/15 bg-ink/90 text-paper backdrop-blur">
         <span className="hidden shrink-0 items-center px-3.5 font-mono text-2xs uppercase tracking-[0.14em] text-paper/50 sm:flex">
           {base === "/designs" ? "Landing" : "Dashboard"}
         </span>

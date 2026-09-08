@@ -212,8 +212,8 @@ export default async function HomePage() {
                 <dd
                   className={
                     item.value === 0
-                      ? "tabular font-display text-5xl leading-none text-ink-faint"
-                      : "tabular font-display text-5xl leading-none text-forest"
+                      ? "tabular font-display text-5xl leading-none text-muted-on-black"
+                      : "tabular font-display text-5xl leading-none text-lime"
                   }
                 >
                   {item.value === 0
@@ -222,8 +222,8 @@ export default async function HomePage() {
                       ? formatNairaCompact(item.value)
                       : formatNumber(item.value)}
                 </dd>
-                <dt className="mt-4 text-sm font-semibold text-ink">{item.label}</dt>
-                <p className="mt-1 text-xs text-ink-faint">{item.hint}</p>
+                <dt className="mt-4 text-sm font-semibold text-ivory-text">{item.label}</dt>
+                <p className="mt-1 text-xs text-muted-on-black">{item.hint}</p>
               </div>
             ))}
           </dl>
@@ -237,7 +237,7 @@ export default async function HomePage() {
       <section>
         <Container className="py-16 sm:py-20">
           <SectionHeader title="Three ways in" className="border-b-0 pb-0" />
-          <div className="mt-8 grid gap-px bg-rule md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               {
                 title: "You run a business",
@@ -261,11 +261,11 @@ export default async function HomePage() {
               <Link
                 key={card.title}
                 href={card.href}
-                className="group flex flex-col bg-paper p-7 transition-colors hover:bg-paper-warm sm:p-8"
+                className="widget card-interactive group flex flex-col"
               >
-                <h3 className="text-xl font-bold tracking-tight">{card.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{card.body}</p>
-                <span className="mt-7 inline-flex items-center gap-2 self-start border-b-2 border-ink pb-1 text-sm font-semibold transition-colors group-hover:border-terracotta group-hover:text-terracotta">
+                <h3 className="text-xl font-bold tracking-tight text-ivory-text">{card.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-on-black">{card.body}</p>
+                <span className="mt-7 inline-flex items-center gap-2 self-start rounded-full bg-lime px-4 py-2.5 text-sm font-extrabold text-widget-black-2 transition-[filter] group-hover:brightness-95">
                   {card.cta}
                   <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
                     <path

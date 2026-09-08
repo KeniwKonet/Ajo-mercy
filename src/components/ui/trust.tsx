@@ -75,24 +75,24 @@ export function VerificationPanel({
       className={cn("rounded-lg border border-forest/20 bg-forest-wash p-6 sm:p-7", className)}
     >
       <div className="flex flex-wrap items-center gap-3">
-        <span className="grid size-8 place-items-center rounded-sm bg-forest text-paper">
+        <span className="grid size-8 place-items-center rounded-full bg-lime text-widget-black-2">
           <TickIcon className="size-4" />
         </span>
-        <h2 id="verification-heading" className="text-base font-bold tracking-tight text-forest">
+        <h2 id="verification-heading" className="text-base font-bold tracking-tight text-ivory-text">
           Verified business
         </h2>
       </div>
 
       <ul className="mt-5 space-y-2.5">
         {checks.map((check) => (
-          <li key={check} className="flex gap-2.5 text-sm leading-relaxed text-forest">
-            <TickIcon className="mt-1 shrink-0 text-forest-soft" />
+          <li key={check} className="flex gap-2.5 text-sm leading-relaxed text-ivory-text">
+            <TickIcon className="mt-1 shrink-0 text-lime" />
             <span>{check}</span>
           </li>
         ))}
       </ul>
 
-      <p className="mt-5 border-t border-forest/15 pt-4 text-xs leading-relaxed text-forest/80">
+      <p className="widget-rule mt-5 border-t pt-4 text-xs leading-relaxed text-muted-on-black">
         Verification says this business is real and the story is theirs.
         {approvedOn ? ` Reviewed ${approvedOn}.` : ""} It is not a recommendation, a rating, or any
         promise about what happens next.
@@ -130,42 +130,42 @@ const STATUS: Record<
   draft: {
     label: "Draft",
     meaning: "Started but not sent. Only you can see it.",
-    dot: "bg-ink-faint",
-    text: "text-ink-soft",
-    bg: "bg-paper-deep",
-    border: "border-rule-strong",
+    dot: "bg-state-neutral-text",
+    text: "text-state-neutral-text",
+    bg: "bg-state-neutral-bg",
+    border: "border-transparent",
   },
   submitted: {
     label: "Submitted",
     meaning: "Received and waiting for a reviewer. Nothing is needed from you.",
-    dot: "bg-info",
-    text: "text-info",
-    bg: "bg-info-wash",
-    border: "border-info/25",
+    dot: "bg-state-progress-text",
+    text: "text-state-progress-text",
+    bg: "bg-state-progress-bg",
+    border: "border-transparent",
   },
   review: {
     label: "Under review",
     meaning: "A person is reading it now.",
-    dot: "bg-info",
-    text: "text-info",
-    bg: "bg-info-wash",
-    border: "border-info/25",
+    dot: "bg-state-progress-text",
+    text: "text-state-progress-text",
+    bg: "bg-state-progress-bg",
+    border: "border-transparent",
   },
   needs_info: {
     label: "Needs information",
     meaning: "The team has asked you for something before they can continue.",
-    dot: "bg-terracotta",
-    text: "text-terracotta-deep",
-    bg: "bg-terracotta-wash",
-    border: "border-terracotta/30",
+    dot: "bg-state-attention-text",
+    text: "text-state-attention-text",
+    bg: "bg-state-attention-bg",
+    border: "border-transparent",
   },
   approved: {
     label: "Approved",
     meaning: "Checked and live. The profile is public.",
-    dot: "bg-success",
-    text: "text-success",
-    bg: "bg-success-wash",
-    border: "border-success/25",
+    dot: "bg-state-positive-text",
+    text: "text-state-positive-text",
+    bg: "bg-state-positive-bg",
+    border: "border-transparent",
   },
   rejected: {
     label: "Not approved",
@@ -178,26 +178,26 @@ const STATUS: Record<
   selected: {
     label: "Under consideration",
     meaning: "Someone has chosen this business to look at. It is not support yet.",
-    dot: "bg-ochre",
-    text: "text-ink",
-    bg: "bg-ochre-wash",
-    border: "border-ochre/45",
+    dot: "bg-state-progress-text",
+    text: "text-state-progress-text",
+    bg: "bg-state-progress-bg",
+    border: "border-transparent",
   },
   confirmed: {
     label: "Support confirmed",
     meaning: "The team has confirmed support is real and told the business.",
-    dot: "bg-forest",
-    text: "text-forest",
-    bg: "bg-forest-wash",
-    border: "border-forest/25",
+    dot: "bg-state-positive-text",
+    text: "text-state-positive-text",
+    bg: "bg-state-positive-bg",
+    border: "border-transparent",
   },
   announced: {
     label: "Announced",
     meaning: "Confirmed and shared publicly.",
-    dot: "bg-forest",
-    text: "text-forest",
-    bg: "bg-forest-wash",
-    border: "border-forest/25",
+    dot: "bg-state-positive-text",
+    text: "text-state-positive-text",
+    bg: "bg-state-positive-bg",
+    border: "border-transparent",
   },
   suspended: {
     label: "Suspended",
@@ -222,7 +222,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-sm border font-semibold",
+        "inline-flex items-center gap-2 rounded-full border font-bold",
         size === "sm" ? "px-2 py-0.5 text-2xs" : "px-2.5 py-1 text-xs",
         s.bg,
         s.text,
@@ -335,12 +335,12 @@ export function ErrorState({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-lg border border-danger/30 bg-danger-wash p-6 sm:p-8", className)}>
-      <h3 className="text-base font-bold text-danger">{title}</h3>
-      <div className="mt-2.5 max-w-prose text-sm leading-relaxed text-ink-soft">{description}</div>
+    <div className={cn("widget border-l-4 border-orange", className)}>
+      <h3 className="text-base font-bold text-orange">{title}</h3>
+      <div className="mt-2.5 max-w-prose text-sm leading-relaxed text-muted-on-black">{description}</div>
       {action && <div className="mt-5 flex flex-wrap gap-3">{action}</div>}
       {reference && (
-        <p className="mt-5 border-t border-danger/15 pt-3 font-mono text-2xs text-ink-faint">
+        <p className="widget-rule mt-5 border-t pt-3 font-mono text-2xs text-muted-on-black">
           Reference {reference}
         </p>
       )}

@@ -30,14 +30,14 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 w-full max-w-[84rem] items-center gap-6 px-5 sm:px-8">
-        <Link href="/" className="shrink-0 font-display text-xl tracking-tight">
-          <span className="font-semibold text-forest">Ajo</span>
-          <span className="italic text-terracotta"> Mercy</span>
+    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
+      <div className="mx-auto flex w-full max-w-[84rem] items-center gap-4 rounded-full bg-widget-black p-2 pl-5">
+        <Link href="/" className="shrink-0 font-display text-xl tracking-tight text-ivory-text">
+          <span>Ajo</span>
+          <span className="italic text-lime"> Mercy</span>
         </Link>
 
-        <nav aria-label="Main" className="hidden flex-1 items-center gap-7 lg:flex">
+        <nav aria-label="Main" className="hidden flex-1 items-center justify-center gap-1 lg:flex">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
@@ -46,8 +46,10 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "link-rule text-sm transition-colors",
-                  active ? "font-medium text-ink" : "text-ink-soft hover:text-ink",
+                  "rounded-full px-4 py-2.5 text-sm font-bold transition-colors",
+                  active
+                    ? "bg-ivory-text text-widget-black-2"
+                    : "text-muted-on-black hover:text-ivory-text",
                 )}
               >
                 {item.label}
@@ -56,13 +58,13 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="ml-auto hidden items-center gap-3 lg:flex">
-          <AccountNav className="link-rule text-sm text-ink-soft transition-colors hover:text-ink" />
+        <div className="ml-auto hidden items-center gap-2.5 lg:flex">
+          <AccountNav className="px-2 text-sm font-semibold text-muted-on-black transition-colors hover:text-ivory-text" />
           <Link
             href="/become-an-alajo"
-            className="rounded-sm bg-forest px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-forest-deep"
+            className="press rounded-full bg-lime px-5 py-2.5 text-sm font-extrabold text-widget-black-2 transition-[filter] hover:brightness-95"
           >
-            Become an Alajo
+            Join Ajo Mercy
           </Link>
         </div>
 
@@ -71,7 +73,7 @@ export function SiteHeader() {
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="ml-auto rounded-sm border border-rule-strong p-2 lg:hidden"
+          className="ml-auto rounded-full bg-widget-black-2 p-2.5 text-ivory-text lg:hidden"
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg viewBox="0 0 20 20" className="size-4" aria-hidden="true">
@@ -85,26 +87,26 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-rule bg-paper lg:hidden">
-          <nav aria-label="Main" className="flex flex-col px-5 py-2">
+        <div id="mobile-nav" className="mx-auto mt-2 w-full max-w-[84rem] rounded-lg bg-widget-black p-2 lg:hidden">
+          <nav aria-label="Main" className="flex flex-col">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="border-b border-rule py-3.5 text-base text-ink last:border-0"
+                className="widget-rule border-b px-4 py-3.5 text-base font-semibold text-ivory-text last:border-0"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="flex flex-col gap-2 border-t border-rule px-5 py-4">
+          <div className="widget-rule flex flex-col gap-2 border-t p-3">
             <Link
               href="/become-an-alajo"
-              className="rounded-sm bg-forest px-4 py-3 text-center text-sm font-medium text-paper"
+              className="rounded-full bg-lime px-4 py-3 text-center text-sm font-extrabold text-widget-black-2"
             >
-              Become an Alajo
+              Join Ajo Mercy
             </Link>
-            <AccountNav className="rounded-sm border border-rule-strong px-4 py-3 text-center text-sm font-medium text-ink" />
+            <AccountNav className="rounded-full bg-widget-black-2 px-4 py-3 text-center text-sm font-semibold text-ivory-text" />
           </div>
         </div>
       )}

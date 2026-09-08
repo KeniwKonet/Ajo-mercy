@@ -169,7 +169,7 @@ function SelectDialog({
         role="dialog"
         aria-modal="true"
         aria-label={`Select ${candidate.business_name}`}
-        className="relative w-full max-w-lg border border-rule bg-card shadow-panel"
+        className="relative w-full max-w-lg border border-rule bg-card"
       >
         <div className="border-b border-rule px-6 py-4">
           <h3 className="font-display text-xl">Select {candidate.business_name}?</h3>

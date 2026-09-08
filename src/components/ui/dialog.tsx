@@ -51,7 +51,7 @@ export function Modal({
       ref={ref}
       aria-labelledby="modal-title"
       className={cn(
-        "m-auto w-[calc(100vw-2rem)] rounded-sm border border-rule bg-card p-0 text-ink shadow-panel",
+        "m-auto w-[calc(100vw-2rem)] rounded-sm border border-rule bg-card p-0 text-ink",
         "backdrop:bg-ink/45 backdrop:backdrop-blur-[1px]",
         widths[size],
       )}
@@ -189,7 +189,7 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative flex h-full w-full flex-col border-l border-rule bg-card shadow-panel sm:max-w-xl"
+        className="relative flex h-full w-full flex-col border-l border-rule bg-card sm:max-w-xl"
       >
         <div className="flex items-center justify-between gap-4 border-b border-rule px-5 py-4">
           <h2 className="font-display text-lg">{title}</h2>

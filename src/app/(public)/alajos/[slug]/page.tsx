@@ -96,7 +96,16 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
           edge. Both actions live here because this is where somebody decides,
           and they should never have to scroll back to find them. */}
       <section className="relative">
-        <div className="relative h-[46vh] min-h-[20rem] w-full overflow-hidden bg-surface-soft sm:h-[54vh]">
+        {/* A tall hero earns its height only when there is a photograph to
+            fill it. Without one it collapses to a warm band, which reads as
+            deliberate rather than as a missing image. */}
+        <div
+          className={
+            coverUrl
+              ? "relative h-[46vh] min-h-[20rem] w-full overflow-hidden bg-widget-tile sm:h-[54vh]"
+              : "relative h-40 w-full overflow-hidden bg-widget-tile sm:h-48"
+          }
+        >
           {coverUrl ? (
             <Image
               src={coverUrl}
@@ -108,22 +117,20 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               className="object-cover"
             />
           ) : (
-            <div className="grid h-full place-items-center">
-              <span className="font-display text-6xl text-rule-strong">
-                {profile.business_name.slice(0, 1)}
-              </span>
-            </div>
+            <div aria-hidden="true" className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_1px_1px,var(--color-forest)_1px,transparent_0)] [background-size:22px_22px]" />
           )}
           {/* Enough scrim for the control to read on any photograph. */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent"
-          />
+          {coverUrl && (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent"
+            />
+          )}
           <div className="absolute left-0 right-0 top-0">
             <Container className="pt-6">
               <Link
                 href="/alajos"
-                className="inline-flex items-center gap-2 rounded-full bg-surface/90 px-3.5 py-2 text-xs font-semibold text-ink shadow-sm backdrop-blur transition-colors hover:bg-surface"
+                className="inline-flex items-center gap-2 rounded-full bg-panel-white/90 px-3.5 py-2 text-xs font-semibold text-ink backdrop-blur transition-colors hover:bg-panel-white"
               >
                 <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
                   <path
@@ -142,7 +149,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         </div>
 
         <Container>
-          <div className="surface -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 shadow-lg sm:-mt-20 sm:p-8">
+          <div className="surface -mt-16 flex flex-wrap items-start justify-between gap-6 p-6 sm:-mt-20 sm:p-8">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2.5">
                 <VerifiedMark />
@@ -209,7 +216,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
                 </>
               )}
 
-              <p className="mt-8 border-t border-line pt-5 text-sm text-ink-faint">
+              <p className="mt-8 border-t border-rule pt-5 text-sm text-ink-faint">
                 Written by {profile.founder_name}. Read by the Ajo Mercy review team before this
                 page went live.
               </p>
@@ -267,7 +274,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
               </dl>
 
               {(profile.website_url || profile.instagram_handle || profile.tiktok_handle) && (
-                <div className="mt-5 border-t border-line pt-4">
+                <div className="mt-5 border-t border-rule pt-4">
                   <p className="eyebrow">Find them</p>
                   <ul className="mt-2.5 space-y-2">
                     {profile.website_url && (
@@ -313,7 +320,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
 
             {/* The rule that must never be blurred, stated where somebody is
                 about to act on it. */}
-            <div className="surface-warm p-5">
+            <div className="widget-tile p-5">
               <p className="text-sm font-bold text-ink">Choosing is not confirming</p>
               <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
                 Backing this business tells us you are interested. The team confirms with both sides
@@ -325,7 +332,7 @@ export default async function AlajoProfilePage({ params }: { params: Promise<{ s
         </div>
 
         {others.length > 0 && (
-          <section className="mt-16 border-t border-line pt-12">
+          <section className="mt-16 border-t border-rule pt-12">
             <AlajoRail profiles={others} title="More businesses" href="/alajos" />
           </section>
         )}

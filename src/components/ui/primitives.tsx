@@ -54,16 +54,17 @@ const buttonBase =
   "disabled:cursor-not-allowed disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const buttonVariants: Record<ButtonVariant, string> = {
-  // Forest is the platform's own voice, so it carries the main action.
-  primary: "bg-forest text-paper shadow-sm hover:bg-forest-deep hover:shadow-md focus-visible:outline-forest",
+  // Lime is the system's primary action, on near-black text.
+  primary: "bg-lime text-widget-black-2 hover:brightness-95 focus-visible:outline-widget-black",
+  // On the warm page an outlined black pill; inside a widget it reads as ivory.
   secondary:
-    "border border-line-strong bg-surface text-ink shadow-xs hover:border-forest hover:shadow-sm focus-visible:outline-forest",
-  // Terracotta is reserved for backing a business: the one action that
-  // commits a person to something. Spending it anywhere else weakens it.
-  accent: "bg-terracotta text-white shadow-sm hover:bg-terracotta-deep hover:shadow-md focus-visible:outline-terracotta",
-  ghost: "text-ink hover:bg-surface-soft focus-visible:outline-forest",
-  danger: "bg-danger text-white shadow-sm hover:brightness-95 focus-visible:outline-danger",
-  quiet: "text-ink-soft hover:text-ink underline underline-offset-4 decoration-line-strong hover:decoration-ink",
+    "border-[1.5px] border-ink text-ink hover:bg-ink hover:text-ivory-text focus-visible:outline-widget-black",
+  // Orange is reserved for backing a business: the one action that commits a
+  // person to something.
+  accent: "bg-orange text-widget-black-2 hover:brightness-95 focus-visible:outline-orange",
+  ghost: "text-ink hover:bg-paper-deep focus-visible:outline-widget-black",
+  danger: "bg-danger text-white hover:brightness-95 focus-visible:outline-danger",
+  quiet: "text-ink-soft hover:text-ink underline underline-offset-4 decoration-rule-strong hover:decoration-ink",
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
@@ -146,12 +147,12 @@ export function Spinner({ className }: { className?: string }) {
 export type Tone = "neutral" | "progress" | "positive" | "attention" | "negative" | "feature";
 
 const toneStyles: Record<Tone, string> = {
-  neutral: "bg-paper-deep text-ink-soft",
-  progress: "bg-info-wash text-info",
-  positive: "bg-success-wash text-success",
-  attention: "bg-terracotta-wash text-terracotta-deep",
+  neutral: "bg-state-neutral-bg text-state-neutral-text",
+  progress: "bg-state-progress-bg text-state-progress-text",
+  positive: "bg-state-positive-bg text-state-positive-text",
+  attention: "bg-state-attention-bg text-state-attention-text",
   negative: "bg-danger-wash text-danger",
-  feature: "bg-ochre-wash text-[#7a5a09]",
+  feature: "bg-lime text-widget-black-2",
 };
 
 export function StatusChip({
@@ -209,7 +210,7 @@ export function Alert({
   return (
     <div
       role={tone === "negative" ? "alert" : "status"}
-      className={cn("rounded-lg border border-line border-l-[3px] px-5 py-4", accents[tone], className)}
+      className={cn("rounded-lg border border-rule border-l-[3px] px-5 py-4", accents[tone], className)}
     >
       {title && <p className="text-sm font-semibold text-ink">{title}</p>}
       {children && <div className={cn("text-sm text-ink-soft", title && "mt-1")}>{children}</div>}
@@ -233,7 +234,7 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "surface-soft flex flex-col items-center px-6 py-16 text-center",
+        "widget flex flex-col items-center py-16 text-center",
         className,
       )}
     >
@@ -241,15 +242,15 @@ export function EmptyState({
           resting point in the product and not an error. */}
       <span
         aria-hidden="true"
-        className="mb-5 grid size-12 place-items-center rounded-full bg-surface text-ink-faint shadow-xs"
+        className="mb-5 grid size-12 place-items-center rounded-full bg-widget-black-2 text-muted-on-black"
       >
         <svg viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5">
           <circle cx="9" cy="9" r="6" />
           <path d="M13.5 13.5 17 17" strokeLinecap="round" />
         </svg>
       </span>
-      <p className="font-display text-2xl text-ink">{title}</p>
-      <p className="mx-auto mt-2.5 max-w-sm text-sm leading-relaxed text-ink-soft">{description}</p>
+      <p className="font-display text-2xl text-ivory-text">{title}</p>
+      <p className="mx-auto mt-2.5 max-w-sm text-sm leading-relaxed text-muted-on-black">{description}</p>
       {action && <div className="mt-7 flex justify-center">{action}</div>}
     </div>
   );

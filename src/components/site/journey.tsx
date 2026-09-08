@@ -47,18 +47,29 @@ export const STAGES: Stage[] = [
   },
 ];
 
+/** DISCOVER, VERIFY, BACK, AMPLIFY each keep the same accent everywhere. */
+const STAGE_ACCENT = ["text-lime", "text-orange", "text-ochre", "text-lime"];
+
 export function JourneyStrip({ className }: { className?: string }) {
   return (
     <ol className={cn("grid gap-4 md:grid-cols-4", className)}>
       {STAGES.map((stage, i) => (
-        <li key={stage.n} className="surface card-interactive relative p-6 sm:p-7">
-          <span className="grid size-9 place-items-center rounded-full bg-surface-green text-sm font-bold text-forest">
-            {stage.n}
+        <li key={stage.n} className="widget card-interactive relative">
+          {/* Each stage carries the accent of its own step, so DISCOVER,
+              VERIFY, BACK and AMPLIFY are colour-coded consistently. */}
+          <span
+            className={cn(
+              "text-2xs font-extrabold uppercase tracking-[0.08em]",
+              STAGE_ACCENT[i] ?? "text-lime",
+            )}
+          >
+            {stage.n} · {stage.actor}
           </span>
 
-          <h3 className="mt-4 text-base font-bold leading-snug tracking-tight">{stage.title}</h3>
-          <p className="eyebrow mt-1.5">{stage.actor}</p>
-          <p className="mt-3 text-sm leading-relaxed text-ink-soft">{stage.body}</p>
+          <h3 className="mt-4 text-base font-bold leading-snug tracking-tight text-ivory-text">
+            {stage.title}
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-muted-on-black">{stage.body}</p>
         </li>
       ))}
     </ol>
@@ -79,7 +90,7 @@ export function JourneyDiagram({ className }: { className?: string }) {
   return (
     <div className={cn("relative", className)} aria-hidden="true">
       {/* Stage 1: the application */}
-      <div className="rounded-lg border border-rule bg-card p-5 shadow-lift">
+      <div className="rounded-lg border border-rule bg-card p-5">
         <p className="eyebrow">Application</p>
         <div className="mt-3 space-y-2">
           <span className="block h-2 w-2/3 rounded-full bg-paper-deep" />

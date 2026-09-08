@@ -57,13 +57,13 @@ function Photo({
 function Meta({ profile }: { profile: AlajoProfileWithMedia }) {
   const years = yearsOperating(profile.year_started);
   return (
-    <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-faint">
+    <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-on-black">
       <span>{CATEGORY_LABELS[profile.business_category]}</span>
-      <span aria-hidden="true" className="text-rule-strong">·</span>
+      <span aria-hidden="true" className="text-muted-on-black/50">·</span>
       <span>{[profile.city, profile.state].filter(Boolean).join(", ")}</span>
       {years && (
         <>
-          <span aria-hidden="true" className="text-rule-strong">·</span>
+          <span aria-hidden="true" className="text-muted-on-black/50">·</span>
           <span>{years}</span>
         </>
       )}
@@ -85,7 +85,7 @@ export function BusinessCard({
   return (
     <Link
       href={`/alajos/${profile.slug}`}
-      className={cn("group flex flex-col focus-visible:outline-offset-4", className)}
+      className={cn("widget card-interactive group flex flex-col !p-4 focus-visible:outline-offset-4", className)}
     >
       <Photo
         profile={profile}
@@ -96,24 +96,24 @@ export function BusinessCard({
 
       <div className="flex flex-1 flex-col pt-4">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-bold leading-snug tracking-tight text-ink group-hover:text-terracotta">
+          <h3 className="text-lg font-bold leading-snug tracking-tight text-ivory-text group-hover:text-lime">
             {profile.business_name}
           </h3>
           <VerifiedMark className="mt-0.5 shrink-0" />
         </div>
 
-        <p className="mt-1 text-sm font-medium text-ink-soft">{profile.founder_name}</p>
+        <p className="mt-1 text-sm font-medium text-muted-on-black">{profile.founder_name}</p>
         <Meta profile={profile} />
 
-        {line && <p className="mt-3.5 flex-1 text-sm leading-relaxed text-ink-soft">{line}</p>}
+        {line && <p className="mt-3.5 flex-1 text-sm leading-relaxed text-muted-on-black">{line}</p>}
 
-        <div className="mt-5 flex items-center justify-between gap-4 border-t border-rule pt-3.5">
-          <span className="text-sm font-semibold text-ink group-hover:text-terracotta">
+        <div className="widget-rule mt-5 flex items-center justify-between gap-4 border-t pt-3.5">
+          <span className="inline-flex items-center rounded-full bg-ivory-text px-3.5 py-1.5 text-2xs font-bold text-widget-black-2">
             Read their story
           </span>
           {profile.requested_amount_ngn && (
-            <span className="tabular text-xs text-ink-faint">
-              Seeking {formatNairaCompact(profile.requested_amount_ngn)}
+            <span className="tabular text-xs font-bold text-lime">
+              {formatNairaCompact(profile.requested_amount_ngn)}
             </span>
           )}
         </div>
@@ -136,7 +136,7 @@ export function BusinessFeature({
   return (
     <Link
       href={`/alajos/${profile.slug}`}
-      className="group grid gap-7 md:grid-cols-2 md:items-center md:gap-12"
+      className="widget card-interactive group grid gap-7 md:grid-cols-2 md:items-center md:gap-10"
     >
       <Photo
         profile={profile}
@@ -147,17 +147,17 @@ export function BusinessFeature({
 
       <div>
         <VerifiedMark />
-        <h3 className="mt-4 font-display text-3xl leading-[1.08] sm:text-4xl">
+        <h3 className="mt-4 font-display text-3xl leading-[1.08] text-ivory-text sm:text-4xl">
           {profile.business_name}
         </h3>
-        <p className="mt-2 text-base font-medium text-ink-soft">{profile.founder_name}</p>
+        <p className="mt-2 text-base font-medium text-muted-on-black">{profile.founder_name}</p>
         <Meta profile={profile} />
 
-        <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft">
+        <p className="mt-5 max-w-md text-base leading-relaxed text-muted-on-black">
           {truncate(profile.story ?? profile.current_challenge ?? "", 240)}
         </p>
 
-        <span className="mt-7 inline-flex items-center gap-2 border-b-2 border-ink pb-1 text-sm font-semibold text-ink transition-colors group-hover:border-terracotta group-hover:text-terracotta">
+        <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-lime px-5 py-3 text-sm font-extrabold text-widget-black-2 transition-[filter] group-hover:brightness-95">
           Read their story
           <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
             <path

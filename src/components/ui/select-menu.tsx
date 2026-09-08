@@ -222,7 +222,7 @@ export function SelectMenu({
           aria-activedescendant={`${listId}-${active}`}
           onKeyDown={onListKey}
           className={cn(
-            "menu-pop absolute z-40 max-h-64 w-full overflow-y-auto border border-rule-strong bg-card py-1 shadow-panel",
+            "menu-pop absolute z-40 max-h-64 w-full overflow-y-auto border border-rule-strong bg-card py-1",
             dropUp ? "bottom-full mb-1 origin-bottom" : "top-full mt-1 origin-top",
           )}
         >

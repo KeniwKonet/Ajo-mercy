@@ -151,7 +151,7 @@ export default async function AdminDashboardPage() {
                   aria-hidden="true"
                   className={cn(
                     "grid size-9 shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-0.5",
-                    item.count === 0 ? "bg-surface-soft text-ink-faint" : "bg-surface-green text-forest",
+                    item.count === 0 ? "bg-widget-tile text-ink-faint" : "bg-widget-tile text-forest",
                   )}
                 >
                   <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">

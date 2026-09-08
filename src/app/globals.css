@@ -11,18 +11,40 @@
    ========================================================================== */
 
 @theme {
-  /* ------------------------------------------------------------- colour -- */
-  --color-paper: #fbf7f0;
-  --color-paper-deep: #f4ede1;
-  --color-paper-warm: #f8f0e3;
+  /* ------------------------------------------------------------- colour --
+     The dark widget system. Near-black cards on a warm page, with two neon
+     accents derived from the brand hues rather than replacing them: lime is
+     forest pushed bright, orange is terracotta pushed bright. Ochre is the
+     unchanged brand value.
+
+     Depth comes from black against white against page. There are no drop
+     shadows anywhere in this system. */
+  --color-page-bg: #f3eee3;
+  --color-widget-black: #0b120e;
+  --color-widget-black-2: #10180f;
+  --color-panel-white: #ffffff;
+
+  --color-lime: #c6e24c;
+  --color-orange: #ff6b3d;
+
+  --color-ivory-text: #f5f1e8;
+  --color-muted-on-black: #8a9186;
+
+  /* Page-level neutrals. `paper` stays as the alias many components already
+     use, now pointing at the new page ground. */
+  --color-paper: #f3eee3;
+  --color-paper-deep: #e9e2d3;
+  --color-paper-warm: #efe8da;
   --color-card: #ffffff;
 
   --color-ink: #181410;
   --color-ink-soft: #5b534a;
   --color-ink-faint: #8c8378;
-  --color-rule: #e3dacb;
-  --color-rule-strong: #cdbfa8;
+  --color-rule: #e0d8c9;
+  --color-rule-strong: #c9bda8;
 
+  /* Brand source values, kept because the redesign reinterprets them rather
+     than discarding them. */
   --color-forest: #0f3d2e;
   --color-forest-deep: #0a2a20;
   --color-forest-soft: #1d5c47;
@@ -35,10 +57,21 @@
   --color-ochre: #e8b33a;
   --color-ochre-wash: #fdf4dd;
 
+  /* Status pill pairs. Each state has a version for white panels and one for
+     black widgets, because the same hue cannot carry both grounds. */
+  --color-state-positive-bg: #eaf8d5;
+  --color-state-positive-text: #4e6e14;
+  --color-state-progress-bg: #fdf4dd;
+  --color-state-progress-text: #7a5a09;
+  --color-state-attention-bg: #fbf3e8;
+  --color-state-attention-text: #a33f14;
+  --color-state-neutral-bg: #f5f1e8;
+  --color-state-neutral-text: #8c8378;
+
   --color-danger: #a52016;
   --color-danger-wash: #fbeceb;
-  --color-success: #1d6b45;
-  --color-success-wash: #e8f3ec;
+  --color-success: #4e6e14;
+  --color-success-wash: #eaf8d5;
   --color-info: #1f4f70;
   --color-info-wash: #eaf1f6;
 
@@ -107,28 +140,25 @@
   --color-line-green: rgb(15 61 46 / 0.16);
 
   /* ------------------------------------------------------------ shape ----
-     Generous and modular. Radius encodes hierarchy: the bigger the surface,
-     the softer the corner. Only pills and avatars go fully round. */
-  --radius-xs: 6px;
+     Widgets 24-32px, nested tiles 10-18px, everything interactive fully
+     round. The handoff is explicit that depth comes from black against white
+     against page, so every shadow token resolves to none. */
+  --radius-xs: 8px;
   --radius-sm: 10px;
-  --radius-md: 16px;
+  --radius-md: 18px;
   --radius-lg: 24px;
   --radius-xl: 32px;
   --radius-2xl: 40px;
   --radius-full: 999px;
 
-  /* Elevation in four steps. Warm-tinted rather than neutral black, so a
-     lifted card still reads as sitting on clay rather than on grey. */
-  --shadow-xs: 0 1px 2px rgb(64 46 26 / 0.04);
-  --shadow-sm: 0 1px 2px rgb(64 46 26 / 0.04), 0 2px 8px -2px rgb(64 46 26 / 0.06);
-  --shadow-md: 0 2px 4px rgb(64 46 26 / 0.04), 0 12px 28px -8px rgb(64 46 26 / 0.10);
-  --shadow-lg: 0 4px 8px rgb(64 46 26 / 0.04), 0 24px 48px -12px rgb(64 46 26 / 0.14);
-  --shadow-xl: 0 8px 16px rgb(64 46 26 / 0.05), 0 40px 80px -20px rgb(64 46 26 / 0.20);
-
-  /* Kept for existing call sites. */
-  --shadow-lift: var(--shadow-md);
-  --shadow-panel: var(--shadow-xl);
-  --shadow-ring: 0 0 0 1px rgb(24 20 16 / 0.06);
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-lift: none;
+  --shadow-panel: none;
+  --shadow-ring: none;
 
   /* ------------------------------------------------------------ motion --- */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -162,7 +192,7 @@
   }
 
   body {
-    background-color: var(--color-paper);
+    background-color: var(--color-page-bg);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-base);
@@ -281,19 +311,19 @@
 
   /* Verification is the product's core claim, so it gets a real treatment
      rather than a small green word. */
+  /* Verified: lime on black inside a widget, which is the accent's primary
+     job in this system. */
   .verified-mark {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-size: var(--text-2xs);
-    font-weight: 700;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-forest);
-    background: var(--color-forest-wash);
-    border: 1px solid color-mix(in oklab, var(--color-forest) 22%, transparent);
-    padding: 0.3rem 0.55rem;
-    border-radius: var(--radius-sm);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: var(--color-widget-black-2);
+    background: var(--color-lime);
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--radius-full);
   }
 
   /* A hairline that carries the eye between stages of the journey. */
@@ -308,57 +338,90 @@
   }
 
   /* ======================================================================
-     SURFACES
-     One card system, used everywhere. The variants differ by what they
-     mean, not by which page they happen to sit on: `card` is the default
-     lifted surface, `card-soft` recedes, `card-green` marks something
-     verified or confirmed, `card-warm` marks something in progress.
+     WIDGETS
+     The system's one idea: near-black cards on a warm page, with white
+     panels nested inside them for anything list- or table-shaped. Depth is
+     the black/white/page contrast, never a shadow.
      ====================================================================== */
-  .surface {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+
+  /* The primary dark card. */
+  .widget {
+    background: var(--color-widget-black);
+    color: var(--color-ivory-text);
+    border-radius: var(--radius-xl);
+    padding: 1.75rem;
   }
-  .surface-soft {
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-  }
-  .surface-green {
-    background: var(--color-surface-green);
-    border: 1px solid var(--color-line-green);
-    border-radius: var(--radius-lg);
-  }
-  .surface-warm {
-    background: var(--color-surface-warm);
-    border: 1px solid color-mix(in oklab, var(--color-ochre) 30%, transparent);
-    border-radius: var(--radius-lg);
+  @media (min-width: 640px) {
+    .widget { padding: 2rem; }
   }
 
-  /* An interactive card. The lift is small on purpose: a card that jumps
-     reads as a toy, and these carry someone's livelihood. */
-  .card-interactive {
+  /* A tile nested inside a widget: stat sub-tiles, form inputs, list rows.
+     Slightly lifted off the black rather than outlined. */
+  .widget-tile {
+    background: var(--color-widget-black-2);
+    border-radius: var(--radius-md);
+    padding: 1.15rem;
+  }
+
+  /* The white panel that carries tables and lists inside a black widget. */
+  .panel {
+    background: var(--color-panel-white);
+    color: var(--color-ink);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+
+  /* Text roles on black. Body copy on a dark ground needs a muted step that
+     is still legible, which is what muted-on-black exists for. */
+  .on-black-muted { color: var(--color-muted-on-black); }
+
+  /* Hairlines inside a widget, where a warm rule would disappear. */
+  .widget-rule { border-color: rgb(245 241 232 / 0.12); }
+
+  /* ======================================================================
+     PILLS
+     Everything interactive is fully round in this system.
+     ====================================================================== */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-full);
+    background: var(--color-widget-black-2);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-muted-on-black);
     transition:
-      transform var(--dur-base) var(--ease-out-soft),
-      box-shadow var(--dur-base) var(--ease-out-soft),
-      border-color var(--dur-base) var(--ease-out-soft);
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft);
   }
-  .card-interactive:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--color-line-strong);
-  }
-  .card-interactive:active {
-    transform: translateY(-1px);
+  .pill:hover { color: var(--color-ivory-text); }
+  .pill[aria-pressed="true"],
+  .pill[data-active="true"] {
+    background: var(--color-lime);
+    color: var(--color-widget-black-2);
   }
 
-  /* Photography sits inside a clipped frame so the image can scale on hover
-     without the card's corners or its text moving. */
+  /* The same control on a light page rather than inside a widget. */
+  .pill-light {
+    background: transparent;
+    border: 1.5px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+  .pill-light[aria-pressed="true"],
+  .pill-light[data-active="true"] {
+    background: var(--color-ink);
+    color: var(--color-ivory-text);
+    border-color: var(--color-ink);
+  }
+
+  /* Photography inside a widget. */
   .media-frame {
     overflow: hidden;
     border-radius: var(--radius-md);
-    background: var(--color-surface-soft);
+    background: var(--color-widget-black-2);
   }
   .media-frame img {
     transition: transform 700ms var(--ease-out-soft);
@@ -367,53 +430,28 @@
     transform: scale(1.045);
   }
 
-  /* ======================================================================
-     PILLS
-     Filters, categories and toggles. One shape, three states.
-     ====================================================================== */
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    white-space: nowrap;
-    padding: 0.44rem 0.85rem;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-line-strong);
-    background: var(--color-surface);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-ink-soft);
+  /* A widget that is also a link. With shadows gone, the hover cue is the
+     border lifting toward lime rather than the card rising. */
+  .card-interactive {
     transition:
-      background-color var(--dur-fast) var(--ease-out-soft),
-      color var(--dur-fast) var(--ease-out-soft),
-      border-color var(--dur-fast) var(--ease-out-soft);
+      transform var(--dur-base) var(--ease-out-soft),
+      background-color var(--dur-base) var(--ease-out-soft);
   }
-  .pill:hover {
-    border-color: var(--color-forest);
-    color: var(--color-ink);
-  }
-  .pill[aria-pressed="true"],
-  .pill[data-active="true"] {
-    background: var(--color-forest);
-    border-color: var(--color-forest);
-    color: var(--color-paper);
-  }
+  .card-interactive:hover { transform: translateY(-2px); }
+  .card-interactive:active { transform: translateY(0); }
 
-  /* A floating label pinned to hero imagery. Reads as a piece of the product
-     rather than a sticker. */
-  .float-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.8rem;
+  /* Progress bars: application completeness, stat widgets. */
+  .meter {
+    height: 6px;
     border-radius: var(--radius-full);
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    box-shadow: var(--shadow-md);
-    font-size: var(--text-2xs);
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    color: var(--color-ink);
+    background: rgb(245 241 232 / 0.12);
+    overflow: hidden;
+  }
+  .meter > span {
+    display: block;
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: var(--color-lime);
   }
 
   /* Underline that grows from the left on hover. Used on editorial links

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; }
+  a { color: #B6E34D; text-decoration: none; }
+  a:hover { color: #cdf17a; }
+  ::selection { background: #C9531F; color: #060907; }
+</style>
+</helmet>
+
+<!-- ===================== TURN 1 ===================== -->
+<section id="1a" style="position:relative;background:#060907;color:#F7F3EA;font-family:'Manrope',sans-serif;">
+
+  <div style="position:absolute;top:14px;left:14px;z-index:50;display:flex;align-items:center;gap:8px;background:rgba(6,9,7,0.85);border:1px solid rgba(255,255,255,0.14);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:0.04em;color:#B6E34D;">1a — Dark redesign, first wave</div>
+
+  <!-- ============ HOMEPAGE ============ -->
+  <div style="max-width:1400px;margin:0 auto;padding:48px 32px 0;">
+
+    <!-- nav -->
+    <header style="display:flex;align-items:center;gap:32px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="font-family:'Instrument Serif',serif;font-size:24px;letter-spacing:-0.01em;">
+        <span style="color:#F7F3EA;">Ajo</span><span style="color:#C9531F;font-style:italic;"> Mercy</span>
+      </div>
+      <nav style="display:flex;gap:26px;flex:1;">
+        <a href="#" style="color:#F7F3EA;font-size:14px;font-weight:600;">Discover</a>
+        <a href="#" style="color:#8C9690;font-size:14px;font-weight:600;">How it works</a>
+        <a href="#" style="color:#8C9690;font-size:14px;font-weight:600;">For Businesses</a>
+        <a href="#" style="color:#8C9690;font-size:14px;font-weight:600;">For Brands</a>
+        <a href="#" style="color:#8C9690;font-size:14px;font-weight:600;">About</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#B9C4BB" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="#B9C4BB" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <a href="#" style="background:#B6E34D;color:#0D1813;font-weight:700;font-size:13px;padding:11px 20px;border-radius:999px;white-space:nowrap;">Join Ajo Mercy</a>
+      </div>
+    </header>
+
+    <!-- hero -->
+    <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center;padding:72px 0 96px;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;background:#0D1813;border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B6E34D;">
+          DISCOVER &nbsp;·&nbsp; VERIFY &nbsp;·&nbsp; BACK &nbsp;·&nbsp; AMPLIFY
+        </div>
+        <h1 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:76px;line-height:0.98;letter-spacing:-0.01em;margin:28px 0 0;">
+          Real Businesses.<br/>Real People.<br/><em style="color:#B6E34D;font-style:italic;">A Bigger Tomorrow.</em>
+        </h1>
+        <p style="margin:28px 0 0;max-width:460px;font-size:17px;line-height:1.65;color:#B9C4BB;">
+          Ajo Mercy connects verified Nigerian business owners with individuals and brands who want to back them. Discover, support and help great businesses grow.
+        </p>
+        <div style="display:flex;gap:14px;margin-top:36px;">
+          <a href="#" style="background:#B6E34D;color:#0D1813;font-weight:700;font-size:15px;padding:16px 28px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;">Discover Businesses →</a>
+          <a href="#" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:#F7F3EA;font-weight:600;font-size:15px;padding:16px 26px;border-radius:999px;">Become an Alajo</a>
+        </div>
+        <p style="margin-top:22px;font-size:13px;color:#5E685F;max-width:420px;line-height:1.6;">
+          Free to apply. Ajo Mercy never holds or transfers money, and registering does not guarantee selection or support.
+        </p>
+      </div>
+
+      <!-- floating card stack -->
+      <div style="position:relative;height:520px;">
+        <div aria-hidden="true" style="position:absolute;inset:-40px;background:radial-gradient(circle at 60% 30%, rgba(182,227,77,0.14), transparent 60%);"></div>
+
+        <div style="position:absolute;left:0;top:40px;width:270px;background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <span style="width:8px;height:8px;border-radius:999px;background:#B6E34D;"></span>
+            <span style="font-size:13px;color:#B9C4BB;">Verified</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <span style="width:8px;height:8px;border-radius:999px;background:#E8B33A;"></span>
+            <span style="font-size:13px;color:#B9C4BB;">Real Stories</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;">
+            <span style="width:8px;height:8px;border-radius:999px;background:#C9531F;"></span>
+            <span style="font-size:13px;color:#B9C4BB;">Growing Communities</span>
+          </div>
+        </div>
+
+        <div style="position:absolute;right:8px;top:0;width:230px;height:290px;border-radius:24px;overflow:hidden;transform:rotate(3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);">
+          <image-slot id="hero-portrait" shape="rect" placeholder="business owner portrait"></image-slot>
+        </div>
+
+        <div style="position:absolute;top:18px;right:16px;background:rgba(6,9,7,0.85);border:1px solid rgba(255,255,255,0.14);border-radius:999px;padding:9px 14px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#F7F3EA;">
+          <svg width="12" height="12" viewBox="0 0 14 14"><path d="M3 7.4 5.8 10 11 4" fill="none" stroke="#B6E34D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Trusted &amp; Verified
+        </div>
+
+        <div style="position:absolute;left:70px;top:190px;width:260px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px;box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(182,227,77,0.12);color:#B6E34D;font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;">
+            <svg width="10" height="10" viewBox="0 0 14 14"><path d="M3 7.4 5.8 10 11 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Verified Business
+          </div>
+          <h3 style="margin:12px 0 2px;font-size:17px;font-weight:700;">Tola's Kitchen</h3>
+          <p style="margin:0;font-size:12px;color:#7C8983;">Food &amp; Beverages · Lagos</p>
+          <p style="margin:10px 0 0;font-size:13px;line-height:1.55;color:#B9C4BB;">From my mother's kitchen to a brand, I'm building a food business that feeds and creates jobs.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;gap:-6px;">
+              <span style="width:22px;height:22px;border-radius:999px;background:#1c2f26;border:2px solid #12221A;display:inline-block;margin-right:-8px;"></span>
+              <span style="width:22px;height:22px;border-radius:999px;background:#1c2f26;border:2px solid #12221A;display:inline-block;margin-right:-8px;"></span>
+              <span style="width:22px;height:22px;border-radius:999px;background:#1c2f26;border:2px solid #12221A;display:inline-block;"></span>
+            </div>
+            <span style="background:#C9531F;color:#fff;font-size:11px;font-weight:700;padding:8px 14px;border-radius:999px;">Back this business</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- journey strip -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);background:#09110D;">
+    <div style="max-width:1400px;margin:0 auto;padding:56px 32px;">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#7C8983;margin:0 0 20px;">Four stages, and a person at two of them</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <span style="display:inline-flex;width:34px;height:34px;border-radius:999px;background:rgba(182,227,77,0.14);color:#B6E34D;font-weight:700;font-size:13px;align-items:center;justify-content:center;">01</span>
+          <h4 style="margin:16px 0 6px;font-size:16px;font-weight:700;">Businesses step forward</h4>
+          <p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Alajos share their story and business information.</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <span style="display:inline-flex;width:34px;height:34px;border-radius:999px;background:rgba(182,227,77,0.14);color:#B6E34D;font-weight:700;font-size:13px;align-items:center;justify-content:center;">02</span>
+          <h4 style="margin:16px 0 6px;font-size:16px;font-weight:700;">We verify</h4>
+          <p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Our team reviews and verifies every application.</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <span style="display:inline-flex;width:34px;height:34px;border-radius:999px;background:rgba(182,227,77,0.14);color:#B6E34D;font-weight:700;font-size:13px;align-items:center;justify-content:center;">03</span>
+          <h4 style="margin:16px 0 6px;font-size:16px;font-weight:700;">People discover</h4>
+          <p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Supporters and brands explore verified businesses.</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <span style="display:inline-flex;width:34px;height:34px;border-radius:999px;background:rgba(182,227,77,0.14);color:#B6E34D;font-weight:700;font-size:13px;align-items:center;justify-content:center;">04</span>
+          <h4 style="margin:16px 0 6px;font-size:16px;font-weight:700;">Stories move forward</h4>
+          <p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Selected businesses go through confirmation and announcement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DISCOVERY ============ -->
+  <div style="max-width:1400px;margin:0 auto;padding:96px 32px 0;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B6E34D;margin:0 0 12px;">Verified businesses</p>
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:48px;margin:0;">Discover</h2>
+      </div>
+      <p style="max-width:380px;font-size:14px;line-height:1.6;color:#8C9690;">Every business here applied, sent documents, and was read by a person before it appeared.</p>
+    </div>
+
+    <!-- search + filters -->
+    <div style="margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+      <div style="flex:1;min-width:280px;display:flex;align-items:center;gap:10px;background:#0D1813;border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:14px 20px;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#7C8983" stroke-width="1.5"/><path d="M11.5 11.5L15 15" stroke="#7C8983" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="color:#7C8983;font-size:14px;">Search businesses, people or stories...</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span style="background:#B6E34D;color:#0D1813;font-size:13px;font-weight:700;padding:10px 16px;border-radius:999px;">All</span>
+        <span style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:#B9C4BB;font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;">Food</span>
+        <span style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:#B9C4BB;font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;">Fashion</span>
+        <span style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:#B9C4BB;font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;">Agriculture</span>
+      </div>
+    </div>
+
+    <!-- editorial + grid -->
+    <div style="margin-top:48px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;">
+      <div style="border-radius:24px;overflow:hidden;aspect-ratio:5/4;">
+        <image-slot id="feature-photo" shape="rect" placeholder="lead business photo"></image-slot>
+      </div>
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(182,227,77,0.12);color:#B6E34D;font-size:11px;font-weight:700;padding:6px 12px;border-radius:999px;">
+          <svg width="10" height="10" viewBox="0 0 14 14"><path d="M3 7.4 5.8 10 11 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Verified
+        </div>
+        <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:34px;margin:16px 0 6px;">Kano Leather Works</h3>
+        <p style="margin:0;font-size:14px;color:#8C9690;">Amina Yusuf · Fashion &amp; Apparel · Kano</p>
+        <p style="margin:18px 0 0;font-size:15px;line-height:1.65;color:#B9C4BB;max-width:420px;">Quality leather goods made with Nigerian hands, built for global markets. Every stitch tells the story of a craft passed down three generations.</p>
+        <span style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-size:14px;font-weight:700;color:#F7F3EA;border-bottom:2px solid #B6E34D;padding-bottom:6px;">Read their story →</span>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-bottom:96px;">
+      <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
+        <div style="aspect-ratio:4/3;position:relative;">
+          <image-slot id="card-1" shape="rect" placeholder="business photo"></image-slot>
+          <span style="position:absolute;top:12px;left:12px;background:#E8B33A;color:#181410;font-size:10px;font-weight:800;text-transform:uppercase;padding:5px 9px;border-radius:6px;">Featured</span>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;justify-content:space-between;gap:10px;">
+            <h4 style="margin:0;font-size:16px;font-weight:700;">GreenLeaf Farms</h4>
+            <span style="color:#B6E34D;font-size:11px;">✓</span>
+          </div>
+          <p style="margin:6px 0 0;font-size:12px;color:#7C8983;">Agriculture · Oyo</p>
+          <p style="margin:12px 0 0;font-size:13px;line-height:1.55;color:#8C9690;">Sustainable farming for healthier communities and a greener future.</p>
+        </div>
+      </div>
+      <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
+        <div style="aspect-ratio:4/3;">
+          <image-slot id="card-2" shape="rect" placeholder="business photo"></image-slot>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;justify-content:space-between;gap:10px;">
+            <h4 style="margin:0;font-size:16px;font-weight:700;">Bao's Fashion</h4>
+            <span style="color:#B6E34D;font-size:11px;">✓</span>
+          </div>
+          <p style="margin:6px 0 0;font-size:12px;color:#7C8983;">Fashion &amp; Apparel · Enugu</p>
+          <p style="margin:12px 0 0;font-size:13px;line-height:1.55;color:#8C9690;">Handmade ready-to-wear pieces rooted in Igbo textile traditions.</p>
+        </div>
+      </div>
+      <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
+        <div style="aspect-ratio:4/3;">
+          <image-slot id="card-3" shape="rect" placeholder="business photo"></image-slot>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;justify-content:space-between;gap:10px;">
+            <h4 style="margin:0;font-size:16px;font-weight:700;">SunnyTech Solutions</h4>
+            <span style="color:#B6E34D;font-size:11px;">✓</span>
+          </div>
+          <p style="margin:6px 0 0;font-size:12px;color:#7C8983;">Technology · Ibadan</p>
+          <p style="margin:12px 0 0;font-size:13px;line-height:1.55;color:#8C9690;">Solar installation and repair for homes and small shops.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BUSINESS PROFILE ============ -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);background:#09110D;padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <a href="#" style="font-size:13px;color:#8C9690;font-weight:600;">← Back to Discover</a>
+      <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1.2fr 0.85fr;gap:28px;align-items:start;">
+
+        <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;">
+          <image-slot id="profile-photo" shape="rect" placeholder="Tola's Kitchen — owner photo"></image-slot>
+        </div>
+
+        <div>
+          <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:42px;margin:0;">Tola's Kitchen</h2>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <span style="background:#12221A;border:1px solid rgba(255,255,255,0.1);color:#B9C4BB;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;">Food &amp; Beverages</span>
+            <span style="background:#12221A;border:1px solid rgba(255,255,255,0.1);color:#B9C4BB;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;">Lagos, Nigeria</span>
+            <span style="background:rgba(182,227,77,0.12);color:#B6E34D;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">Verified</span>
+          </div>
+          <p style="margin:20px 0 0;font-size:15px;line-height:1.7;color:#B9C4BB;max-width:440px;">From my mother's kitchen to a brand, I'm building a food business that feeds and creates jobs. Every meal we send out carries the flavors I grew up with.</p>
+
+          <div style="display:flex;gap:24px;margin-top:32px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;">
+            <span style="font-size:13px;font-weight:700;color:#F7F3EA;border-bottom:2px solid #B6E34D;padding-bottom:8px;">Story</span>
+            <span style="font-size:13px;color:#7C8983;">Products</span>
+            <span style="font-size:13px;color:#7C8983;">Gallery</span>
+            <span style="font-size:13px;color:#7C8983;">Updates</span>
+          </div>
+
+          <div style="margin-top:24px;display:flex;gap:12px;">
+            <span style="background:#C9531F;color:#fff;font-weight:700;font-size:14px;padding:14px 26px;border-radius:999px;">Back this business →</span>
+            <span style="border:1px solid rgba(255,255,255,0.16);color:#F7F3EA;font-weight:600;font-size:14px;padding:14px 22px;border-radius:999px;">Save</span>
+          </div>
+        </div>
+
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:30px;height:30px;border-radius:999px;background:#B6E34D;display:flex;align-items:center;justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 7.4 5.8 10 11 4" fill="none" stroke="#0D1813" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3 style="margin:0;font-size:14px;font-weight:700;">Verification</h3>
+          </div>
+          <div style="margin-top:18px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+              <span style="color:#B9C4BB;">Identity reviewed</span>
+              <span style="color:#B6E34D;font-weight:700;">✓ Completed</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+              <span style="color:#B9C4BB;">Business information</span>
+              <span style="color:#B6E34D;font-weight:700;">✓ Completed</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+              <span style="color:#B9C4BB;">Application approved</span>
+              <span style="color:#E8B33A;font-weight:700;">In progress</span>
+            </div>
+          </div>
+          <p style="margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;line-height:1.6;color:#7C8983;">Verification says this business is real and the story is theirs. It is not a recommendation or a promise about what happens next.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;padding:20px 24px;background:rgba(232,179,58,0.06);border:1px solid rgba(232,179,58,0.25);border-radius:16px;">
+        <p style="margin:0;font-size:13px;font-weight:700;color:#F7F3EA;">Choosing is not confirming</p>
+        <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#B9C4BB;max-width:640px;">Backing this business tells us you're interested. The team confirms with both sides before anything is described as real, and Ajo Mercy never holds or transfers the money.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN DASHBOARD ============ -->
+  <div style="padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#7C8983;margin:0 0 12px;">Operations</p>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;">
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:40px;margin:0;">Admin Dashboard</h2>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E685F;">Woli Arole · Super Admin</span>
+      </div>
+      <p style="margin:12px 0 0;font-size:14px;color:#8C9690;">Here's what's waiting on a decision today.</p>
+
+      <div style="margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+          <p style="margin:0;font-size:12px;font-weight:600;color:#8C9690;">Total Applications</p>
+          <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:44px;">248</p>
+          <p style="margin:8px 0 0;font-size:12px;color:#B6E34D;">↑ 12% this week</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+          <p style="margin:0;font-size:12px;font-weight:600;color:#8C9690;">Under Review</p>
+          <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:44px;">63</p>
+          <p style="margin:8px 0 0;font-size:12px;color:#E8B33A;">↓ 4% this week</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+          <p style="margin:0;font-size:12px;font-weight:600;color:#8C9690;">Approved</p>
+          <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:44px;">142</p>
+          <p style="margin:8px 0 0;font-size:12px;color:#B6E34D;">↑ 18% this week</p>
+        </div>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+          <p style="margin:0;font-size:12px;font-weight:600;color:#8C9690;">Confirmed</p>
+          <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:44px;">38</p>
+          <p style="margin:8px 0 0;font-size:12px;color:#B6E34D;">↑ 6% this week</p>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <h3 style="margin:0;font-size:16px;font-weight:700;">Recent Applications</h3>
+          <a href="#" style="font-size:13px;color:#8C9690;">View all →</a>
+        </div>
+        <table style="width:100%;border-collapse:collapse;margin-top:20px;font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+              <th style="text-align:left;padding:10px 8px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Business</th>
+              <th style="text-align:left;padding:10px 8px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Applicant</th>
+              <th style="text-align:left;padding:10px 8px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Stage</th>
+              <th style="text-align:left;padding:10px 8px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 8px;font-weight:600;">Tola's Kitchen</td>
+              <td style="padding:14px 8px;color:#B9C4BB;">Tola Adebayo</td>
+              <td style="padding:14px 8px;"><span style="background:rgba(232,179,58,0.14);color:#E8B33A;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Under Review</span></td>
+              <td style="padding:14px 8px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Today, 10:24</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 8px;font-weight:600;">Kano Leather Works</td>
+              <td style="padding:14px 8px;color:#B9C4BB;">Abdullahi Musa</td>
+              <td style="padding:14px 8px;"><span style="background:rgba(201,83,31,0.16);color:#e8834f;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Needs Information</span></td>
+              <td style="padding:14px 8px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Today, 09:12</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 8px;font-weight:600;">GreenLeaf Farms</td>
+              <td style="padding:14px 8px;color:#B9C4BB;">Funmi Oke</td>
+              <td style="padding:14px 8px;"><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Approved</span></td>
+              <td style="padding:14px 8px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Yesterday</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 8px;font-weight:600;">SunnyTech Solutions</td>
+              <td style="padding:14px 8px;color:#B9C4BB;">Chinedu Okafor</td>
+              <td style="padding:14px 8px;"><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Approved</span></td>
+              <td style="padding:14px 8px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Yesterday</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);background:#09110D;padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;">
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B6E34D;margin:0 0 16px;">The ecosystem</p>
+          <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;line-height:1.02;margin:0;">How Ajo Mercy works.</h2>
+          <p style="margin:22px 0 0;font-size:15px;line-height:1.7;color:#B9C4BB;max-width:380px;">A simple process. A person at every important step. No stage skips the one before it.</p>
+          <div aria-hidden="true" style="margin-top:40px;width:100%;aspect-ratio:1/1;max-width:280px;border-radius:24px;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 30%, rgba(182,227,77,0.18), transparent 60%),#0D1813;border:1px solid rgba(255,255,255,0.08);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E685F;text-align:center;padding:20px;">process diagram / illustration placeholder</div>
+          </div>
+        </div>
+
+        <div style="position:relative;padding-left:28px;">
+          <div style="position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:rgba(255,255,255,0.1);"></div>
+          <div style="display:flex;flex-direction:column;gap:34px;">
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#B6E34D;box-shadow:0 0 0 4px rgba(182,227,77,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">01</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">A business steps forward</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">The owner tells us what they run, what they're building, and what's standing in the way. Applying is free and takes one sitting.</p>
+            </div>
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#E8B33A;box-shadow:0 0 0 4px rgba(232,179,58,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">02</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">A person verifies it</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">The review team reads every application and opens every document by hand. Nothing goes live automatically.</p>
+            </div>
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#B6E34D;box-shadow:0 0 0 4px rgba(182,227,77,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">03</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">People discover it</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">Verified businesses appear publicly with their own story. Approved supporters can choose the ones they want to back.</p>
+            </div>
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#C9531F;box-shadow:0 0 0 4px rgba(201,83,31,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">04</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">A choice is made</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">Choosing is not confirming. The business hears nothing definite yet — it's under consideration.</p>
+            </div>
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#B6E34D;box-shadow:0 0 0 4px rgba(182,227,77,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">05</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">The team confirms</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">A person checks with both sides before the business is told anything is real. Only then can support be confirmed.</p>
+            </div>
+            <div style="position:relative;padding-left:28px;">
+              <span style="position:absolute;left:-33px;top:2px;width:11px;height:11px;border-radius:999px;background:#B6E34D;box-shadow:0 0 0 4px rgba(182,227,77,0.15);"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#7C8983;">06</span>
+              <h4 style="margin:6px 0 4px;font-size:18px;font-weight:700;">The story moves forward</h4>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#8C9690;max-width:460px;">Confirmed support can be announced publicly, and the business's story continues on its profile.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ALAJO ONBOARDING ============ -->
+  <div style="padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:0.85fr 1.15fr;gap:0;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
+      <div style="background:#0D1813;padding:56px 44px;position:relative;">
+        <div style="font-family:'Instrument Serif',serif;font-size:22px;">
+          <span style="color:#F7F3EA;">Ajo</span><span style="color:#C9531F;font-style:italic;"> Mercy</span>
+        </div>
+        <p style="margin-top:48px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7C8983;">Becoming an Alajo</p>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:26px;height:26px;border-radius:999px;background:#12221A;color:#5E685F;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span>
+            <span style="font-size:14px;color:#5E685F;">About you</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:26px;height:26px;border-radius:999px;background:#B6E34D;color:#0D1813;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span>
+            <span style="font-size:14px;color:#F7F3EA;font-weight:700;">Your business</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:26px;height:26px;border-radius:999px;background:#12221A;color:#5E685F;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span>
+            <span style="font-size:14px;color:#5E685F;">Your story</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:26px;height:26px;border-radius:999px;background:#12221A;color:#5E685F;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">4</span>
+            <span style="font-size:14px;color:#5E685F;">Your work</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:26px;height:26px;border-radius:999px;background:#12221A;color:#5E685F;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">5</span>
+            <span style="font-size:14px;color:#5E685F;">Review</span>
+          </div>
+        </div>
+        <div style="margin-top:44px;border-radius:16px;overflow:hidden;aspect-ratio:4/3;">
+          <image-slot id="onboarding-photo" shape="rect" placeholder="onboarding illustration"></image-slot>
+        </div>
+      </div>
+
+      <div style="background:#0A120E;padding:56px 48px;">
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;margin:0;">Tell us about your business</h2>
+        <p style="margin:12px 0 0;font-size:14px;color:#8C9690;max-width:420px;">Help us understand what your business is about and where it's based.</p>
+
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:22px;max-width:460px;">
+          <div>
+            <label style="font-size:13px;font-weight:600;color:#B9C4BB;">Business name *</label>
+            <div style="margin-top:8px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;font-size:14px;color:#F7F3EA;">Tola's Kitchen</div>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:#B9C4BB;">Category *</label>
+            <div style="margin-top:8px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;font-size:14px;color:#F7F3EA;display:flex;justify-content:space-between;">Food &amp; Beverages <span style="color:#5E685F;">⌄</span></div>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:#B9C4BB;">Location *</label>
+            <div style="margin-top:8px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;font-size:14px;color:#F7F3EA;display:flex;justify-content:space-between;">Lagos <span style="color:#5E685F;">⌄</span></div>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:#B9C4BB;">Business type *</label>
+            <div style="margin-top:8px;display:flex;gap:10px;">
+              <span style="flex:1;background:#12221A;border:1px solid #B6E34D;color:#F7F3EA;border-radius:12px;padding:12px;text-align:center;font-size:13px;">● Product</span>
+              <span style="flex:1;background:#12221A;border:1px solid rgba(255,255,255,0.1);color:#8C9690;border-radius:12px;padding:12px;text-align:center;font-size:13px;">○ Service</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:#7C8983;">Save &amp; exit</span>
+          <span style="background:#B6E34D;color:#0D1813;font-weight:700;font-size:14px;padding:14px 28px;border-radius:999px;">Next →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN REVIEW WORKSPACE ============ -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);background:#09110D;padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;">
+        <div>
+          <a href="#" style="font-size:13px;color:#8C9690;">← Back to queue</a>
+          <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:36px;margin:14px 0 0;">Review Workspace</h2>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:grid;grid-template-columns:0.8fr 1.4fr 0.9fr;gap:20px;">
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:20px;">
+          <p style="margin:0 0 14px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7C8983;">Application queue</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#12221A;border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px;">
+              <p style="margin:0;font-size:14px;font-weight:700;">Tola Adebayo</p>
+              <p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Tola's Kitchen</p>
+              <span style="display:inline-block;margin-top:8px;background:rgba(232,179,58,0.14);color:#E8B33A;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Under Review</span>
+            </div>
+            <div style="border-radius:12px;padding:14px;">
+              <p style="margin:0;font-size:14px;font-weight:700;color:#B9C4BB;">Abdullahi Musa</p>
+              <p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Kano Leather Works</p>
+              <span style="display:inline-block;margin-top:8px;background:rgba(201,83,31,0.16);color:#e8834f;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Needs Information</span>
+            </div>
+            <div style="border-radius:12px;padding:14px;">
+              <p style="margin:0;font-size:14px;font-weight:700;color:#B9C4BB;">Funmi Oke</p>
+              <p style="margin:2px 0 0;font-size:12px;color:#7C8983;">GreenLeaf Farms</p>
+              <span style="display:inline-block;margin-top:8px;background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Approved</span>
+            </div>
+            <div style="border-radius:12px;padding:14px;">
+              <p style="margin:0;font-size:14px;font-weight:700;color:#B9C4BB;">Chinedu Okafor</p>
+              <p style="margin:2px 0 0;font-size:12px;color:#7C8983;">SunnyTech Solutions</p>
+              <span style="display:inline-block;margin-top:8px;background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Approved</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+          <div style="border-radius:16px;overflow:hidden;aspect-ratio:16/9;">
+            <image-slot id="review-photo" shape="rect" placeholder="Tola's Kitchen photo"></image-slot>
+          </div>
+          <h3 style="margin:20px 0 4px;font-size:22px;font-weight:700;">Tola's Kitchen</h3>
+          <p style="margin:0;font-size:13px;color:#7C8983;">Food &amp; Beverages · Lagos</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.65;color:#B9C4BB;">From my mother's kitchen to a brand, I'm building a food business that feeds and creates jobs.</p>
+          <div style="margin-top:20px;display:flex;gap:8px;">
+            <span style="font-size:12px;color:#7C8983;border-bottom:2px solid #B6E34D;padding-bottom:6px;font-weight:700;color:#F7F3EA;">Story</span>
+            <span style="font-size:12px;color:#7C8983;">Business info</span>
+            <span style="font-size:12px;color:#7C8983;">Documents</span>
+          </div>
+        </div>
+
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7C8983;">Verification status</p>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+              <div style="display:flex;justify-content:space-between;"><span style="color:#B9C4BB;">Identity verified</span><span style="color:#B6E34D;">✓</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:#B9C4BB;">Business details verified</span><span style="color:#B6E34D;">✓</span></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:#B9C4BB;">Application approved</span><span style="color:#E8B33A;">○</span></div>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;">
+            <p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7C8983;">Review decision</p>
+            <span style="display:inline-block;background:rgba(232,179,58,0.14);color:#E8B33A;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;">Under Review</span>
+            <div style="margin-top:14px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px;font-size:13px;color:#5E685F;">Add your notes...</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto;">
+            <span style="text-align:center;border:1px solid rgba(255,255,255,0.16);color:#F7F3EA;font-weight:600;font-size:13px;padding:12px;border-radius:999px;">Request more information</span>
+            <span style="text-align:center;background:#B6E34D;color:#0D1813;font-weight:700;font-size:13px;padding:12px;border-radius:999px;">Approve</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUPPORTER ACCOUNT ============ -->
+  <div style="padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:36px;margin:0;">My Account</h2>
+      <div style="margin-top:32px;display:grid;grid-template-columns:0.8fr 1.2fr;gap:28px;">
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span style="width:52px;height:52px;border-radius:999px;background:#12221A;"></span>
+            <div>
+              <p style="margin:0;font-size:16px;font-weight:700;">Kehinde Adeyemi</p>
+              <p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Supporter</p>
+            </div>
+          </div>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:2px;">
+            <span style="padding:12px 4px;font-size:14px;color:#B9C4BB;border-bottom:1px solid rgba(255,255,255,0.06);">My Selections</span>
+            <span style="padding:12px 4px;font-size:14px;color:#B9C4BB;border-bottom:1px solid rgba(255,255,255,0.06);">Saved Businesses</span>
+            <span style="padding:12px 4px;font-size:14px;color:#B9C4BB;border-bottom:1px solid rgba(255,255,255,0.06);">Notifications</span>
+            <span style="padding:12px 4px;font-size:14px;color:#B9C4BB;">Settings</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-content:start;">
+          <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+            <p style="margin:0;font-size:12px;color:#8C9690;">My Selections</p>
+            <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:36px;">12</p>
+            <p style="margin:6px 0 0;font-size:12px;color:#5E685F;">businesses under consideration</p>
+          </div>
+          <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+            <p style="margin:0;font-size:12px;color:#8C9690;">Saved</p>
+            <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:36px;">8</p>
+            <p style="margin:6px 0 0;font-size:12px;color:#5E685F;">businesses followed</p>
+          </div>
+          <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;">
+            <p style="margin:0;font-size:12px;color:#8C9690;">Confirmed</p>
+            <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:36px;">3</p>
+            <p style="margin:6px 0 0;font-size:12px;color:#5E685F;">support confirmed by the team</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 300px;gap:64px;">
+      <div>
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:46px;margin:0;">About Ajo Mercy</h2>
+        <div style="margin-top:28px;max-width:620px;font-size:15px;line-height:1.75;color:#B9C4BB;">
+          <p style="margin:0 0 20px;">An argument about Ajo went around Nigeria and turned into something else. People started asking a practical question: if I wanted to help a small business right now, how would I know which one was real?</p>
+          <p style="margin:0 0 20px;">Ajo Mercy is the part that was missing. Business owners apply and are verified by a person. Supporters and brands are verified too. Then they choose, we confirm, and we follow the support through to the point where it arrives.</p>
+          <h3 style="color:#F7F3EA;font-size:19px;font-weight:700;margin:32px 0 10px;">Selection is not confirmation</h3>
+          <p style="margin:0 0 20px;">When a supporter selects a business, that business is told it is under consideration, in those words. Nobody is congratulated until a person on our team has confirmed the support is real.</p>
+          <h3 style="color:#F7F3EA;font-size:19px;font-weight:700;margin:32px 0 10px;">We do not touch the money</h3>
+          <p style="margin:0;">Ajo Mercy holds no funds, operates no wallet and transfers nothing. Support is arranged directly between the supporter and the business, with our team coordinating and following up.</p>
+        </div>
+      </div>
+      <aside>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:22px;">
+          <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#7C8983;">Who runs it</p>
+          <p style="margin:14px 0 0;font-family:'Instrument Serif',serif;font-size:19px;">Woli Arole</p>
+          <p style="margin:8px 0 0;font-size:13px;line-height:1.6;color:#8C9690;">Super Admin. He and the Ajo Mercy team review applications, approve businesses and confirm every recipient.</p>
+        </div>
+        <div style="margin-top:20px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;">
+          <p style="margin:0 0 12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#7C8983;">Our commitments</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.6;color:#B9C4BB;">
+            <li>Applying is free and always will be.</li>
+            <li>We will never ask anyone for a fee.</li>
+            <li>We do not publish selection counts.</li>
+            <li>Registering does not guarantee support.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ============ FOR BRANDS ============ -->
+  <div style="background:#09110D;border-top:1px solid rgba(255,255,255,0.08);padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;">
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B6E34D;margin:0 0 14px;">For brands</p>
+          <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:1.05;margin:0;max-width:14ch;">The verification is already done.</h2>
+          <p style="margin:20px 0 0;font-size:15px;line-height:1.7;color:#B9C4BB;max-width:440px;">You have a budget and a list of people asking for it. What you don't have is a way to tell which are real. That's the part we've already done.</p>
+          <span style="display:inline-flex;margin-top:28px;background:#B6E34D;color:#0D1813;font-weight:700;font-size:14px;padding:14px 26px;border-radius:999px;">Register your organisation →</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
+          <div style="background:#0D1813;padding:26px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;">142</p><p style="margin:6px 0 0;font-size:12px;color:#8C9690;">Verified businesses</p></div>
+          <div style="background:#0D1813;padding:26px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;">19</p><p style="margin:6px 0 0;font-size:12px;color:#8C9690;">States</p></div>
+          <div style="background:#0D1813;padding:26px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;">8</p><p style="margin:6px 0 0;font-size:12px;color:#8C9690;">Sectors</p></div>
+          <div style="background:#0D1813;padding:26px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;">6</p><p style="margin:6px 0 0;font-size:12px;color:#8C9690;">Brands taking part</p></div>
+        </div>
+      </div>
+
+      <div style="margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C9531F;">01</span><h4 style="margin:8px 0 6px;font-size:15px;font-weight:700;">Register and get verified</h4><p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">We check you are who you say you are.</p></div>
+        <div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C9531F;">02</span><h4 style="margin:8px 0 6px;font-size:15px;font-weight:700;">Create a campaign</h4><p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Budget, sectors, states and a window.</p></div>
+        <div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C9531F;">03</span><h4 style="margin:8px 0 6px;font-size:15px;font-weight:700;">Choose verified businesses</h4><p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">Browse matches and pick the ones you want.</p></div>
+        <div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C9531F;">04</span><h4 style="margin:8px 0 6px;font-size:15px;font-weight:700;">We confirm and coordinate</h4><p style="margin:0;font-size:13px;line-height:1.6;color:#8C9690;">We confirm each recipient before anyone is told.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ AUTH: LOGIN / REGISTER ============ -->
+  <div style="padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+      <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:48px;">
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;margin:0;">Sign in</h2>
+        <p style="margin:10px 0 0;font-size:13px;color:#8C9690;">New here? <span style="color:#B6E34D;font-weight:600;">Create an account</span></p>
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:18px;max-width:380px;">
+          <div><label style="font-size:12px;color:#B9C4BB;font-weight:600;">Email</label><div style="margin-top:6px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:14px;color:#5E685F;">you@example.com</div></div>
+          <div><label style="font-size:12px;color:#B9C4BB;font-weight:600;">Password</label><div style="margin-top:6px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:14px;color:#5E685F;">••••••••••</div></div>
+        </div>
+        <span style="display:block;text-align:center;margin-top:26px;max-width:380px;background:#B6E34D;color:#0D1813;font-weight:700;font-size:14px;padding:14px;border-radius:999px;">Sign in</span>
+        <p style="margin-top:16px;font-size:12px;color:#7C8983;">Forgotten your password?</p>
+      </div>
+
+      <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:48px;">
+        <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;margin:0;">Create your account</h2>
+        <p style="margin:10px 0 0;font-size:13px;color:#8C9690;">What brings you here?</p>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px;">
+          <div style="border:1px solid #B6E34D;background:rgba(182,227,77,0.08);border-radius:12px;padding:12px 14px;"><p style="margin:0;font-size:13px;font-weight:700;color:#F7F3EA;">I run a business</p><p style="margin:2px 0 0;font-size:12px;color:#8C9690;">Apply to be verified and listed.</p></div>
+          <div style="border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;"><p style="margin:0;font-size:13px;font-weight:700;color:#B9C4BB;">I want to support a business</p><p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Register, get approved, choose businesses.</p></div>
+          <div style="border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;"><p style="margin:0;font-size:13px;font-weight:700;color:#B9C4BB;">I represent a brand</p><p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Register your organisation, run a campaign.</p></div>
+        </div>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:14px;max-width:380px;">
+          <div><label style="font-size:12px;color:#B9C4BB;font-weight:600;">Full name</label><div style="margin-top:6px;background:#12221A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:11px 14px;font-size:14px;color:#5E685F;">Adedayo Ogunlesi</div></div>
+        </div>
+        <span style="display:block;text-align:center;margin-top:22px;max-width:380px;background:#B6E34D;color:#0D1813;font-weight:700;font-size:14px;padding:14px;border-radius:999px;">Create account</span>
+        <p style="margin-top:14px;font-size:11px;line-height:1.5;color:#5E685F;max-width:380px;">Registering does not guarantee selection or support.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ALAJO / SUPPORTER / BRAND DASHBOARDS ============ -->
+  <div style="background:#09110D;border-top:1px solid rgba(255,255,255,0.08);padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#7C8983;margin:0 0 28px;">Signed-in dashboards</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+
+        <!-- alajo -->
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><h3 style="margin:0;font-size:18px;font-weight:700;">Welcome, Tola</h3><p style="margin:4px 0 0;font-size:12px;color:#7C8983;">Tola's Kitchen</p></div>
+            <span style="background:rgba(232,179,58,0.14);color:#E8B33A;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Under Review</span>
+          </div>
+          <div style="margin-top:18px;background:rgba(232,179,58,0.06);border:1px solid rgba(232,179,58,0.25);border-radius:12px;padding:14px;">
+            <p style="margin:0;font-size:12px;color:#B9C4BB;line-height:1.55;">Submitted. A person reads every application in order. We'll email you the moment there's a decision.</p>
+          </div>
+          <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+            <div style="background:#12221A;padding:16px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:26px;">86%</p><p style="margin:4px 0 0;font-size:11px;color:#7C8983;">Complete</p></div>
+            <div style="background:#12221A;padding:16px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:26px;">—</p><p style="margin:4px 0 0;font-size:11px;color:#7C8983;">Profile views</p></div>
+          </div>
+          <p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#7C8983;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">Nothing confirmed yet. If selected, you'll be told it's under consideration first.</p>
+        </div>
+
+        <!-- supporter -->
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <h3 style="margin:0;font-size:18px;font-weight:700;">Welcome, Kehinde</h3>
+            <span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Approved</span>
+          </div>
+          <div style="margin-top:18px;background:rgba(182,227,77,0.06);border:1px solid rgba(182,227,77,0.2);border-radius:12px;padding:14px;">
+            <p style="margin:0;font-size:12px;color:#B9C4BB;line-height:1.55;">You can select businesses to support. We review every selection before anything is confirmed.</p>
+          </div>
+          <div style="margin-top:18px;display:flex;flex-direction:column;gap:2px;">
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="font-size:13px;color:#B9C4BB;">Tola's Kitchen</span><span style="background:rgba(232,179,58,0.14);color:#E8B33A;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;">Recorded</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="font-size:13px;color:#B9C4BB;">GreenLeaf Farms</span><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;">Confirmed</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;"><span style="font-size:13px;color:#B9C4BB;">Kano Leather Works</span><span style="background:#12221A;color:#7C8983;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;">Shortlisted</span></div>
+          </div>
+          <p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#7C8983;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">A selection is not a confirmation. The team reviews each one separately.</p>
+        </div>
+
+        <!-- brand -->
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:26px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <h3 style="margin:0;font-size:18px;font-weight:700;">SunnyTech Group</h3>
+            <span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;">Approved</span>
+          </div>
+          <p style="margin:4px 0 0;font-size:12px;color:#7C8983;">Technology</p>
+          <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+            <div style="background:#12221A;padding:14px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:22px;">2</p><p style="margin:4px 0 0;font-size:10px;color:#7C8983;">Campaigns</p></div>
+            <div style="background:#12221A;padding:14px;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:22px;">14</p><p style="margin:4px 0 0;font-size:10px;color:#7C8983;">Selected</p></div>
+            <div style="background:#12221A;padding:14px;"><p style="margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:22px;">₦4M</p><p style="margin:4px 0 0;font-size:10px;color:#7C8983;">Budget</p></div>
+          </div>
+          <div style="margin-top:18px;display:flex;gap:8px;">
+            <span style="flex:1;text-align:center;background:#B6E34D;color:#0D1813;font-weight:700;font-size:12px;padding:11px;border-radius:999px;">Create campaign</span>
+            <span style="flex:1;text-align:center;border:1px solid rgba(255,255,255,0.16);color:#F7F3EA;font-weight:600;font-size:12px;padding:11px;border-radius:999px;">View campaigns</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN: APPLICATIONS / CAMPAIGNS / SELECTIONS / CONFIRMATIONS ============ -->
+  <div style="padding:96px 32px;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#7C8983;margin:0 0 12px;">Admin console</p>
+      <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:38px;margin:0;">Applications</h2>
+
+      <div style="margin-top:24px;display:flex;gap:4px;border-bottom:1px solid rgba(255,255,255,0.08);">
+        <span style="padding:10px 14px;font-size:13px;font-weight:700;color:#F7F3EA;border-bottom:2px solid #B6E34D;">Needs review</span>
+        <span style="padding:10px 14px;font-size:13px;color:#7C8983;">Awaiting reply</span>
+        <span style="padding:10px 14px;font-size:13px;color:#7C8983;">Approved</span>
+        <span style="padding:10px 14px;font-size:13px;color:#7C8983;">Rejected</span>
+        <span style="padding:10px 14px;font-size:13px;color:#7C8983;">All</span>
+      </div>
+
+      <div style="margin-top:24px;background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+            <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Business</th>
+            <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Founder</th>
+            <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Category</th>
+            <th style="text-align:right;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Complete</th>
+            <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Submitted</th>
+            <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Status</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:14px 18px;font-weight:600;">Tola's Kitchen</td><td style="padding:14px 18px;color:#B9C4BB;">Tola Adebayo</td><td style="padding:14px 18px;color:#8C9690;">Food &amp; Beverages</td><td style="padding:14px 18px;text-align:right;color:#E8B33A;font-family:'JetBrains Mono',monospace;">86%</td><td style="padding:14px 18px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">2h ago</td><td style="padding:14px 18px;"><span style="background:rgba(232,179,58,0.14);color:#E8B33A;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Under review</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:14px 18px;font-weight:600;">Kano Leather Works</td><td style="padding:14px 18px;color:#B9C4BB;">Abdullahi Musa</td><td style="padding:14px 18px;color:#8C9690;">Fashion &amp; Apparel</td><td style="padding:14px 18px;text-align:right;color:#8C9690;font-family:'JetBrains Mono',monospace;">100%</td><td style="padding:14px 18px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">1d ago</td><td style="padding:14px 18px;"><span style="background:rgba(229,87,63,0.14);color:#e8834f;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Needs info</span></td></tr>
+            <tr><td style="padding:14px 18px;font-weight:600;">GreenLeaf Farms</td><td style="padding:14px 18px;color:#B9C4BB;">Funmi Oke</td><td style="padding:14px 18px;color:#8C9690;">Agriculture</td><td style="padding:14px 18px;text-align:right;color:#8C9690;font-family:'JetBrains Mono',monospace;">100%</td><td style="padding:14px 18px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">3d ago</td><td style="padding:14px 18px;"><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Approved</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <!-- campaigns -->
+        <div>
+          <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 16px;">Campaigns</h3>
+          <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:18px;">Back-to-School Drive</p><span style="background:rgba(232,179,58,0.14);color:#E8B33A;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;">Selection period</span></div>
+            <p style="margin:6px 0 0;font-size:12px;color:#7C8983;">SunnyTech Group · created 3 days ago</p>
+            <p style="margin:10px 0 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#7C8983;">9/15 selected · ₦4,000,000 · Technology, Fashion</p>
+          </div>
+          <div style="margin-top:12px;background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;"><p style="margin:0;font-family:'Instrument Serif',serif;font-size:18px;">Q1 Verified Grants</p><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;">Confirmed</span></div>
+            <p style="margin:6px 0 0;font-size:12px;color:#7C8983;">Ajo Mercy · created 3 weeks ago</p>
+            <p style="margin:10px 0 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#7C8983;">20/20 selected · Lagos, Oyo, Kano</p>
+          </div>
+        </div>
+
+        <!-- confirmations -->
+        <div>
+          <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 16px;">Support to confirm</h3>
+          <div style="background:rgba(201,83,31,0.08);border:1px solid rgba(201,83,31,0.25);border-radius:12px;padding:14px;margin-bottom:12px;">
+            <p style="margin:0;font-size:12px;color:#B9C4BB;line-height:1.55;">Nobody on this list has been told they're being supported. Confirming sends the congratulations email immediately.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;">
+              <div><p style="margin:0;font-size:14px;font-weight:700;">Tola's Kitchen</p><p style="margin:2px 0 0;font-size:12px;color:#7C8983;">Kehinde Adeyemi · ₦150,000</p></div>
+              <span style="background:#B6E34D;color:#0D1813;font-size:11px;font-weight:700;padding:8px 14px;border-radius:999px;">Confirm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- emails -->
+      <div style="margin-top:56px;">
+        <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 16px;">Email delivery</h3>
+        <div style="background:#0D1813;border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+              <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Event</th>
+              <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Recipient</th>
+              <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Status</th>
+              <th style="text-align:left;padding:14px 18px;color:#7C8983;font-weight:600;font-size:11px;text-transform:uppercase;">Queued</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#B9C4BB;">alajo.application_approved</td><td style="padding:14px 18px;color:#8C9690;">funmi@greenleaf.test</td><td style="padding:14px 18px;"><span style="background:rgba(182,227,77,0.14);color:#B6E34D;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Delivered</span></td><td style="padding:14px 18px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Today, 08:41</td></tr>
+              <tr><td style="padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#B9C4BB;">selection.recorded</td><td style="padding:14px 18px;color:#8C9690;">tola@kitchen.test</td><td style="padding:14px 18px;"><span style="background:rgba(229,87,63,0.14);color:#e8834f;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;">Failed</span></td><td style="padding:14px 18px;color:#7C8983;font-family:'JetBrains Mono',monospace;font-size:12px;">Yesterday</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,0.08);padding:32px;text-align:center;">
+    <p style="margin:0;font-size:12px;color:#5E685F;">Demo content — names shown are illustrative seed data, not real applicants. [DEMO]</p>
+  </footer>
+</section>
+
+</x-dc>
+</body>
+</html>
